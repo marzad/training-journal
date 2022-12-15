@@ -1,10 +1,9 @@
 package trainingjournal.backend.service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import trainingjournal.backend.model.Gender;
-import trainingjournal.backend.model.JimUser;
-import trainingjournal.backend.model.JimUserDTO;
+import trainingjournal.backend.model.GymUser;
+import trainingjournal.backend.model.GymUserDTO;
 import trainingjournal.backend.model.Week;
 import trainingjournal.backend.repository.ExerciseRepository;
 import trainingjournal.backend.repository.PlanRepository;
@@ -36,9 +35,8 @@ class UserServiceTest {
     @Test
     void test_addUser() {
 
-        String password = new Argon2PasswordEncoder().encode("password");
-        JimUserDTO user = new JimUserDTO("username", "password");
-        JimUser newUser = new JimUser(
+        GymUserDTO user = new GymUserDTO("username", "password");
+        GymUser newUser = new GymUser(
                 "id",
                 user.username(),
                 Gender.FEMALE,
@@ -46,15 +44,38 @@ class UserServiceTest {
                 0.0,
                 new HashSet<Week>(),
                 null,
-                password
+                "password"
                 );
 
         when(userRepository.save(newUser)).thenReturn(newUser);
 
-        JimUser result = userService.addUser(user, Gender.FEMALE, null, 0.0);
+        GymUser result = userService.addUser(user, Gender.FEMALE, null, 0.0);
 
-
-        assertEquals(result.username(), newUser.username());
-
+        assertEquals(result.getUsername(), newUser.getUsername());
     }
+
+    @Test
+    void test_updateUser(){
+        GymUser user = new GymUser(
+                "id",
+                "username",
+                Gender.FEMALE,
+                null,
+                0.0,
+                new HashSet<>(),
+                null,
+                "password"
+        );
+
+        when(userRepository.findByUsername("username")).thenReturn(user);
+        user.setUsername("newUsername");
+
+        when(userRepository.save(user)).thenReturn(user);
+
+        GymUser result = userService.updateUser("username", "newUsername");
+
+        assertEquals("newUsername",result.getUsername());
+    }
+
+
 }

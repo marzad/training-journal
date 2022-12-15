@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 import trainingjournal.backend.model.Gender;
-import trainingjournal.backend.model.JimUser;
-import trainingjournal.backend.model.JimUserDTO;
+import trainingjournal.backend.model.GymUser;
+import trainingjournal.backend.model.GymUserDTO;
 import trainingjournal.backend.repository.ExerciseRepository;
 import trainingjournal.backend.repository.PlanRepository;
 import trainingjournal.backend.repository.UserRepository;
@@ -20,7 +20,6 @@ import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
-
 
     private UserRepository userRepository;
     private IDGenerator idGenerator = new IDGenerator();
@@ -37,14 +36,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        JimUser user = userRepository.findByUsername(username);
-        return new User(user.username(), user.password(), List.of());
+        GymUser user = userRepository.findByUsername(username);
+        return new User(user.getUsername(), user.getPassword(), List.of());
     }
 
-    public JimUser addUser(JimUserDTO newUser, Gender gender, LocalDate birthday, double weight){
+    public GymUser addUser(GymUserDTO newUser, Gender gender, LocalDate birthday, double weight){
         String id = idGenerator.getID();
         String password = new Argon2PasswordEncoder().encode(newUser.password());
-        JimUser jimUser = new JimUser(id,
+        GymUser jimUser = new GymUser(id,
                 newUser.username(),
                 gender,
                 birthday,
@@ -54,6 +53,14 @@ public class UserService implements UserDetailsService {
                 password);
         userRepository.save(jimUser);
         return jimUser;
+    }
+
+
+    public GymUser updateUser(String username, String newUsername) {
+        GymUser user = userRepository.findByUsername(username);
+        user.setUsername(newUsername);
+        userRepository.save(user);
+        return user;
     }
 
 

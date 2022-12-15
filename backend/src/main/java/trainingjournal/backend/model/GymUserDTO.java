@@ -1,6 +1,6 @@
 package trainingjournal.backend.model;
 
-public record JimUserDTO (
+public record GymUserDTO(
         String username,
         String password
 ){
