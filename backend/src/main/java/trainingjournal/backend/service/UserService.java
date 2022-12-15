@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import trainingjournal.backend.model.Gender;
 import trainingjournal.backend.model.JimUser;
 import trainingjournal.backend.model.JimUserDTO;
-import trainingjournal.backend.model.Week;
 import trainingjournal.backend.repository.ExerciseRepository;
 import trainingjournal.backend.repository.PlanRepository;
 import trainingjournal.backend.repository.UserRepository;
@@ -21,9 +20,13 @@ import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
+
+
     private UserRepository userRepository;
     private IDGenerator idGenerator = new IDGenerator();
+
     private ExerciseRepository exerciseRepository;
+
     private PlanRepository planRepository;
 
     public UserService(UserRepository userRepo, PlanRepository planRepo, ExerciseRepository exerciseRepo){
