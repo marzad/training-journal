@@ -13,7 +13,7 @@ public record JimUser(
         String username,
         Gender gender,
         LocalDate birthday,
-        float userWeight,
+        double userWeight,
         Set<Week> calendar,
         LocalDate registerData,
         String password

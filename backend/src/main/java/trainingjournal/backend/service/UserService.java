@@ -38,17 +38,19 @@ public class UserService implements UserDetailsService {
         return new User(user.username(), user.password(), List.of());
     }
 
-    public JimUser addUser(JimUserDTO newUser, Gender gender, LocalDate birthday, float weight){
+    public JimUser addUser(JimUserDTO newUser, Gender gender, LocalDate birthday, double weight){
         String id = idGenerator.getID();
         String password = new Argon2PasswordEncoder().encode(newUser.password());
-        return new JimUser(id,
+        JimUser jimUser = new JimUser(id,
                 newUser.username(),
                 gender,
                 birthday,
                 weight,
-                new HashSet<Week>(Set.of()),
+                new HashSet<>(Set.of()),
                 LocalDate.now(),
                 password);
+        userRepository.save(jimUser);
+        return jimUser;
     }
 
 
