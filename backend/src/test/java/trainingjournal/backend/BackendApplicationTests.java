@@ -12,7 +12,6 @@ class BackendApplicationTests {
 
     @Test
     void test_something() {
-        assertTrue(true);
     }
 
 }
