@@ -42,7 +42,8 @@ public class UserService implements UserDetailsService {
 
     public GymUser addUser(GymUserDTO newUser, Gender gender, LocalDate birthday, double weight){
         String id = idGenerator.getID();
-        String password = new Argon2PasswordEncoder().encode(newUser.password());
+        String password = new Argon2PasswordEncoder(16, 16, 1, 65536, 10)
+                .encode(newUser.password());
         GymUser jimUser = new GymUser(id,
                 newUser.username(),
                 gender,
@@ -62,6 +63,5 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return user;
     }
-
 
 }

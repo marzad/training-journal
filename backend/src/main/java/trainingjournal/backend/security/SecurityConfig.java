@@ -13,7 +13,7 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder(){
-        return new Argon2PasswordEncoder();
+        return new Argon2PasswordEncoder(16, 16, 1, 65536, 10);
     }
 
     @Bean
@@ -28,9 +28,12 @@ public class SecurityConfig {
                                 HttpStatus.UNAUTHORIZED.value(),
                                 HttpStatus.UNAUTHORIZED.getReasonPhrase()))
                 .and()
-                .authorizeRequests()
-                .antMatchers("/api/").authenticated()
-                //.antMatchers("/").permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers("/api/").permitAll()
                 .and().build();
+
+/*                .antMatchers("/api/").authenticated()
+                .antMatchers("/").permitAll()
+                .and().build();*/
     }
 }
