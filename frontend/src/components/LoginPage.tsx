@@ -1,4 +1,5 @@
 import {ChangeEvent, FormEvent, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 type LoginPageProps = {
     login: (username: string, password: string) => void
@@ -9,6 +10,8 @@ export default function LoginPage(props: LoginPageProps){
 
     const [userName, setUserName] = useState<string>("StandardUser")
     const [password, setPassword] = useState<string>("")
+
+    const navigate = useNavigate()
 
     function inputOnChange(event: ChangeEvent<HTMLInputElement>){
         if(event.type === "text"){
@@ -21,6 +24,7 @@ export default function LoginPage(props: LoginPageProps){
     function onSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
         props.login(userName, password)
+        navigate("exercises")
     }
 
 
