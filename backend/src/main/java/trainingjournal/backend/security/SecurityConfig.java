@@ -10,7 +10,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity
 public class SecurityConfig {
-
     @Bean
     PasswordEncoder passwordEncoder(){
         return new Argon2PasswordEncoder(16, 16, 1, 65536, 10);
@@ -29,11 +28,10 @@ public class SecurityConfig {
                                 HttpStatus.UNAUTHORIZED.getReasonPhrase()))
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/").permitAll()
+                .requestMatchers("/api/user/login").permitAll()
+                .requestMatchers("/api/**").authenticated()
                 .and().build();
 
-/*                .antMatchers("/api/").authenticated()
-                .antMatchers("/").permitAll()
-                .and().build();*/
-    }
+}
+
 }
