@@ -23,7 +23,4 @@ public class GymUser {
         private Set<Week> calendar;
         private LocalDate registerData;
         private String password;
-
-
-
 }

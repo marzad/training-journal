@@ -11,12 +11,14 @@ export default function ExerciseDetails(props: ExerciseDetailsProps){
                 <>
                     <label>{props.exercise.description}</label>
                     <input type="number" name={"repeats"} placeholder={"30"} value = {props.exercise.repeats} required/> min
+                    <br/>
                 </> :
                 <>
                     <label>{props.exercise.description}</label>
                     <input type="number" name={"repeats"} placeholder={"10"} value = {props.exercise.repeats} required/>
                     <input type="number" name={"sets"} placeholder={"3"} value = {props.exercise.sets} required/>
                     <input type="number" name={"weight"} value = {props.exercise.weight} required/>
+                    <br/>
                 </>
             }
         </>

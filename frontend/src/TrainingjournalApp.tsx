@@ -10,15 +10,14 @@ export default function TrainingjournalApp(){
     const {userName, login} = useUser()
     const {exercises} = useExercise()
 
-    // @ts-ignore
     return(
         <BrowserRouter>
             <h1>Trainingjournal</h1>
             <h2>Hallo {userName}!</h2>
             <Routes>
                 <Route path={""} element={<LoginPage login={login}/>}/>
-                <Route path={"/login"} element={<LoginPage login={login}/>}/>
-                <Route path={"/exercise"} element={<ExercisePage exercises={exercises}/>}/>
+                {/*<Route path={"/login"} element={<LoginPage login={login}/>}/>*/}
+                <Route path={"/exercises"} element={<ExercisePage exercises={exercises}/>}/>
             </Routes>
         </BrowserRouter>
     )
