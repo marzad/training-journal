@@ -3,7 +3,7 @@ import ExerciseDetails from "./ExerciseDetails";
 
 
 type exercisePageProps = {
-    exercises : Exercise[]
+    exercises? : Exercise[]
 }
 
 export default function ExercisePage(props: exercisePageProps){
@@ -14,7 +14,6 @@ export default function ExercisePage(props: exercisePageProps){
                 return <ExerciseDetails key={entity.id} exercise={entity}/>
             })
         }
-
     }
     return(
         <>

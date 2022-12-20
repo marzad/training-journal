@@ -5,14 +5,14 @@ import axios from "axios";
 
 export default function UseExercise(){
 
-    const [exercises, setExercises] = useState<Exercise>()
+    const [exercises, setExercises] = useState<Exercise[]>()
 
     useEffect(() => {
         getAllExercises()
     },[])
 
     function getAllExercises(){
-        axios.get("/exercises")
+        axios.get("/api/exercises/")
             .then(response => response.data)
             .then(setExercises)
     }
