@@ -20,18 +20,18 @@ public class SecurityConfig {
         return http
                 .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
-                .httpBasic()
+               .and()
+               .httpBasic()
                 .authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(
                                 HttpStatus.UNAUTHORIZED.value(),
-                                HttpStatus.UNAUTHORIZED.getReasonPhrase()))
-                .and()
+                                HttpStatus.UNAUTHORIZED.getReasonPhrase())).and()
                 .authorizeRequests()
-                .antMatchers("/api").permitAll()
-//                .antMatchers("/api/exercises").authenticated()
-
-                .and().build();
+                .antMatchers("/api/user/login").permitAll()
+                .antMatchers("/api/user/me").permitAll()
+                .antMatchers("/api/**").authenticated()
+                .and()
+                .build();
 
 }
 

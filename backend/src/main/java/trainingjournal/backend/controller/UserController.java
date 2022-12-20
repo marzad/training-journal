@@ -16,7 +16,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping("/me")
     public String helloMe(Principal principal){
         if(principal != null){
             return principal.getName();

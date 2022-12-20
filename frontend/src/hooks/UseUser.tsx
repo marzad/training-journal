@@ -7,13 +7,12 @@ export default function UseUser(){
     const [userName, setUserName] = useState()
 
     useEffect(() => {
-        axios.get("/api/user")
+        axios.get("/api/user/me")
             .then(response => response.data)
             .then(setUserName)
     }, [])
 
     function login(username: string, password: string){
-        console.log(username + " " + password)
         return axios.post("/api/user/login",
             undefined,
             {
@@ -22,11 +21,15 @@ export default function UseUser(){
                     password
                 }
             })
-            .then(response => response.data)
+            .then(response => {
+                console.log("Login: ", response.data)
+                return response.data
+            })
             .then(data => {
                 setUserName(data)
                 return data
             })
+            .catch(error => console.error("Fehler:", error))
     }
 
     return {userName, login}
