@@ -8,8 +8,8 @@ type LoginPageProps = {
 
 export default function LoginPage(props: LoginPageProps){
 
-    const [userName, setUserName] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
+    const [userName, setUserName] = useState<string>("anton")
+    const [password, setPassword] = useState<string>("123")
 
     const navigate = useNavigate()
 
@@ -34,8 +34,6 @@ export default function LoginPage(props: LoginPageProps){
                 <input type={"password"} value={password} name={"password"} placeholder={"password"} onChange={inputPasswordOnChange}/><br/>
                 <button type={"submit"}>Login</button>
             </form>
-
-
         </>
     )
 }

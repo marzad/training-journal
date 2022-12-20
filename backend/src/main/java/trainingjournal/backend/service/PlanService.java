@@ -21,4 +21,11 @@ public class PlanService {
     public List<Exercise> getAllExercises(){
         return exerciseRepository.findAll();
     }
+
+    public Exercise addNewExercise(String exerciseName) {
+        String id =  (new IDGenerator()).getID();
+        Exercise newExercise = new Exercise(id, exerciseName, 0,0,0);
+        exerciseRepository.save(newExercise);
+        return newExercise;
+    }
 }

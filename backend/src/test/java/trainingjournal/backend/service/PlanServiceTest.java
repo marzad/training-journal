@@ -33,4 +33,17 @@ class PlanServiceTest {
         assertEquals(exerciseList, result);
 
     }
+
+    @Test
+    void test_addNewExercise(){
+        List<Exercise> exerciseList = new ArrayList<>();
+        Exercise newExercise = new Exercise("1", "exercise", 0,0,0);
+        exerciseList.add(newExercise);
+
+        when(exerciseRepository.save(newExercise)).thenReturn(newExercise);
+
+        Exercise result = planService.addNewExercise("exercise");
+
+        assertEquals(newExercise.description(),result.description());
+    }
 }

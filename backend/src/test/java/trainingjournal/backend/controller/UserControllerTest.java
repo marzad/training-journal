@@ -38,7 +38,7 @@ class UserControllerTest {
     @WithMockUser(username="StandardUser")
     @Test
     void test_helloMe() throws Exception {
-        mockMvc.perform(get("/api/user/"))
+        mockMvc.perform(get("/api/user/me"))
                 .andExpect(content().string("StandardUser"));
     }
 }

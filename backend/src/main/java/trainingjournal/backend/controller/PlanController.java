@@ -1,8 +1,6 @@
 package trainingjournal.backend.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import trainingjournal.backend.model.Exercise;
 import trainingjournal.backend.service.PlanService;
 
@@ -21,5 +19,10 @@ public class PlanController {
     @GetMapping("/exercises")
     public List<Exercise> getAllExercises(){
         return planService.getAllExercises();
+    }
+
+    @PostMapping("/exercises")
+    public Exercise addNewExercise(@RequestBody String exerciseName){
+        return planService.addNewExercise(exerciseName);
     }
 }
