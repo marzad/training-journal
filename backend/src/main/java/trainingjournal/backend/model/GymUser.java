@@ -21,6 +21,7 @@ public class GymUser {
         private LocalDate birthday;
         private double userWeight;
         private Set<Week> calendar;
+        private Set<Exercise> exercises;
         private LocalDate registerData;
         private String password;
 }

@@ -1,4 +1,5 @@
 import {Week} from "./Week";
+import {Exercise} from "./Exercise";
 
 export type GymUser = {
     userId : string,
@@ -7,5 +8,6 @@ export type GymUser = {
     birthday : string,
     userWeight : {data : string, weight : number}[]
     trainingplans : Week[]
-
+    exercises: Exercise[]
+    password: string
 }

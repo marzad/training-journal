@@ -28,4 +28,7 @@ public class PlanService {
         exerciseRepository.save(newExercise);
         return newExercise;
     }
+
+
+
 }
