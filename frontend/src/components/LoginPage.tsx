@@ -24,14 +24,14 @@ export default function LoginPage(props: LoginPageProps){
     function onSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
         props.login(userName, password)
-            .then(() => navigate("exercises"))
+            .then(() => navigate("menu"))
     }
 
     return(
         <>
             <form onSubmit={onSubmit}>
-                <input type={"text"} value={userName} name={"userName"} placeholder={"StandardUser"} onChange={inputUsernameOnChange}/><br/>
-                <input type={"password"} value={password} name={"password"} placeholder={"password"} onChange={inputPasswordOnChange}/><br/>
+                <input type={"text"} value={userName} name={"userName"} onChange={inputUsernameOnChange}/><br/>
+                <input type={"password"} value={password} name={"password"} onChange={inputPasswordOnChange}/><br/>
                 <button type={"submit"}>Login</button>
             </form>
         </>

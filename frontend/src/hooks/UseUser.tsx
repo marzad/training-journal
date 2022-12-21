@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {Exercise} from "../model/Exercise";
 
 
 export default function UseUser(){
@@ -32,5 +33,11 @@ export default function UseUser(){
             .catch(error => console.error("Fehler:", error))
     }
 
-    return {userName, login}
+    function selectedExercisesList(list: Exercise[]){
+        axios.put("/api/user/exercises",list)
+            .then(response => response.data)
+            .then(data => console.log(data))
+    }
+
+    return {userName, login, selectedExercisesList}
 }

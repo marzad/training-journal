@@ -12,4 +12,5 @@ public record Exercise(
         int sets,
         float weight
 ) {
+
 }

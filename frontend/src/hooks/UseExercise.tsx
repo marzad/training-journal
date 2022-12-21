@@ -3,7 +3,7 @@ import {Exercise} from "../model/Exercise";
 import axios from "axios";
 
 
-export default function UseExercise(){
+export default function useExercise(){
 
     const [exercises, setExercises] = useState<Exercise[]>()
 
