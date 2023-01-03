@@ -3,27 +3,31 @@ import ExerciseDetails from "./ExerciseDetails";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import "../css/ExercisePage.css"
 
 
 type exercisePageProps = {
     exercises? : Exercise[]
-    selectedExercises: (exercisesList: Exercise[]) => void
+    selectedExercisesList: (exercisesList: Exercise[]) => void
 }
 
 export default function ExercisePage(props: exercisePageProps){
     const [newExercise, setNewExercise] = useState<string>("")
     const [exercisesList, setExercisesList] = useState<Exercise[]>([])
 
-    const [selectedExercises, setSelectedExercises] = useState<Exercise[]>()
+    const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([])
 
     useEffect(() => {
+        getExercisesListFromDB()
+    },[newExercise, onClickNewExercise])
+
+    const navigate = useNavigate()
+
+    function getExercisesListFromDB(){
         axios.get("/api/exercises")
             .then(response => response.data)
             .then(setExercisesList)
-
-    },[])
-
-    const navigate = useNavigate()
+    }
 
 
     function inputNewExercise(event: ChangeEvent<HTMLInputElement>){
@@ -34,44 +38,48 @@ export default function ExercisePage(props: exercisePageProps){
         axios.post("/api/exercises/", newExercise)
             .catch(console.error)
         setNewExercise("")
+        getExercisesListFromDB()
     }
 
-     function setSelectedExercisesList(id: string){
-
+     function setSelectedExercisesList(searchedId: string){
+        let exercise: Exercise | undefined
         if(exercisesList !== undefined){
-            const exercise = exercisesList.find(entity => entity.id.includes(id))
+            exercise= exercisesList.filter(entity => {
+                return entity.id.includes(searchedId)
+            }).at(0)
         }
 
-
-         // setSelectedExercises(prevState => [...prevState, exercise])
+         //setSelectedExercises(prevState => [...prevState, exercise])
+         let list = selectedExercises
+         if (exercise) {
+             list?.push(exercise)
+             setSelectedExercises(list)
+         }
      }
 
-
-
     function getExerciseList(){
-        if(exercisesList){
             return exercisesList.map(entity => {
                 return <ExerciseDetails key={entity.id} exercise={entity} selected={setSelectedExercisesList}/>
             })
-        }
     }
 
     function onSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
         if(selectedExercises !== undefined){
-            props.selectedExercises(selectedExercises)
+            console.log(selectedExercises)
+            props.selectedExercisesList(selectedExercises)
         }
         navigate("/menu")
     }
 
     return(
-        <>
+        <section className={"exercisesList"}>
             <form onSubmit={onSubmit}>
             {getExerciseList()}
             <input type={"text"} name={"newExercise"} value={newExercise} onChange={inputNewExercise}/>
-            <button onClick={onClickNewExercise}>Neue Übung zufügen</button><br/>
+            <button onClick={onClickNewExercise}>Neue Übung speichern</button><br/>
                 <button type={"submit"}>Speichern</button>
             </form>
-        </>
+        </section>
     )
 }

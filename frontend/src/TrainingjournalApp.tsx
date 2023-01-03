@@ -5,6 +5,7 @@ import useUser from "./hooks/UseUser";
 import ExercisePage from "./components/ExercisePage";
 import HeadPage from "./pages/HeadPage";
 import useExercise from "./hooks/UseExercise";
+import "../src/css/TrainingjournalApp.css"
 
 export default function TrainingjournalApp(){
 
@@ -13,13 +14,21 @@ export default function TrainingjournalApp(){
 
     return(
         <BrowserRouter>
-            <h1>Trainingjournal</h1>
-            <h2>Hallo {userName}!</h2>
-            <Routes>
-                <Route path={""} element={<LoginPage login={login}/>}/>
-                <Route path={"/exercises"} element={<ExercisePage exercises={exercises} selectedExercises={selectedExercisesList}/>}/>
-                <Route path={"/menu"} element={<HeadPage/>}/>
-            </Routes>
+            <header>
+                <h1>Trainingjournal</h1>
+            </header>
+            <section>
+                <h2>Hallo {userName}!</h2>
+                <Routes>
+                    <Route path={""} element={<LoginPage login={login}/>}/>
+                    <Route path={"/exercises"} element={<ExercisePage exercises={exercises} selectedExercisesList={selectedExercisesList}/>}/>
+                    <Route path={"/menu"} element={<HeadPage/>}/>
+                </Routes>
+            </section>
+
+            <footer>
+                Menu
+            </footer>
         </BrowserRouter>
     )
 }

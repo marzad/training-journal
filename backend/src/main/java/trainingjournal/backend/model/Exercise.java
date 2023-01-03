@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("Exercises")
 public record Exercise(
         @Id
-        String exerciseId,
+        String id,
         String description,
         int repeats,
         int sets,
