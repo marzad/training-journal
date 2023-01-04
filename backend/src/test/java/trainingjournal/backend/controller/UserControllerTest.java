@@ -51,27 +51,26 @@ class UserControllerTest {
         user.setUsername("StandardUser");
         userRepository.save(user);
 
-        mockMvc.perform(post("/api/user/exercises/").contentType(MediaType.APPLICATION_JSON).content("""
-                {
-                "StandardUser": 
+        mockMvc.perform(post("/api/user/StandardUser/exercises/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                 [{
                                 "id" : "",
                                 "description" : "",
                                 "repeats" : 0,
                                 "sets" : 0,
                                 "weight" : 0.0
-                                }]
-                }
+                }]
                 """)
                         .with(csrf()))
-                .andExpect(status().isOk());
-/*                .andExpect(content().json("""
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
                         [{
                          "description" : "",
                          "repeats" : 0,
                          "sets" : 0,
                          "weight" : 0
                         }]
-                        """));*/
+                        """));
     }
 }

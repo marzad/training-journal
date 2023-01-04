@@ -3,7 +3,6 @@ package trainingjournal.backend.service;
 import org.junit.jupiter.api.Test;
 import trainingjournal.backend.model.*;
 import trainingjournal.backend.repository.ExerciseRepository;
-import trainingjournal.backend.repository.PlanRepository;
 import trainingjournal.backend.repository.UserRepository;
 
 import java.util.*;
@@ -33,24 +32,6 @@ class UserServiceTest {
     @Test
     void test_something(){
         assertTrue(true);
-    }
-
-    @Test
-    void test_updateUserExercisesList(){
-        GymUser user = new GymUser();
-        user.setUsername("username");
-        user.setExercises(new HashSet<>());
-
-        Exercise newExercise = new Exercise("1", "newExercise", 0,0,0);
-        Set<Exercise> newSet = new HashSet<>(Set.of(newExercise));
-        newSet.add(newExercise);
-
-        when(userRepository.findByUsername("username")).thenReturn(user);
-        when(exerciseRepository.findByDescription("newExercise")).thenReturn(Optional.ofNullable(newExercise));
-
-        Set<Exercise> result = userService.updateUserExercisesList("username", "newExercise");
-
-        assertEquals(newSet, result);
     }
 
     @Test

@@ -21,11 +21,3 @@
   color: #61dafb;
 }
 
-header, footer {
-  position: absolute;
-  margin: 10em;
-}
-
-footer{
-  bottom: 0;
-}
