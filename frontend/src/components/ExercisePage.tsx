@@ -2,7 +2,6 @@ import {Exercise} from "../model/Exercise";
 import ExerciseDetails from "./ExerciseDetails";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import "../css/ExercisePage.css"
 
 
@@ -19,9 +18,8 @@ export default function ExercisePage(props: exercisePageProps){
 
     useEffect(() => {
         getExercisesListFromDB()
-    },[newExercise, onClickNewExercise])
+    },[])
 
-    const navigate = useNavigate()
 
     function getExercisesListFromDB(){
         axios.get("/api/exercises")
@@ -29,16 +27,20 @@ export default function ExercisePage(props: exercisePageProps){
             .then(setExercisesList)
     }
 
-
     function inputNewExercise(event: ChangeEvent<HTMLInputElement>){
         setNewExercise(event.target.value)
     }
 
     function onClickNewExercise(){
-        axios.post("/api/exercises/", newExercise)
+        console.log(newExercise)
+        axios.post("/api/exercises/",
+            newExercise,
+            {headers: {'Content-type': 'text/text; charset=utf-8'}})
+            .then(savedExercise => {
+                setExercisesList(prevState => [...prevState, savedExercise.data])
+                setNewExercise("")
+            })
             .catch(console.error)
-        setNewExercise("")
-        getExercisesListFromDB()
     }
 
      function setSelectedExercisesList(searchedId: string){
@@ -48,7 +50,6 @@ export default function ExercisePage(props: exercisePageProps){
                 return entity.id.includes(searchedId)
             }).at(0)
         }
-
          //setSelectedExercises(prevState => [...prevState, exercise])
          let list = selectedExercises
          if (exercise) {
@@ -66,10 +67,8 @@ export default function ExercisePage(props: exercisePageProps){
     function onSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
         if(selectedExercises !== undefined){
-            console.log(selectedExercises)
             props.selectedExercisesList(selectedExercises)
         }
-        navigate("/menu")
     }
 
     return(
