@@ -23,20 +23,19 @@ export default function UseUser(){
                 }
             })
             .then(response => {
-                console.log("Login: ", response.data)
                 return response.data
             })
             .then(data => {
                 setUserName(data)
                 return data
             })
-            .catch(error => console.error("Fehler:", error))
+            .catch(error => console.error(error))
     }
 
     function selectedExercisesList(list: Exercise[]){
-        axios.put("/api/user/exercises",list)
-            .then(response => response.data)
-            .then(data => console.log(data))
+
+        axios.post("/api/user/" + userName + "/exercises/", list)
+            .catch(error => console.error(error))
     }
 
     return {userName, login, selectedExercisesList}

@@ -13,7 +13,6 @@ export default function ExerciseDetails(props: ExerciseDetailsProps){
         }
     }
 
-
     return(
         <>
             <label>{props.exercise.description}</label>

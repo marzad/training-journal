@@ -3,6 +3,7 @@ import ExerciseDetails from "./ExerciseDetails";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import axios from "axios";
 import "../css/ExercisePage.css"
+import {useNavigate} from "react-router-dom";
 
 
 type exercisePageProps = {
@@ -20,6 +21,7 @@ export default function ExercisePage(props: exercisePageProps){
         getExercisesListFromDB()
     },[])
 
+    const navigate = useNavigate()
 
     function getExercisesListFromDB(){
         axios.get("/api/exercises")
@@ -32,7 +34,6 @@ export default function ExercisePage(props: exercisePageProps){
     }
 
     function onClickNewExercise(){
-        console.log(newExercise)
         axios.post("/api/exercises/",
             newExercise,
             {headers: {'Content-type': 'text/text; charset=utf-8'}})
@@ -59,7 +60,9 @@ export default function ExercisePage(props: exercisePageProps){
      }
 
     function getExerciseList(){
-            return exercisesList.map(entity => {
+        exercisesList.sort((a, b) => a.description.localeCompare(b.description))
+            return exercisesList
+                .map(entity => {
                 return <ExerciseDetails key={entity.id} exercise={entity} selected={setSelectedExercisesList}/>
             })
     }
@@ -69,16 +72,19 @@ export default function ExercisePage(props: exercisePageProps){
         if(selectedExercises !== undefined){
             props.selectedExercisesList(selectedExercises)
         }
+        navigate("/menu")
     }
 
     return(
         <section className={"exercisesList"}>
             <form onSubmit={onSubmit}>
             {getExerciseList()}
-            <input type={"text"} name={"newExercise"} value={newExercise} onChange={inputNewExercise}/>
-            <button onClick={onClickNewExercise}>Neue Übung speichern</button><br/>
-                <button type={"submit"}>Speichern</button>
+                <br/>
+            <button type={"submit"}>Speichern</button><br/>
             </form>
+            <br/>
+            <input type={"text"} name={"newExercise"} value={newExercise} onChange={inputNewExercise}/>
+            <button onClick={onClickNewExercise}> Neue Übung speichern</button>
         </section>
     )
 }

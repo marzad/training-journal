@@ -7,7 +7,6 @@ import trainingjournal.backend.service.UserService;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -33,16 +32,10 @@ public class UserController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    @PutMapping("/exercises")
-    public Set<Exercise> updateUserExercisesList(@RequestBody String username, @PathVariable String exerciseName){
-        return userService.updateUserExercisesList(username, exerciseName);
+    @PostMapping("{username}/exercises/")
+    public Set<Exercise> addUserExercisesList(@PathVariable String username, @RequestBody List<Exercise> exercisesList){
+
+        return userService.addUserExercisesList(username, exercisesList);
     }
 
-    @PostMapping("/exercises/")
-    public Set<Exercise> addUserExercisesList(@RequestBody Map<String, List<Exercise>> requestBody){
-        String username = requestBody.keySet().iterator().next();
-        List<Exercise> exerciseList = requestBody.get(username);
-
-        return userService.addUserExercisesList(username, exerciseList);
-    }
 }
