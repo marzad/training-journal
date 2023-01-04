@@ -1,9 +1,0 @@
-header, footer{
-    clear: both;
-    margin: 10px;
-}
-
-footer {
-    float: end;
-    margin-top: 20px;
-}
