@@ -16,8 +16,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import trainingjournal.backend.model.GymUser;
-import trainingjournal.backend.repository.ExerciseRepository;
-import trainingjournal.backend.repository.PlanRepository;
 import trainingjournal.backend.repository.UserRepository;
 
 
@@ -32,15 +30,12 @@ class UserControllerTest {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    PlanRepository planRepository;
-    @Autowired
-    ExerciseRepository exerciseRepository;
+
     @DirtiesContext
     @WithMockUser(username="StandardUser")
     @Test
     void test_helloMe() throws Exception {
-        mockMvc.perform(get("/api/user/me"))
+        mockMvc.perform(get("/api/users/me"))
                 .andExpect(content().string("StandardUser"));
     }
     @DirtiesContext
@@ -51,7 +46,7 @@ class UserControllerTest {
         user.setUsername("StandardUser");
         userRepository.save(user);
 
-        mockMvc.perform(post("/api/user/StandardUser/exercises/")
+        mockMvc.perform(post("/api/users/StandardUser/exercises/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                 [{
