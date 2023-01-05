@@ -3,18 +3,18 @@ import axios from "axios";
 import {Exercise} from "../model/Exercise";
 
 
-export default function UseUser(){
+export default function useUser(){
 
     const [userName, setUserName] = useState()
 
     useEffect(() => {
-        axios.get("/api/user/me")
+        axios.get("/api/users/me")
             .then(response => response.data)
             .then(setUserName)
     }, [])
 
     function login(username: string, password: string){
-        return axios.post("/api/user/login",
+        return axios.post("/api/users/login",
             undefined,
             {
                 auth: {
@@ -23,20 +23,17 @@ export default function UseUser(){
                 }
             })
             .then(response => {
+                setUserName(response.data)
                 return response.data
             })
-            .then(data => {
-                setUserName(data)
-                return data
-            })
             .catch(error => console.error(error))
     }
 
-    function selectedExercisesList(list: Exercise[]){
+    function submitSelectedExercisesList(list: Exercise[]){
 
-        axios.post("/api/user/" + userName + "/exercises/", list)
+        axios.post("/api/users/" + userName + "/exercises/", list)
             .catch(error => console.error(error))
     }
 
-    return {userName, login, selectedExercisesList}
+    return {userName, login, selectedExercisesList: submitSelectedExercisesList}
 }
