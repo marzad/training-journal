@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import trainingjournal.backend.model.Exercise;
 import trainingjournal.backend.model.GymUser;
-import trainingjournal.backend.repository.ExerciseRepository;
 import trainingjournal.backend.repository.UserRepository;
 
 import java.util.HashSet;
@@ -17,12 +16,10 @@ import java.util.Set;
 @Service
 public class UserService implements UserDetailsService {
 
-    private UserRepository userRepository;
-    private ExerciseRepository exerciseRepository;
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepo, ExerciseRepository exerciseRepo){
+    public UserService(UserRepository userRepo){
         this.userRepository = userRepo;
-        this.exerciseRepository = exerciseRepo;
     }
 
     @Override
@@ -34,9 +31,9 @@ public class UserService implements UserDetailsService {
 
     public Set<Exercise> addUserExercisesList(String userName, List<Exercise> exerciseList){
         GymUser user = userRepository.findByUsername(userName);
-        Set<Exercise> newList = new HashSet<>(exerciseList);
-        user.setExercises(newList);
+        Set<Exercise> newUserExercisesList = new HashSet<>(exerciseList);
+        user.setExercises(newUserExercisesList);
         userRepository.save(user);
-        return newList;
+        return newUserExercisesList;
     }
 }
