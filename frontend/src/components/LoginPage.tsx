@@ -13,11 +13,11 @@ export default function LoginPage(props: LoginPageProps){
 
     const navigate = useNavigate()
 
-    function inputUsernameOnChange(event: ChangeEvent<HTMLInputElement>){
+    function handleUsernameOnChange(event: ChangeEvent<HTMLInputElement>){
         setUserName(event.target.value)
     }
 
-    function inputPasswordOnChange(event: ChangeEvent<HTMLInputElement>){
+    function handlePasswordOnChange(event: ChangeEvent<HTMLInputElement>){
         setPassword(event.target.value)
     }
 
@@ -30,8 +30,8 @@ export default function LoginPage(props: LoginPageProps){
     return(
         <>
             <form onSubmit={onSubmit}>
-                <input type={"text"} value={userName} name={"userName"} onChange={inputUsernameOnChange}/><br/>
-                <input type={"password"} value={password} name={"password"} onChange={inputPasswordOnChange}/><br/>
+                <input type={"text"} value={userName} name={"userName"} onChange={handleUsernameOnChange}/><br/>
+                <input type={"password"} value={password} name={"password"} onChange={handlePasswordOnChange}/><br/>
                 <button type={"submit"}>Login</button>
             </form>
         </>

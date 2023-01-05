@@ -4,28 +4,28 @@ import {useNavigate} from "react-router-dom";
 export default function HeadPage(){
     const navigate = useNavigate()
 
-    function personalDataOnClick(){
+    function handlePersonalDataNavigation(){
         navigate("/user")
     }
 
-    function exercisesOnClick(){
+    function handleExercisesNavigation(){
         navigate("/exercises")
     }
 
-    function weekPlanOnClick(){
+    function handleWeekPlanNavigation(){
         navigate("/weekplan")
     }
 
-    function calendarOnClick(){
+    function handleCalendarNavigation(){
         navigate("/calendar")
     }
 
     return(
-        <div className={"Menu"}>
-            <button onClick={personalDataOnClick}>Persönliche Angaben</button><br/>
-            <button onClick={exercisesOnClick}>Übungen</button><br/>
-            <button onClick={weekPlanOnClick}>Wochenplan</button><br/>
-            <button onClick={calendarOnClick}>Kalender</button>
-        </div>
+        <section>
+            <button onClick={handlePersonalDataNavigation}>Persönliche Angaben</button><br/>
+            <button onClick={handleExercisesNavigation}>Übungen</button><br/>
+            <button onClick={handleWeekPlanNavigation}>Wochenplan</button><br/>
+            <button onClick={handleCalendarNavigation}>Kalender</button>
+        </section>
     )
 }
