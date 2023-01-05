@@ -1,88 +1,84 @@
 import {Exercise} from "../model/Exercise";
 import ExerciseDetails from "./ExerciseDetails";
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import axios from "axios";
+import {ChangeEvent, FormEvent, useState} from "react";
 import "../css/ExercisePage.css"
 import {useNavigate} from "react-router-dom";
+import ExerciseApiCalls from "../hooks/ExerciseApiCalls";
 
 
-type exercisePageProps = {
-    exercises? : Exercise[]
+type ExercisePageProps = {
+    exercises?: Exercise[]
     selectedExercisesList: (exercisesList: Exercise[]) => void
 }
 
-export default function ExercisePage(props: exercisePageProps){
+export default function ExercisePage(props: ExercisePageProps) {
     const [newExercise, setNewExercise] = useState<string>("")
-    const [exercisesList, setExercisesList] = useState<Exercise[]>([])
+    const {exercisesList, addNewExerciseToDB} = ExerciseApiCalls()
 
     const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([])
 
-    useEffect(() => {
-        getExercisesListFromDB()
-    },[])
-
     const navigate = useNavigate()
 
-    function getExercisesListFromDB(){
-        axios.get("/api/exercises")
-            .then(response => response.data)
-            .then(setExercisesList)
-    }
-
-    function inputNewExercise(event: ChangeEvent<HTMLInputElement>){
+    function inputNewExercise(event: ChangeEvent<HTMLInputElement>) {
         setNewExercise(event.target.value)
     }
 
-    function onClickNewExercise(){
-        axios.post("/api/exercises/",
-            newExercise,
-            {headers: {'Content-type': 'text/text; charset=utf-8'}})
-            .then(savedExercise => {
-                setExercisesList(prevState => [...prevState, savedExercise.data])
-                setNewExercise("")
-            })
-            .catch(console.error)
+    function onClickNewExercise() {
+        addNewExerciseToDB(newExercise)
+        setNewExercise("")
     }
 
-     function setSelectedExercisesList(searchedId: string){
-        let exercise: Exercise | undefined
-        if(exercisesList !== undefined){
-            exercise= exercisesList.filter(entity => {
-                return entity.id.includes(searchedId)
-            }).at(0)
+    function setSelectedExercisesList(exerciseId: string, checked: boolean) {
+        if(checked){
+            if(checkExerciseInList(exerciseId) === undefined){
+                const selectedExercise: Exercise = exercisesList.find(exerciseItem => {
+                    return exerciseItem.id === exerciseId
+                })!
+
+                setSelectedExercises(prevSelectedExercises => [...prevSelectedExercises, selectedExercise])
+            }
+        }else{
+            if(checkExerciseInList(exerciseId) !== undefined){
+                const newSelectedExercisesList = selectedExercises.filter(exerciseItem => {
+                    return exerciseItem.id !== exerciseId
+                })
+
+                setSelectedExercises(newSelectedExercisesList)
+            }
         }
-         //setSelectedExercises(prevState => [...prevState, exercise])
-         let list = selectedExercises
-         if (exercise) {
-             list?.push(exercise)
-             setSelectedExercises(list)
-         }
-     }
-
-    function getExerciseList(){
-        exercisesList.sort((a, b) => a.description.localeCompare(b.description))
-            return exercisesList
-                .map(entity => {
-                return <ExerciseDetails key={entity.id} exercise={entity} selected={setSelectedExercisesList}/>
-            })
     }
 
-    function onSubmit(event: FormEvent<HTMLFormElement>){
+    function checkExerciseInList(exerciseId: string){
+        return selectedExercises.find(exerciseItem => {
+            return exerciseItem.id === exerciseId
+        })
+    }
+    exercisesList.sort((a, b) => a.description.localeCompare(b.description))
+    const exerciseDetailComponents = exercisesList
+        .map(exerciseEntity => {
+            return (
+                <div>
+                    <ExerciseDetails key={exerciseEntity.id} exercise={exerciseEntity}
+                                     selectedExercisesForUser={setSelectedExercisesList}/>
+                </div>)
+        })
+
+    function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        if(selectedExercises !== undefined){
+        if (selectedExercises !== undefined) {
             props.selectedExercisesList(selectedExercises)
         }
         navigate("/menu")
     }
 
-    return(
+    return (
         <section className={"exercisesList"}>
             <form onSubmit={onSubmit}>
-            {getExerciseList()}
+                {exerciseDetailComponents}
                 <br/>
-            <button type={"submit"}>Speichern</button><br/>
+                    <button type={"submit"} disabled={selectedExercises.length === 0}>Auswahl speichern</button>
+                <br/>
             </form>
-            <br/>
             <input type={"text"} name={"newExercise"} value={newExercise} onChange={inputNewExercise}/>
             <button onClick={onClickNewExercise}> Neue Übung speichern</button>
         </section>

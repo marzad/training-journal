@@ -3,13 +3,17 @@ import {ChangeEvent} from "react";
 
 type ExerciseDetailsProps = {
     exercise : Exercise
-    selected : (id: string) => void
+    selectedExercisesForUser : (id: string, checked: boolean) => void
 }
+
 export default function ExerciseDetails(props: ExerciseDetailsProps){
 
     function checkBoxOnChange(event: ChangeEvent<HTMLInputElement>){
         if(event.target.checked){
-            props.selected(props.exercise.id)
+            props.selectedExercisesForUser(props.exercise.id, true)
+        }
+        else{
+            props.selectedExercisesForUser(props.exercise.id, false)
         }
     }
 
