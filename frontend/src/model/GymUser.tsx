@@ -6,8 +6,8 @@ export type GymUser = {
     username : string,
     gender : string,
     birthday : string,
-    userWeight : {data : string, weight : number}[]
-    trainingplans : Week[]
+    userWeight : {date : string, weight : number}[]
+    trainingPlans : Week[]
     exercises: Exercise[]
     password: string
 }
