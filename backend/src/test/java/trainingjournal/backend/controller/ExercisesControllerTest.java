@@ -4,13 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import trainingjournal.backend.model.ExerciseDTO;
 import trainingjournal.backend.repository.ExerciseRepository;
-import trainingjournal.backend.repository.PlanRepository;
-import trainingjournal.backend.service.PlanService;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -18,43 +16,60 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class PlanControllerTest {
+class ExercisesControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @Autowired
     ExerciseRepository exerciseRepository;
-    @Autowired
-    PlanRepository planRepository;
 
-    @WithMockUser(username="StandardUser")
+    @WithMockUser(username = "StandardUser")
     @Test
-    void test_getAllExercises() throws Exception{
+    void test_getAllExercises_whenDBEmpty() throws Exception {
         mockMvc.perform(get("/api/exercises"))
                 .andExpect(content().json("""
-[]
-"""));
+                        []
+                        """));
     }
 
-    @DirtiesContext
-    @WithMockUser(username="StandardUser")
+    @WithMockUser(username = "StandardUser")
     @Test
-    void test_addNewExercise() throws Exception{
+    void test_getAllExercises_whenDBNotEmpty() throws Exception {
+        ExerciseDTO exercise1 = new ExerciseDTO("1", "exercise1");
+        ExerciseDTO exercise2 = new ExerciseDTO("2", "exercise2");
+
+        exerciseRepository.save(exercise1);
+        exerciseRepository.save(exercise2);
+
+        mockMvc.perform(get("/api/exercises"))
+                .andExpect(content().json("""
+                        [{
+                        "description" : "exercise1"
+                        },
+                        {
+                        "description" : "exercise2"
+                        }]
+                        """));
+    }
+
+
+
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_addNewExerciseToDB() throws Exception {
 
         mockMvc.perform(post("/api/exercises/")
                         .content("newExercise")
                         .with(csrf())
-                       )
+                )
 
                 .andExpect(content().json("""
-{
-"description" : "newExercise",
-"repeats" : 0,
-"sets" : 0,
-"weight" : 0
-}
-"""));
+                        {
+                        "description" : "newExercise"
+                        }
+                        """));
     }
 
 

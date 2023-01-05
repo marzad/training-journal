@@ -1,28 +1,28 @@
 package trainingjournal.backend.controller;
 
 import org.springframework.web.bind.annotation.*;
-import trainingjournal.backend.model.Exercise;
-import trainingjournal.backend.service.PlanService;
+import trainingjournal.backend.model.ExerciseDTO;
+import trainingjournal.backend.service.ExercisesService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class PlanController {
+public class ExercisesController {
 
-    private PlanService planService;
+    private final ExercisesService planService;
 
-    public PlanController(PlanService planService){
+    public ExercisesController(ExercisesService planService){
         this.planService = planService;
     }
 
     @GetMapping("/exercises")
-    public List<Exercise> getAllExercises(){
+    public List<ExerciseDTO> getAllExercises(){
         return planService.getAllExercises();
     }
 
     @PostMapping("/exercises")
-    public Exercise addNewExercise(@RequestBody String exerciseName){
+    public ExerciseDTO addNewExercise(@RequestBody String exerciseName){
         return planService.addNewExercise(exerciseName);
     }
 }
