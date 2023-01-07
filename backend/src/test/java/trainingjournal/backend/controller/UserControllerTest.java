@@ -15,9 +15,10 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.springframework.util.LinkedMultiValueMap;
+import trainingjournal.backend.model.Gender;
 import trainingjournal.backend.model.GymUser;
 import trainingjournal.backend.repository.UserRepository;
-
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -32,14 +33,15 @@ class UserControllerTest {
     UserRepository userRepository;
 
     @DirtiesContext
-    @WithMockUser(username="StandardUser")
+    @WithMockUser(username = "StandardUser")
     @Test
     void test_helloMe() throws Exception {
         mockMvc.perform(get("/api/users/me"))
                 .andExpect(content().string("StandardUser"));
     }
+
     @DirtiesContext
-    @WithMockUser(username="StandardUser")
+    @WithMockUser(username = "StandardUser")
     @Test
     void test_addUserExercisesList() throws Exception {
         GymUser user = new GymUser();
@@ -49,14 +51,14 @@ class UserControllerTest {
         mockMvc.perform(post("/api/users/StandardUser/exercises/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                [{
-                                "id" : "",
-                                "description" : "",
-                                "repeats" : 0,
-                                "sets" : 0,
-                                "weight" : 0.0
-                }]
-                """)
+                                [{
+                                                "id" : "",
+                                                "description" : "",
+                                                "repeats" : 0,
+                                                "sets" : 0,
+                                                "weight" : 0.0
+                                }]
+                                """)
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
@@ -68,4 +70,32 @@ class UserControllerTest {
                         }]
                         """));
     }
+
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_addUserPersonalData() throws Exception {
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+        userRepository.save(user);
+
+        LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("gender", Gender.MALE.toString());
+        params.add("birthday", "1999-12-12");
+        params.add("userWeight", Double.toString(76.7));
+
+        mockMvc.perform(put("/api/users/StandardUser/personaldata/")
+                        .params(params)
+                        .with(csrf())
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "username" : "StandardUser",
+                        "gender" : "MALE",
+                        "birthday" : "1999-12-12"
+                        }
+                        """));
+    }
+
 }
