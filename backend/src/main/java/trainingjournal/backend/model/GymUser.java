@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Set;
 
 @Document("GymUsers")
@@ -19,7 +20,7 @@ public class GymUser {
         private String username;
         private Gender gender;
         private LocalDate birthday;
-        private double userWeight;
+        private Map<LocalDate,Double> userWeight;
         private Set<Week> calendar;
         private Set<Exercise> exercises;
         private LocalDate registerData;
