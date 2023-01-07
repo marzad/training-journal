@@ -3,6 +3,8 @@ package trainingjournal.backend.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import trainingjournal.backend.model.Exercise;
+import trainingjournal.backend.model.Gender;
+import trainingjournal.backend.model.GymUser;
 import trainingjournal.backend.service.UserService;
 
 import java.security.Principal;
@@ -36,6 +38,15 @@ public class UserController {
     public Set<Exercise> addUserExercisesList(@PathVariable String username, @RequestBody List<Exercise> exercisesList){
 
         return userService.addUserExercisesList(username, exercisesList);
+    }
+
+    @PutMapping("{username}/personaldata/")
+    public GymUser addUserPersonalData(@PathVariable String username,
+                                       @RequestParam(value = "gender", required = false) Gender gender,
+                                       @RequestParam(value = "birthday", required = false) String birthday,
+                                       @RequestParam(value = "userWeight", required = false) Double userWeight
+                                       ){
+        return userService.addPersonalData(username, gender, birthday, userWeight);
     }
 
 }
