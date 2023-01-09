@@ -82,7 +82,8 @@ class UserControllerTest {
         LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("gender", Gender.MALE.toString());
         params.add("birthday", "1999-12-12");
-        params.add("userWeight", Double.toString(76.7));
+        params.add("userWeight", Double.toString(96.7));
+        params.add("bodysize", Double.toString(176.0));
 
         mockMvc.perform(put("/api/users/StandardUser/personaldata/")
                         .params(params)
@@ -93,7 +94,8 @@ class UserControllerTest {
                         {
                         "username" : "StandardUser",
                         "gender" : "MALE",
-                        "birthday" : "1999-12-12"
+                        "birthday" : "1999-12-12",
+                        "bodysize" : 176.0
                         }
                         """));
     }

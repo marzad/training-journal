@@ -21,6 +21,7 @@ public class GymUser {
         private Gender gender;
         private LocalDate birthday;
         private Map<LocalDate,Double> userWeight;
+        private Double bodysize;
         private Set<Week> calendar;
         private Set<Exercise> exercises;
         private LocalDate registerData;

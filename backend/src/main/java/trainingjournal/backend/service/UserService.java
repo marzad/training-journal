@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import trainingjournal.backend.model.Exercise;
+import trainingjournal.backend.model.ExerciseDTO;
 import trainingjournal.backend.model.Gender;
 import trainingjournal.backend.model.GymUser;
 import trainingjournal.backend.repository.UserRepository;
@@ -29,19 +30,28 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public Set<Exercise> addUserExercisesList(String userName, List<Exercise> exerciseList){
+    public Set<Exercise> addUserExercisesList(String userName, List<ExerciseDTO> exerciseList){
         GymUser user = userRepository.findByUsername(userName);
-        Set<Exercise> newUserExercisesList = new HashSet<>(exerciseList);
+
+        List<Exercise> newExerciseList = new ArrayList<>();
+        for (Iterator<ExerciseDTO> it = exerciseList.iterator(); it.hasNext(); ) {
+            ExerciseDTO exercise = it.next();
+            Exercise newExercise = new Exercise(exercise.id(), exercise.description(), 0,0,0);
+            newExerciseList.add(newExercise);
+        }
+
+        Set<Exercise> newUserExercisesList = new HashSet<>(newExerciseList);
         user.setExercises(newUserExercisesList);
         userRepository.save(user);
         return newUserExercisesList;
     }
 
-    public GymUser addPersonalData(String username, Gender gender, String birthday, Double userWeight){
+    public GymUser addPersonalData(String username, Gender gender, String birthday, Double userWeight, Double bodysize){
         GymUser user = userRepository.findByUsername(username);
         user.setGender(gender);
         user.setBirthday(LocalDate.parse(birthday));
         user.setUserWeight(setUserWeightItem(userWeight));
+        user.setBodysize(bodysize);
         return user;
     }
 
