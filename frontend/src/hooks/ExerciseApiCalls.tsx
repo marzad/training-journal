@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
-import {Exercise} from "../model/Exercise";
 import axios from "axios";
+import {ExerciseDTO} from "../model/ExerciseDTO";
 
 export default function ExerciseApiCalls(){
 
-    const [exercisesList, setExercisesList] = useState<Exercise[]>([])
+    const [exercisesList, setExercisesList] = useState<ExerciseDTO[]>([])
 
 
     useEffect(() => {

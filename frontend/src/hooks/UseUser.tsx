@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Exercise} from "../model/Exercise";
+import {ExerciseDTO} from "../model/ExerciseDTO";
 
 
 export default function useUser(){
@@ -29,11 +29,13 @@ export default function useUser(){
             .catch(error => console.error(error))
     }
 
-    function submitSelectedExercisesList(list: Exercise[]){
+    function submitSelectedExercisesList(list: ExerciseDTO[]){
 
         axios.post("/api/users/" + userName + "/exercises/", list)
             .catch(error => console.error(error))
     }
+
+
 
     return {userName, login, selectedExercisesList: submitSelectedExercisesList}
 }

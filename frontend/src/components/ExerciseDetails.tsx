@@ -1,8 +1,8 @@
-import {Exercise} from "../model/Exercise";
 import {ChangeEvent} from "react";
+import {ExerciseDTO} from "../model/ExerciseDTO";
 
 type ExerciseDetailsProps = {
-    exercise : Exercise
+    exercise : ExerciseDTO
     selectedExercisesForUser : (id: string, checked: boolean) => void
 }
 
