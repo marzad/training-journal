@@ -8,7 +8,7 @@ public record Exercise(
         String description,
         int repeats,
         int sets,
-        float weight
+        double weight
 ) {
 
 }
