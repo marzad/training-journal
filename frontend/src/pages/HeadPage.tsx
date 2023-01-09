@@ -1,4 +1,5 @@
 import {useNavigate} from "react-router-dom";
+import "../css/HeadPage.css"
 
 
 export default function HeadPage(){
@@ -21,7 +22,7 @@ export default function HeadPage(){
     }
 
     return(
-        <section>
+        <section className={"Buttons"}>
             <button onClick={handlePersonalDataNavigation}>Persönliche Angaben</button><br/>
             <button onClick={handleExercisesNavigation}>Übungen</button><br/>
             <button onClick={handleWeekPlanNavigation}>Wochenplan</button><br/>

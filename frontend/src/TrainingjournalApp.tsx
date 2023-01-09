@@ -21,7 +21,7 @@ export default function TrainingjournalApp(){
             <section>
                 <h2>Hallo {userName}!</h2>
                 <Routes>
-                    <Route path={"/"} element={<LoginPage login={login}/>}/>
+                    <Route path={""} element={<LoginPage login={login}/>}/>
                     <Route path={"/user"} element={<PersonalData/>}/>
                     <Route path={"/exercises"} element={<ExercisePage exercises={exercises} selectedExercisesList={selectedExercisesList}/>}/>
                     <Route path={"/menu"} element={<HeadPage/>}/>
