@@ -1,21 +1,21 @@
-import {Exercise} from "../model/Exercise";
 import ExerciseDetails from "./ExerciseDetails";
 import {ChangeEvent, FormEvent, useState} from "react";
 import "../css/ExercisePage.css"
 import {useNavigate} from "react-router-dom";
 import ExerciseApiCalls from "../hooks/ExerciseApiCalls";
+import {ExerciseDTO} from "../model/ExerciseDTO";
 
 
 type ExercisePageProps = {
-    exercises?: Exercise[]
-    selectedExercisesList: (exercisesList: Exercise[]) => void
+    exercises?: ExerciseDTO[]
+    selectedExercisesList: (exercisesList: ExerciseDTO[]) => void
 }
 
 export default function ExercisePage(props: ExercisePageProps) {
     const [newExercise, setNewExercise] = useState<string>("")
     const {exercisesList, addNewExerciseToDB} = ExerciseApiCalls()
 
-    const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([])
+    const [selectedExercises, setSelectedExercises] = useState<ExerciseDTO[]>([])
 
     const navigate = useNavigate()
 
@@ -31,7 +31,7 @@ export default function ExercisePage(props: ExercisePageProps) {
     function setSelectedExercisesList(exerciseId: string, checked: boolean) {
         if(checked){
             if(checkExerciseInList(exerciseId) === undefined){
-                const selectedExercise: Exercise = exercisesList.find(exerciseItem => {
+                const selectedExercise: ExerciseDTO = exercisesList.find(exerciseItem => {
                     return exerciseItem.id === exerciseId
                 })!
 
