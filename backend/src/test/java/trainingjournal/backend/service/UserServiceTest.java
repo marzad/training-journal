@@ -1,6 +1,7 @@
 package trainingjournal.backend.service;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.userdetails.UserDetails;
 import trainingjournal.backend.model.*;
 import trainingjournal.backend.repository.UserRepository;
 
@@ -15,6 +16,22 @@ class UserServiceTest {
 
     UserRepository userRepository = mock(UserRepository.class);
     UserService userService = new UserService(userRepository);
+
+    @Test
+    void test_loadUserByUsername(){
+        String username = "username";
+        GymUser newUser = new GymUser();
+        newUser.setUsername(username);
+        newUser.setPassword("password");
+        userRepository.save(newUser);
+
+
+        when(userRepository.findByUsername("username")).thenReturn(newUser);
+
+        UserDetails result = userService.loadUserByUsername("username");
+
+        assertEquals(username, result.getUsername());
+    }
 
     @Test
     void test_addUserExercisesList(){
@@ -60,6 +77,23 @@ class UserServiceTest {
         Map<LocalDate, Double> result = userService.setUserWeightItem(55.5);
 
         assertFalse(result.isEmpty());
+    }
+
+    @Test
+    void test_addNewGymUser(){
+
+        String username = "username";
+        String password = "password";
+        Double userWeight = 96.9;
+        Double bodysize = 176.5;
+        Gender gender = Gender.MALE;
+        String birthday = "1996-12-12";
+
+        when(userRepository.findByUsername("username")).thenReturn(null);
+
+        boolean result = userService.addNewGymUser(username, gender, birthday, userWeight, bodysize, password);
+
+        assertTrue(result);
     }
 
 }

@@ -18,27 +18,38 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/me")
-    public String helloMe(Principal principal){
-        if(principal != null){
+    public String helloMe(Principal principal) {
+        if (principal != null) {
             return principal.getName();
         }
         return "anonymous";
     }
 
     @PostMapping("/login")
-    public String login(){
+    public String login() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     @PostMapping("{username}/exercises/")
-    public Set<Exercise> addUserExercisesList(@PathVariable String username, @RequestBody List<ExerciseDTO> exercisesList){
+    public Set<Exercise> addUserExercisesList(@PathVariable String username, @RequestBody List<ExerciseDTO> exercisesList) {
 
         return userService.addUserExercisesList(username, exercisesList);
+    }
+
+    @PostMapping("/newuser/")
+    public boolean addNewGymUser(@RequestParam(value = "username") String username,
+                                @RequestParam(value = "gender") Gender gender,
+                                @RequestParam(value = "birthday") String birthday,
+                                @RequestParam(value = "userWeight") Double userWeight,
+                                @RequestParam(value = "bodysize") Double bodysize,
+                                @RequestParam(value = "password") String password
+                                ) {
+        return userService.addNewGymUser(username, gender, birthday, userWeight, bodysize, password);
     }
 
     @PutMapping("{username}/personaldata/")
@@ -47,7 +58,7 @@ public class UserController {
                                        @RequestParam(value = "birthday", required = false) String birthday,
                                        @RequestParam(value = "userWeight", required = false) Double userWeight,
                                        @RequestParam(value = "bodysize", required = false) Double bodysize
-                                       ){
+    ) {
         return userService.addPersonalData(username, gender, birthday, userWeight, bodysize);
     }
 
