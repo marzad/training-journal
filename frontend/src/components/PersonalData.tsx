@@ -35,7 +35,7 @@ export default function PersonalData() {
 
     function handlingFormOnChange(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
-        axios.put("api/users/" + userName + "/personaldata/", {params: {formInput}})
+        axios.put("api/users/" + userName +"personaldata/", {params: {formInput}})
             .catch(error => console.error(error))
         navigate("/menu")
     }
@@ -65,7 +65,7 @@ export default function PersonalData() {
             </select><br/>
                 <label>Gewicht</label><input type={"text"} onChange={handlingInputOnChange} name={"userWeight"}/><br/>
                 <label>Größe</label><input type={"text"} onChange={handlingInputOnChange} name={"bodySize"}/><br/>
-                <button>Speichern</button>
+                <button type={"submit"}>Speichern</button>
             </form>
         </section>
     )
