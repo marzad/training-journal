@@ -100,4 +100,22 @@ class UserControllerTest {
                         """));
     }
 
+    @DirtiesContext
+    @Test
+    void test_addNewGymUser() throws Exception {
+
+        LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username","username");
+        params.add("gender", Gender.MALE.toString());
+        params.add("birthday", "1999-12-12");
+        params.add("userWeight", Double.toString(96.7));
+        params.add("bodysize", Double.toString(176.0));
+        params.add("password", "password");
+
+        mockMvc.perform(post("/api/users/newuser")
+                .params(params).with(csrf()))
+                .andExpect(content().string("true"));
+//                .andExpect(status().isOk());
+    }
+
 }
