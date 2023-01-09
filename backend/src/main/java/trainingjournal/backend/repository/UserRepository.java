@@ -10,4 +10,6 @@ import trainingjournal.backend.model.GymUser;
 @Repository
 public interface UserRepository extends MongoRepository<GymUser, String> {
     GymUser findByUsername(String name);
+
+    boolean existsByUsername(String username);
 }
