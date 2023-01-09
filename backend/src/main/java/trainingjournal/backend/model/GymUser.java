@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Set;
 
-@Document("GymUsers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Document("GymUsers")
 public class GymUser {
         @Id
         private String id;
