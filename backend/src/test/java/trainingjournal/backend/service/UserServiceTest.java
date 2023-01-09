@@ -89,11 +89,13 @@ class UserServiceTest {
         Gender gender = Gender.MALE;
         String birthday = "1996-12-12";
 
+        GymUserSignup newUser = new GymUserSignup(username, gender, LocalDate.parse(birthday), userWeight, bodysize, password);
+
         when(userRepository.findByUsername("username")).thenReturn(null);
 
-        boolean result = userService.addNewGymUser(username, gender, birthday, userWeight, bodysize, password);
+        GymUser result = userService.addNewGymUser(newUser);
 
-        assertTrue(result);
+        assertEquals(newUser.username(),result.getUsername());
     }
 
 }

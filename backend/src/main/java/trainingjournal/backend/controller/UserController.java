@@ -2,10 +2,7 @@ package trainingjournal.backend.controller;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import trainingjournal.backend.model.Exercise;
-import trainingjournal.backend.model.ExerciseDTO;
-import trainingjournal.backend.model.Gender;
-import trainingjournal.backend.model.GymUser;
+import trainingjournal.backend.model.*;
 import trainingjournal.backend.service.UserService;
 
 import java.security.Principal;
@@ -42,14 +39,9 @@ public class UserController {
     }
 
     @PostMapping("/newuser/")
-    public boolean addNewGymUser(@RequestParam(value = "username") String username,
-                                @RequestParam(value = "gender") Gender gender,
-                                @RequestParam(value = "birthday") String birthday,
-                                @RequestParam(value = "userWeight") Double userWeight,
-                                @RequestParam(value = "bodysize") Double bodysize,
-                                @RequestParam(value = "password") String password
-                                ) {
-        return userService.addNewGymUser(username, gender, birthday, userWeight, bodysize, password);
+    public GymUser addNewGymUser(@RequestBody GymUserSignup signupData){
+
+        return userService.addNewGymUser(signupData);
     }
 
     @PutMapping("{username}/personaldata/")
