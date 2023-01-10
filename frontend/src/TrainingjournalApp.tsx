@@ -8,6 +8,7 @@ import useExercise from "./hooks/UseExercise";
 import "../src/css/TrainingjournalApp.css"
 import PersonalData from "./components/PersonalData";
 import SignUp from "./components/SignUpPage";
+import Menu from "./pages/Menu";
 
 export default function TrainingjournalApp(){
 
@@ -34,7 +35,7 @@ export default function TrainingjournalApp(){
             </section>
 
             <footer>
-                Menu
+                <Menu/>
             </footer>
         </BrowserRouter>
     )
