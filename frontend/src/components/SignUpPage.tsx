@@ -33,7 +33,23 @@ export default function SignUp() {
             formInput)
             .then(response => response.data)
             .catch(error => console.log(error))
-        navigate("/menu")
+            login(formInput.username, formInput.password)
+    }
+
+    function login(username: string, password: string){
+        return axios.post("/api/users/login",
+            undefined,
+            {
+                auth: {
+                    username,
+                    password
+                }
+            })
+            .then(response => {
+                return response.data
+            })
+            .catch(error => console.error(error))
+            .then(() => navigate("/menu"))
     }
 
     function handlingInputOnChange(event: ChangeEvent<HTMLInputElement>){
