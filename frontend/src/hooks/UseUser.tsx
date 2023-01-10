@@ -35,7 +35,5 @@ export default function useUser(){
             .catch(error => console.error(error))
     }
 
-
-
     return {userName, login, selectedExercisesList: submitSelectedExercisesList}
 }

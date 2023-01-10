@@ -1,43 +1,43 @@
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import {Gender} from "../model/Gender";
+import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-export default function PersonalData() {
+type PersonalDataProps = {
+    username: string | undefined
+}
+
+export default function PersonalData(props: PersonalDataProps) {
 
     type PersonalDataForm = {
-        userName: string,
-        birthday: string,
-        gender: Gender,
-        userWeight: number,
-        bodySize: number
+        newUsername: string,
+        userWeight: number
     }
     const initPersonalData = {
-        userName : "",
-        birthday : "",
-        gender : Gender.MALE,
-        userWeight : 0,
-        bodySize : 0
+        newUsername: "",
+        userWeight : 0.5
      }
 
     const [formInput, setFormInput] = useState<PersonalDataForm>(initPersonalData)
 
-    const [userName, setUserName] = useState()
 
     const navigate = useNavigate()
-
-    useEffect(() => {
-        axios.get("/api/users/me")
-            .then(response => response.data)
-            .then(setUserName)
-    }, [])
 
 
     function handlingFormOnChange(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
-        axios.put("api/users/" + userName +"personaldata/", {params: {formInput}})
-            .catch(error => console.error(error))
-        navigate("/menu")
+
+        if(formInput.userWeight > 0.5){
+            axios.put("/api/users/" + props.username + "/personaldata/updateweight/", formInput.userWeight,
+                {headers:{"Content-type":"text/plain"}})
+                .catch(error => console.error(error))
+                .then(() => navigate("/login"))
+        }else{
+            axios.put("/api/users/" + props.username + "/personaldata/updateusername/", formInput.newUsername,
+                {headers:{"Content-type":"text/plain"}})
+                .catch(error => console.error(error))
+                .then(() => navigate("/login"))
+        }
+
     }
 
     function handlingInputOnChange(event: ChangeEvent<HTMLInputElement>){
@@ -46,25 +46,15 @@ export default function PersonalData() {
         let eventValue = event.target.value
 
         setFormInput(prevState => ({...prevState, [eventName] : eventValue}))
+
     }
-
-    function handlingSelectOnChange(event: ChangeEvent<HTMLSelectElement>){
-
-        setFormInput(prevState => ({...prevState, [event.target.name] : event.target.value}))
-    }
-
 
     return (
         <section>
+            <h2>Hallo {props.username}!</h2>
             <form onSubmit={handlingFormOnChange}>
-                <label>Username</label><input type={"text"} onChange={handlingInputOnChange} name={"username"}/><br/>
-                <label>Geburtsdatum</label><input type={"date"} onChange={handlingInputOnChange} name={"birthday"}/><br/>
-                <label>Geschlecht</label><select onChange={handlingSelectOnChange} name={"gender"} size={1}>
-                <option value={"FEMALE"}>Frau</option>
-                <option value={"MALE"}>Mann</option>
-            </select><br/>
+                <label>Username</label><input type={"text"} onChange={handlingInputOnChange} name={"newUsername"} placeholder={props.username}/><br/>
                 <label>Gewicht</label><input type={"text"} onChange={handlingInputOnChange} name={"userWeight"}/><br/>
-                <label>Größe</label><input type={"text"} onChange={handlingInputOnChange} name={"bodySize"}/><br/>
                 <button type={"submit"}>Speichern</button>
             </form>
         </section>

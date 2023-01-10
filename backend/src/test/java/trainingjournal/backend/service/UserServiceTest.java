@@ -56,28 +56,31 @@ class UserServiceTest {
     }
 
     @Test
-    void test_addPersonalData(){
+    void test_updatePersonalData_whenWeightToUpdate(){
         GymUser user = new GymUser();
         user.setUsername("username");
-        user.setBirthday(LocalDate.parse("1999-12-12"));
-        user.setGender(Gender.MALE);
-        user.setUserWeight(Map.of(LocalDate.now(), 96.7));
-        user.setBodysize(176.0);
+        Map<LocalDate, Double> newUserWeightMap = new HashMap<>();
+        newUserWeightMap.put(LocalDate.parse("2019-12-12"), 96.7);
+        user.setUserWeight(newUserWeightMap);
 
         when(userRepository.findByUsername("username")).thenReturn(user);
 
-        GymUser result = userService.addPersonalData("username", Gender.MALE, "1999-12-12", 96.7, 176.0);
+        Map<LocalDate, Double> result = userService.updateWeight("username", 90.0).getUserWeight();
 
-        assertEquals(user, result);
+        assertNotEquals(1,result.size());
     }
-
     @Test
-    void test_setUserWeightItem(){
+    void test_updatePersonalData_whenUsernameToUpdate(){
+        GymUser user = new GymUser();
+        user.setUsername("username");
 
-        Map<LocalDate, Double> result = userService.setUserWeightItem(55.5);
+        when(userRepository.findByUsername("username")).thenReturn(user);
 
-        assertFalse(result.isEmpty());
+        GymUser result = userService.updateUsername("username", "Username");
+
+        assertNotEquals("username",result.getUsername());
     }
+
 
     @Test
     void test_addNewGymUser(){
