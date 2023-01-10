@@ -14,12 +14,12 @@ export default function SignUp() {
         password: string
     }
     const initSignupData: SignupDataForm = {
-        username : "anton",
-        gender : Gender.MALE,
-        birthday : "1999-12-12",
-        userWeight : 96.5,
-        bodysize : 176,
-        password : "123"
+        username : "",
+        gender : Gender.FEMALE,
+        birthday : "",
+        userWeight : 0.0,
+        bodysize : 0.0,
+        password : ""
     }
 
     const [formInput, setFormInput] = useState<SignupDataForm>(initSignupData)
@@ -28,6 +28,7 @@ export default function SignUp() {
 
     function handlingFormOnChange(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
+
         axios.post("/api/users/newuser/",
             formInput)
             .then(response => response.data)
@@ -46,6 +47,7 @@ export default function SignUp() {
     function handlingSelectOnChange(event: ChangeEvent<HTMLSelectElement>){
 
         setFormInput(prevState => ({...prevState, [event.target.name] : event.target.value}))
+
     }
 
     return (
@@ -53,13 +55,14 @@ export default function SignUp() {
             <form onSubmit={handlingFormOnChange}>
                 <label>Username </label><input type={"text"} name={"username"} onChange={handlingInputOnChange}/><br/>
                 <label>Geschlecht </label><select size={1} name={"gender"} onChange={handlingSelectOnChange}>
+                    <option value={"default"}></option>
                     <option value={"FEMALE"}>Frau</option>
                     <option value={"MALE"}>Mann</option>
                 </select><br/>
                 <label>Geburtsdatum </label><input type={"date"} name={"birthday"} onChange={handlingInputOnChange}/><br/>
                 <label>Gewicht </label><input type={"number"} step={"any"} name={"userWeight"} onChange={handlingInputOnChange}/><br/>
                 <label>Größe </label><input type={"number"} step={"any"} name={"bodysize"} onChange={handlingInputOnChange}/><br/>
-                <label>Password </label><input type={"password"} name={"password"} onChange={handlingInputOnChange}/><br/>
+                <label>Password </label><input type={"password"} name={"password"} onChange={handlingInputOnChange} autoComplete={""}/><br/>
                 <button type={"submit"}>Registrieren </button>
             </form>
         </section>
