@@ -9,6 +9,7 @@ import {ExerciseDTO} from "../model/ExerciseDTO";
 type ExercisePageProps = {
     exercises?: ExerciseDTO[]
     selectedExercisesList: (exercisesList: ExerciseDTO[]) => void
+    username : string | undefined
 }
 
 export default function ExercisePage(props: ExercisePageProps) {
@@ -73,6 +74,7 @@ export default function ExercisePage(props: ExercisePageProps) {
 
     return (
         <section className={"exercisesList"}>
+            <h2>Hallo {props.username}!</h2>
             <form onSubmit={onSubmit}>
                 {exerciseDetailComponents}
                 <br/>

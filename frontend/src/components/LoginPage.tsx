@@ -36,7 +36,7 @@ export default function LoginPage(props: LoginPageProps) {
                        value={password}
                        name={"password"}
                        onChange={handlePasswordOnChange}
-                       autoComplete={"123"}/><br/>
+                       autoComplete={"false"}/><br/>
                 <button type={"submit"}>Login</button>
             </form>
         </>
