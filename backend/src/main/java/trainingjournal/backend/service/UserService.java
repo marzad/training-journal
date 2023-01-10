@@ -45,19 +45,29 @@ public class UserService implements UserDetailsService {
         return newUserExercisesList;
     }
 
-    public GymUser addPersonalData(String username, Gender gender, String birthday, Double userWeight, Double bodysize) {
+    public GymUser updateUsername(String username,String newUsername) {
         GymUser user = userRepository.findByUsername(username);
-        user.setGender(gender);
-        user.setBirthday(LocalDate.parse(birthday));
-        user.setUserWeight(setUserWeightItem(userWeight));
-        user.setBodysize(bodysize);
+
+        if(!username.equals(newUsername) && !newUsername.equals("")){
+            user.setUsername(newUsername);
+        }
+        userRepository.save(user);
+
         return user;
     }
 
-    public Map<LocalDate, Double> setUserWeightItem(Double userWeight) {
-        Map<LocalDate, Double> userWeightItem = new HashMap<>();
-        userWeightItem.put(LocalDate.now(), userWeight);
-        return userWeightItem;
+    public GymUser updateWeight(String username,Double userWeight) {
+        GymUser user = userRepository.findByUsername(username);
+
+        Map<LocalDate, Double> userWeightMap = user.getUserWeight();
+
+        if(userWeight > 0.5){
+            userWeightMap.put(LocalDate.now(), userWeight);
+        }
+
+        userRepository.save(user);
+
+        return user;
     }
 
     public GymUser addNewGymUser(GymUserSignup signupData) {

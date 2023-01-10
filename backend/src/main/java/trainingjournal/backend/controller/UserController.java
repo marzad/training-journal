@@ -44,14 +44,19 @@ public class UserController {
         return userService.addNewGymUser(signupData);
     }
 
-    @PutMapping("{username}/personaldata/")
-    public GymUser addUserPersonalData(@PathVariable String username,
-                                       @RequestParam(value = "gender", required = false) Gender gender,
-                                       @RequestParam(value = "birthday", required = false) String birthday,
-                                       @RequestParam(value = "userWeight", required = false) Double userWeight,
-                                       @RequestParam(value = "bodysize", required = false) Double bodysize
+    @PutMapping("{username}/personaldata/updateusername/")
+    public GymUser updateUsername(@PathVariable String username,
+                                          @RequestBody String newUsername
+
     ) {
-        return userService.addPersonalData(username, gender, birthday, userWeight, bodysize);
+        return userService.updateUsername(username,newUsername);
+    }
+
+    @PutMapping("{username}/personaldata/updateweight/")
+    public GymUser updateWeight(@PathVariable String username,
+                                          @RequestBody String userWeight
+    ) {
+        return userService.updateWeight(username, Double.valueOf(userWeight));
     }
 
 }

@@ -15,10 +15,12 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.springframework.util.LinkedMultiValueMap;
-import trainingjournal.backend.model.Gender;
 import trainingjournal.backend.model.GymUser;
 import trainingjournal.backend.repository.UserRepository;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -74,28 +76,46 @@ class UserControllerTest {
     @DirtiesContext
     @WithMockUser(username = "StandardUser")
     @Test
-    void test_addUserPersonalData() throws Exception {
+    void test_updateUsername() throws Exception {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
+        Map<LocalDate, Double> userWeightMap = new HashMap<>();
+        userWeightMap.put(LocalDate.parse("2021-12-12"), 96.7);
+        user.setUserWeight(userWeightMap);
         userRepository.save(user);
 
-        LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("gender", Gender.MALE.toString());
-        params.add("birthday", "1999-12-12");
-        params.add("userWeight", Double.toString(96.7));
-        params.add("bodysize", Double.toString(176.0));
-
-        mockMvc.perform(put("/api/users/StandardUser/personaldata/")
-                        .params(params)
+        mockMvc.perform(put("/api/users/StandardUser/personaldata/updateusername/")
+                        .content("newUsername")
                         .with(csrf())
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {
-                        "username" : "StandardUser",
-                        "gender" : "MALE",
-                        "birthday" : "1999-12-12",
-                        "bodysize" : 176.0
+                        "username" : "newUsername"
+                        }
+                        """));
+    }
+
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_updateWeight() throws Exception {
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+        Map<LocalDate, Double> userWeightMap = new HashMap<>();
+        userWeightMap.put(LocalDate.parse("2021-12-12"), 96.7);
+        user.setUserWeight(userWeightMap);
+        userRepository.save(user);
+
+
+        mockMvc.perform(put("/api/users/StandardUser/personaldata/updateweight/")
+                        .content("90.0")
+                        .with(csrf())
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "userWeight" : {"2021-12-12" : 96.7, "2023-01-10" : 90.0}
                         }
                         """));
     }
