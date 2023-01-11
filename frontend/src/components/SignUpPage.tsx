@@ -10,7 +10,7 @@ export default function SignUp() {
         gender: Gender,
         birthday: string,
         userWeight: number,
-        bodysize: number,
+        userHight: number,
         password: string
     }
     const initSignupData: SignupDataForm = {
@@ -18,7 +18,7 @@ export default function SignUp() {
         gender : Gender.FEMALE,
         birthday : "",
         userWeight : 0.0,
-        bodysize : 0.0,
+        userHight : 0.0,
         password : ""
     }
 
@@ -29,11 +29,11 @@ export default function SignUp() {
     function handlingFormOnChange(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
 
-        axios.post("/api/users/newuser/",
+        axios.post("/api/users/",
             formInput)
             .then(response => response.data)
             .catch(error => console.log(error))
-            login(formInput.username, formInput.password)
+            .then(() => login(formInput.username, formInput.password))
     }
 
     function login(username: string, password: string){
@@ -52,7 +52,7 @@ export default function SignUp() {
             .then(() => navigate("/menu"))
     }
 
-    function handlingInputOnChange(event: ChangeEvent<HTMLInputElement>){
+    function handleInputOnChange(event: ChangeEvent<HTMLInputElement>){
 
         let eventName = event.target.name
         let eventValue = event.target.value
@@ -60,7 +60,7 @@ export default function SignUp() {
         setFormInput(prevState => ({...prevState, [eventName] : eventValue}))
     }
 
-    function handlingSelectOnChange(event: ChangeEvent<HTMLSelectElement>){
+    function handleSelectOnChange(event: ChangeEvent<HTMLSelectElement>){
 
         setFormInput(prevState => ({...prevState, [event.target.name] : event.target.value}))
 
@@ -69,16 +69,16 @@ export default function SignUp() {
     return (
         <section>
             <form onSubmit={handlingFormOnChange}>
-                <label>Username </label><input type={"text"} name={"username"} onChange={handlingInputOnChange}/><br/>
-                <label>Geschlecht </label><select size={1} name={"gender"} onChange={handlingSelectOnChange}>
+                <label>Username </label><input type={"text"} name={"username"} onChange={handleInputOnChange}/><br/>
+                <label>Geschlecht </label><select size={1} name={"gender"} onChange={handleSelectOnChange}>
                     <option value={"default"}></option>
                     <option value={"FEMALE"}>Frau</option>
                     <option value={"MALE"}>Mann</option>
                 </select><br/>
-                <label>Geburtsdatum </label><input type={"date"} name={"birthday"} onChange={handlingInputOnChange}/><br/>
-                <label>Gewicht </label><input type={"number"} step={"any"} name={"userWeight"} onChange={handlingInputOnChange}/><br/>
-                <label>Größe </label><input type={"number"} step={"any"} name={"bodysize"} onChange={handlingInputOnChange}/><br/>
-                <label>Password </label><input type={"password"} name={"password"} onChange={handlingInputOnChange} autoComplete={""}/><br/>
+                <label>Geburtsdatum </label><input type={"date"} name={"birthday"} onChange={handleInputOnChange}/><br/>
+                <label>Gewicht </label><input type={"number"} step={"any"} name={"userWeight"} onChange={handleInputOnChange}/><br/>
+                <label>Größe </label><input type={"number"} step={"any"} name={"bodysize"} onChange={handleInputOnChange}/><br/>
+                <label>Password </label><input type={"password"} name={"password"} onChange={handleInputOnChange} autoComplete={""}/><br/>
                 <button type={"submit"}>Registrieren </button>
             </form>
         </section>

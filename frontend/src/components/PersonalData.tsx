@@ -27,12 +27,12 @@ export default function PersonalData(props: PersonalDataProps) {
         event.preventDefault()
 
         if(formInput.userWeight > 0.5){
-            axios.put("/api/users/" + props.username + "/personaldata/updateweight/", formInput.userWeight,
+            axios.put("/api/users/" + props.username + "/updateweight/", formInput.userWeight,
                 {headers:{"Content-type":"text/plain"}})
                 .catch(error => console.error(error))
                 .then(() => navigate("/login"))
         }else{
-            axios.put("/api/users/" + props.username + "/personaldata/updateusername/", formInput.newUsername,
+            axios.put("/api/users/" + props.username + "/updateusername/", formInput.newUsername,
                 {headers:{"Content-type":"text/plain"}})
                 .catch(error => console.error(error))
                 .then(() => navigate("/login"))
