@@ -1,10 +1,9 @@
 package trainingjournal.backend.model;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 public record Day(
-        LocalDate data,
+        Weekday weekday,
         Set<Exercise> exerciseSet,
         String notes
 ) {

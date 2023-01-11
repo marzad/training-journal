@@ -45,14 +45,14 @@ public class UserService implements UserDetailsService {
         return newUserExercisesList;
     }
 
-    public GymUser updateUsername(String username,String newUsername) {
+    public GymUser updateUsername(String username, String newUsername) {
         GymUser user = userRepository.findByUsername(username);
 
         if (userRepository.existsByUsername(newUsername)) {
             throw new UsernameAlreadyExistException();
         }
 
-        if(!username.equals(newUsername) && !newUsername.equals("")){
+        if (!username.equals(newUsername) && !newUsername.equals("")) {
             user.setUsername(newUsername);
         }
         userRepository.save(user);
@@ -60,12 +60,12 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public GymUser updateWeight(String username,Double userWeight) {
+    public GymUser updateWeight(String username, Double userWeight) {
         GymUser user = userRepository.findByUsername(username);
 
         Map<LocalDate, Double> userWeightMap = user.getUserWeight();
 
-        if(userWeight > 0.5){
+        if (userWeight > 0.5) {
             userWeightMap.put(LocalDate.now(), userWeight);
         }
 
@@ -89,8 +89,8 @@ public class UserService implements UserDetailsService {
         newGymUser.setPassword(signupData.password());
         Map<LocalDate, Double> userWeightMap = new HashMap<>(Map.of(LocalDate.now(), signupData.userWeight()));
         newGymUser.setUserWeight(userWeightMap);
-        newGymUser.setBodysize(signupData.bodysize());
-        newGymUser.setCalendar(new HashSet<>());
+        newGymUser.setUserHight(signupData.userHight());
+        newGymUser.setWeekList(new ArrayList<>());
         newGymUser.setExercises(new HashSet<>());
         newGymUser.setRegisterData(LocalDate.now());
 
@@ -101,4 +101,43 @@ public class UserService implements UserDetailsService {
 
         return newGymUser;
     }
+
+    public Week setDailyPlan(String username, Day dailyPlan) {
+        Calendar newCalendar = new GregorianCalendar();
+        newCalendar.setTime(new Date());
+        int weekNumber = newCalendar.get(Calendar.WEEK_OF_YEAR);
+
+        String weekID = LocalDate.now().getYear() + "_" + weekNumber;
+        Set<Day> newDailyPlanSet = new HashSet<>();
+        newDailyPlanSet.add(dailyPlan);
+
+        Week newWeekplan;
+        List<Week> newWeekplanList;
+
+        newWeekplanList = userRepository.findByUsername(username).getWeekList();
+        int indexOfWeek = -1;
+
+        if(!newWeekplanList.isEmpty()){
+            int i = 0;
+            for(Week week: newWeekplanList){
+                if(week.weekId().equals(weekID)){
+                    indexOfWeek = i;
+                }
+                i++;
+            }
+        }
+
+        if(indexOfWeek == -1){
+            newWeekplan = new Week(weekID,newDailyPlanSet);
+            newWeekplanList.add(newWeekplan);
+        }
+        else{
+            newWeekplan = newWeekplanList.get(indexOfWeek);
+          newWeekplan.dailyPlans().add(dailyPlan);
+            newWeekplanList.set(indexOfWeek, newWeekplan);
+        }
+
+        return newWeekplan;
+    }
+
 }

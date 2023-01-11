@@ -59,4 +59,9 @@ public class UserController {
         return userService.updateWeight(username, Double.valueOf(userWeight));
     }
 
+    @PostMapping("{username}/plans")
+    public Week setDailyPlan(@PathVariable String username, @RequestBody Day dailyPlan){
+        return userService.setDailyPlan(username, dailyPlan);
+    }
+
 }

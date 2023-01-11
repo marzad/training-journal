@@ -102,24 +102,75 @@ class UserServiceTest {
     }
 
     @Test
-    void test_setWeekplan(){
+    void test_setWeekplan_whenWeekplanListEmpty(){
 
         String username = "username";
-        String password = "password";
-        Double userWeight = 96.9;
-        Double bodysize = 176.5;
-        Gender gender = Gender.MALE;
-        String birthday = "1996-12-12";
 
-        GymUserSignup newUser = new GymUserSignup(username, gender, LocalDate.parse(birthday), userWeight, bodysize, password);
+        Day dailyPlan = new Day(Weekday.MONDAY, new HashSet<>(), "");
+        List<Week> newWeekList = new ArrayList<>();
+        newWeekList.add(new Week());
 
-        when(userRepository.findByUsername("username")).thenReturn(null);
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        newGymUser.setWeekList(newWeekList);
 
-        GymUser result = userService.addNewGymUser(newUser);
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
 
-        assertEquals(newUser.username(),result.getUsername());
+        Week result = userService.setDailyPlan(username, dailyPlan);
+
+        assertEquals(1, result.dailyPlans().size());
     }
 
+    @Test
+    void test_setWeekplan_whenWeekplanListNotEmpty_addSameDailyPlan(){
 
+        String username = "username";
+
+        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "");
+        Day dailyPlan_2 = new Day(Weekday.MONDAY, new HashSet<>(), "abc");
+
+        Week newWeek = new Week();
+        newWeek.dailyPlans().add(dailyPlan_1);
+
+        List<Week> newWeekList = new ArrayList<>();
+        newWeekList.add(newWeek);
+
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        newGymUser.setWeekList(newWeekList);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+
+        Week result = userService.setDailyPlan(username, dailyPlan_2);
+
+        assertNotEquals(newWeek,result);
+
+    }
+
+    @Test
+    void test_setWeekplan_whenWeekplanListNotEmpty_addAnotherDailyPlan(){
+
+        String username = "username";
+
+        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "");
+        Day dailyPlan_2 = new Day(Weekday.SATURDAY, new HashSet<>(), "");
+
+        Week newWeek = new Week("2026",new HashSet<>());
+        newWeek.dailyPlans().add(dailyPlan_1);
+
+        List<Week> newWeekList = new ArrayList<>();
+        newWeekList.add(newWeek);
+
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        newGymUser.setWeekList(newWeekList);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        Week result = userService.setDailyPlan(username, dailyPlan_2);
+
+        assertTrue(result.dailyPlans().size() >1);
+    }
 
 }
