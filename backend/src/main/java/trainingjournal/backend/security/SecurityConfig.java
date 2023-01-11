@@ -27,7 +27,7 @@ public class SecurityConfig {
                                 HttpStatus.UNAUTHORIZED.value(),
                                 HttpStatus.UNAUTHORIZED.getReasonPhrase())).and()
                 .authorizeRequests()
-                .antMatchers("/api/users/newuser/").permitAll()
+                .antMatchers("/api/users/").permitAll()
                 .antMatchers("/api/users/login").permitAll()
                 .antMatchers("/api/users/me").permitAll()
                 .antMatchers("/api/exercises").permitAll()
