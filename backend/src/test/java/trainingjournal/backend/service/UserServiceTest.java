@@ -156,7 +156,7 @@ class UserServiceTest {
         Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "");
         Day dailyPlan_2 = new Day(Weekday.SATURDAY, new HashSet<>(), "");
 
-        Week newWeek = new Week("2026",new HashSet<>());
+        Week newWeek = new Week("2023_2",new HashSet<>());
         newWeek.dailyPlans().add(dailyPlan_1);
 
         List<Week> newWeekList = new ArrayList<>();
