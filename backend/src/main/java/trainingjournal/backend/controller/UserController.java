@@ -38,13 +38,13 @@ public class UserController {
         return userService.addUserExercisesList(username, exercisesList);
     }
 
-    @PostMapping("/newuser/")
+    @PostMapping("/")
     public GymUser addNewGymUser(@RequestBody GymUserSignup signupData){
 
         return userService.addNewGymUser(signupData);
     }
 
-    @PutMapping("{username}/personaldata/updateusername/")
+    @PutMapping("{username}/updateusername/")
     public GymUser updateUsername(@PathVariable String username,
                                           @RequestBody String newUsername
 
@@ -52,7 +52,7 @@ public class UserController {
         return userService.updateUsername(username,newUsername);
     }
 
-    @PutMapping("{username}/personaldata/updateweight/")
+    @PutMapping("{username}/updateweight/")
     public GymUser updateWeight(@PathVariable String username,
                                           @RequestBody String userWeight
     ) {

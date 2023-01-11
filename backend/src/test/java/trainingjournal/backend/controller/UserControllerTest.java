@@ -84,7 +84,7 @@ class UserControllerTest {
         user.setUserWeight(userWeightMap);
         userRepository.save(user);
 
-        mockMvc.perform(put("/api/users/StandardUser/personaldata/updateusername/")
+        mockMvc.perform(put("/api/users/StandardUser/updateusername/")
                         .content("newUsername")
                         .with(csrf())
                 )
@@ -108,7 +108,7 @@ class UserControllerTest {
         userRepository.save(user);
 
 
-        mockMvc.perform(put("/api/users/StandardUser/personaldata/updateweight/")
+        mockMvc.perform(put("/api/users/StandardUser/updateweight/")
                         .content("90.0")
                         .with(csrf())
                 )
@@ -119,7 +119,7 @@ class UserControllerTest {
     @Test
     void test_addNewGymUser() throws Exception {
 
-        mockMvc.perform(post("/api/users/newuser/")
+        mockMvc.perform(post("/api/users/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
