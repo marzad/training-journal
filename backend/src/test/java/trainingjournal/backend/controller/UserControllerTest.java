@@ -115,7 +115,7 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {
-                        "userWeight" : {"2021-12-12" : 96.7, "2023-01-10" : 90.0}
+                        "userWeight" : {"2021-12-12" : 96.7, "2023-01-11" : 90.0}
                         }
                         """));
     }
