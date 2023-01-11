@@ -30,12 +30,12 @@ export default function PersonalData(props: PersonalDataProps) {
             axios.put("/api/users/" + props.username + "/updateweight/", formInput.userWeight,
                 {headers:{"Content-type":"text/plain"}})
                 .catch(error => console.error(error))
-                .then(() => navigate("/login"))
+                .then(() => navigate("/menu"))
         }else{
             axios.put("/api/users/" + props.username + "/updateusername/", formInput.newUsername,
                 {headers:{"Content-type":"text/plain"}})
                 .catch(error => console.error(error))
-                .then(() => navigate("/login"))
+                .then(() => navigate("/menu"))
         }
 
     }
