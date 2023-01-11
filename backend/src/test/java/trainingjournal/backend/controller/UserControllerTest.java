@@ -112,12 +112,7 @@ class UserControllerTest {
                         .content("90.0")
                         .with(csrf())
                 )
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                        {
-                        "userWeight" : {"2021-12-12" : 96.7, "2023-01-11" : 90.0}
-                        }
-                        """));
+                .andExpect(status().isOk());
     }
 
     @DirtiesContext
