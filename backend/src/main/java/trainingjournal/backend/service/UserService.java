@@ -48,6 +48,10 @@ public class UserService implements UserDetailsService {
     public GymUser updateUsername(String username,String newUsername) {
         GymUser user = userRepository.findByUsername(username);
 
+        if (userRepository.existsByUsername(newUsername)) {
+            throw new UsernameAlreadyExistException();
+        }
+
         if(!username.equals(newUsername) && !newUsername.equals("")){
             user.setUsername(newUsername);
         }
