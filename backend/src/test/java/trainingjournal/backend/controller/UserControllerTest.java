@@ -16,11 +16,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import trainingjournal.backend.model.GymUser;
+import trainingjournal.backend.model.Week;
 import trainingjournal.backend.repository.UserRepository;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -127,11 +127,12 @@ class UserControllerTest {
                                 "gender" : "MALE",
                                 "birthday" : "1996-12-12",
                                 "userWeight" : "96.0",
-                                "bodysize" : "176.0",
+                                "userHight" : "176.0",
                                 "password" : "password"
                                 }
                                 """)
-                        .with(csrf()))
+                        .with(csrf())
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {
@@ -141,4 +142,32 @@ class UserControllerTest {
                         """));
     }
 
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_setDailyPlan() throws Exception {
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+
+        List<Week> newWeekPlansList = new ArrayList<>();
+
+        user.setWeekList(newWeekPlansList);
+        userRepository.save(user);
+
+        mockMvc.perform(post("/api/users/StandardUser/plans")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "weekday" : "MONDAY",
+                                "exerciseSet" : null,
+                                "notes" :  ""}
+                                """)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "dailyPlans" : [{"weekday" : "MONDAY", "exerciseSet" : null, "notes" : ""}]
+                        }
+                        """));
+    }
 }
