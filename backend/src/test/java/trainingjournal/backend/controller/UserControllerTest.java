@@ -15,6 +15,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import trainingjournal.backend.model.Exercise;
 import trainingjournal.backend.model.GymUser;
 import trainingjournal.backend.model.Week;
 import trainingjournal.backend.repository.UserRepository;
@@ -168,6 +169,31 @@ class UserControllerTest {
                         {
                         "dailyPlans" : [{"weekday" : "MONDAY", "exerciseSet" : null, "notes" : ""}]
                         }
+                        """));
+    }
+
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_getUserExercisesList() throws Exception {
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+        Set<Exercise> newUserExercisesSet = new HashSet<>();
+        Exercise newExercise = new Exercise("1","description", 0,0,15.0);
+        newUserExercisesSet.add(newExercise);
+
+        user.setExercises(newUserExercisesSet);
+        userRepository.save(user);
+
+        mockMvc.perform(get("/api/users/StandardUser/exercises").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        [{
+                        "description" : "description",
+                        "repeats" : 0,
+                        "sets" : 0,
+                        "weight" : 15.0
+                        }]
                         """));
     }
 }
