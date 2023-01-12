@@ -26,6 +26,10 @@ public class UserController {
         }
         return "anonymous";
     }
+    @GetMapping("/{username}/exercises")
+    public Set<Exercise> getUserExerciseList(@PathVariable String username){
+        return userService.getUserExercises(username);
+    }
 
     @PostMapping("/login")
     public String login() {

@@ -156,7 +156,9 @@ class UserServiceTest {
         Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "");
         Day dailyPlan_2 = new Day(Weekday.SATURDAY, new HashSet<>(), "");
 
-        Week newWeek = new Week("2023_2",new HashSet<>());
+        String weekID = (new IDGenerator()).getWeekID();
+
+        Week newWeek = new Week(weekID,new HashSet<>());
         newWeek.dailyPlans().add(dailyPlan_1);
 
         List<Week> newWeekList = new ArrayList<>();
@@ -171,6 +173,40 @@ class UserServiceTest {
         Week result = userService.setDailyPlan(username, dailyPlan_2);
 
         assertTrue(result.dailyPlans().size() >1);
+    }
+
+    @Test
+    void test_getUserExercises_whenSetEmpty(){
+        String username = "username";
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        Set<Exercise> newUserExercisesSet = new HashSet<>();
+
+        newGymUser.setExercises(newUserExercisesSet);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        Set<Exercise> result = userService.getUserExercises(username);
+
+        assertEquals(newUserExercisesSet, result);
+    }
+
+    @Test
+    void test_getUserExercises_whenSetNotEmpty(){
+        String username = "username";
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        Set<Exercise> newUserExercisesSet = new HashSet<>();
+        Exercise newExercise = new Exercise("1","description", 0,0,15.0);
+        newUserExercisesSet.add(newExercise);
+
+        newGymUser.setExercises(newUserExercisesSet);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        Set<Exercise> result = userService.getUserExercises(username);
+
+        assertEquals(newUserExercisesSet, result);
     }
 
 }

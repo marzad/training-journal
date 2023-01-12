@@ -103,11 +103,8 @@ public class UserService implements UserDetailsService {
     }
 
     public Week setDailyPlan(String username, Day dailyPlan) {
-        Calendar newCalendar = new GregorianCalendar();
-        newCalendar.setTime(new Date());
-        int weekNumber = newCalendar.get(Calendar.WEEK_OF_YEAR);
 
-        String weekID = LocalDate.now().getYear() + "_" + weekNumber;
+        String weekID = (new IDGenerator()).getWeekID();
         Set<Day> newDailyPlanSet = new HashSet<>();
         newDailyPlanSet.add(dailyPlan);
 
@@ -136,8 +133,11 @@ public class UserService implements UserDetailsService {
           newWeekplan.dailyPlans().add(dailyPlan);
             newWeekplanList.set(indexOfWeek, newWeekplan);
         }
-
         return newWeekplan;
+    }
+
+    public Set<Exercise> getUserExercises(String username){
+        return userRepository.findByUsername(username).getExercises();
     }
 
 }
