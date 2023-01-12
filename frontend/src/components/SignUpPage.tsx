@@ -26,7 +26,7 @@ export default function SignUp() {
 
     const navigate = useNavigate()
 
-    function handlingFormOnChange(event: FormEvent<HTMLFormElement>){
+    function handleFormOnChange(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
 
         axios.post("/api/users/",
@@ -68,7 +68,7 @@ export default function SignUp() {
 
     return (
         <section>
-            <form onSubmit={handlingFormOnChange}>
+            <form onSubmit={handleFormOnChange}>
                 <label>Username </label><input type={"text"} name={"username"} onChange={handleInputOnChange}/><br/>
                 <label>Geschlecht </label><select size={1} name={"gender"} onChange={handleSelectOnChange}>
                     <option value={"default"}></option>
