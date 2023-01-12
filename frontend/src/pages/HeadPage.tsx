@@ -20,7 +20,7 @@ export default function HeadPage(props: HeadPageProps){
     }
 
     function handleWeekPlanNavigation(){
-        navigate("/weekplan")
+        navigate("/weekdays")
     }
 
     function handleCalendarNavigation(){

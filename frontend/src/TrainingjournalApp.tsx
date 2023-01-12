@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import useUser from "./hooks/UseUser";
@@ -9,10 +9,16 @@ import "../src/css/TrainingjournalApp.css"
 import PersonalData from "./components/PersonalData";
 import SignUp from "./components/SignUpPage";
 import Menu from "./pages/Menu";
+import WeekDaysSelect from "./pages/WeekdaysSelect";
+import {Weekdays} from "./model/Weekdays";
+import SelectDailyExercises from "./components/SelectDailyExercises";
 
 export default function TrainingjournalApp(){
 
     const {userName, login, selectedExercisesList} = useUser()
+
+    const [day, setDay] = useState<Weekdays>()
+
     const {exercises} = useExercise()
 
     return(
@@ -31,6 +37,8 @@ export default function TrainingjournalApp(){
                                selectedExercisesList={selectedExercisesList}
                                username={userName}/>}/>
                     <Route path={"/menu"} element={<HeadPage username={userName}/>}/>
+                    <Route path={"/weekdays"} element={<WeekDaysSelect selectedDay={setDay}/>}/>
+                    <Route path={"/selectexercises"} element={<SelectDailyExercises day={day}/>}/>
                 </Routes>
             </section>
 
