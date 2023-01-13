@@ -21,10 +21,17 @@ public class ExercisesService {
     }
 
     public ExerciseDTO addNewExercise(String exerciseName) {
-        String id =  (new IDGenerator()).getID();
-        ExerciseDTO newExercise = new ExerciseDTO(id, exerciseName);
-        exerciseRepository.save(newExercise);
-        return newExercise;
+        ExerciseDTO exercise;
+        try{
+            exercise = exerciseRepository.findByDescription(exerciseName).orElseThrow();
+        }catch (Exception exception){
+            String id =  (new IDGenerator()).getID();
+            ExerciseDTO newExercise = new ExerciseDTO(id, exerciseName);
+
+            exerciseRepository.save(newExercise);
+            return newExercise;
+        }
+        return exercise;
     }
 
     private void addPauseStratchingWarmupToRepo(){
