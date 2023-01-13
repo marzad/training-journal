@@ -9,5 +9,4 @@ public record ExerciseDTO(
         String id,
         String description
 ) {
-
 }
