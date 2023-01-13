@@ -29,7 +29,9 @@ class ExercisesControllerTest {
     void test_getAllExercises_whenDBEmpty() throws Exception {
         mockMvc.perform(get("/api/exercises"))
                 .andExpect(content().json("""
-                        []
+                        [{"description":"pause"},
+                        {"description":"warmup"},
+                        {"description":"stratching"}]
                         """));
     }
 
@@ -44,12 +46,13 @@ class ExercisesControllerTest {
 
         mockMvc.perform(get("/api/exercises"))
                 .andExpect(content().json("""
-                        [{
-                        "description" : "exercise1"
-                        },
-                        {
-                        "description" : "exercise2"
-                        }]
+                        [
+                        {"description":"pause"},
+                        {"description":"warmup"},
+                        {"description":"stratching"},
+                        {"description" : "exercise1"},
+                        {"description" : "exercise2"}
+                        ]
                         """));
     }
 

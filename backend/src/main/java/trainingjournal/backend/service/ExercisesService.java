@@ -13,6 +13,7 @@ public class ExercisesService {
 
     public ExercisesService(ExerciseRepository exerciseRepo){
         this.exerciseRepository = exerciseRepo;
+        addPauseStratchingWarmupToRepo();
     }
 
     public List<ExerciseDTO> getAllExercises(){
@@ -24,6 +25,12 @@ public class ExercisesService {
         ExerciseDTO newExercise = new ExerciseDTO(id, exerciseName);
         exerciseRepository.save(newExercise);
         return newExercise;
+    }
+
+    private void addPauseStratchingWarmupToRepo(){
+        this.addNewExercise("pause");
+        this.addNewExercise("warmup");
+        this.addNewExercise("stratching");
     }
 
 
