@@ -63,16 +63,18 @@ public class UserService implements UserDetailsService {
     public GymUser updateWeight(String username, Double userWeight) {
         GymUser user = userRepository.findByUsername(username);
 
-        Set<UserWeight> userWeightMap = user.getUserWeight();
+        Set<UserWeight> userWeightSet = user.getUserWeight();
 
         if (userWeight > 0.5) {
-            userWeightMap.add(new UserWeight(LocalDate.now(), userWeight));
+            userWeightSet.removeIf(userWeightNext -> userWeightNext.date().equals(LocalDate.now()));
+            userWeightSet.add(new UserWeight(LocalDate.now(), userWeight));
         }
 
         userRepository.save(user);
 
         return user;
     }
+
 
     public GymUser addNewGymUser(GymUserSignup signupData) {
 
