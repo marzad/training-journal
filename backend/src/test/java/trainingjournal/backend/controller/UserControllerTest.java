@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import trainingjournal.backend.model.Exercise;
 import trainingjournal.backend.model.GymUser;
+import trainingjournal.backend.model.UserWeight;
 import trainingjournal.backend.model.Week;
 import trainingjournal.backend.repository.UserRepository;
 
@@ -80,9 +81,9 @@ class UserControllerTest {
     void test_updateUsername() throws Exception {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
-        Map<LocalDate, Double> userWeightMap = new HashMap<>();
-        userWeightMap.put(LocalDate.parse("2021-12-12"), 96.7);
-        user.setUserWeight(userWeightMap);
+        Set<UserWeight> userWeightSet = new HashSet<>();
+        userWeightSet.add(new UserWeight(LocalDate.parse("2021-12-12"), 96.7));
+        user.setUserWeight(userWeightSet);
         userRepository.save(user);
 
         mockMvc.perform(put("/api/users/StandardUser/updateusername/")
@@ -103,9 +104,9 @@ class UserControllerTest {
     void test_updateWeight() throws Exception {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
-        Map<LocalDate, Double> userWeightMap = new HashMap<>();
-        userWeightMap.put(LocalDate.parse("2021-12-12"), 96.7);
-        user.setUserWeight(userWeightMap);
+       Set<UserWeight> userWeightSet = new HashSet<>();
+        userWeightSet.add(new UserWeight(LocalDate.parse("2021-12-12"), 96.7));
+        user.setUserWeight(userWeightSet);
         userRepository.save(user);
 
 
@@ -179,7 +180,7 @@ class UserControllerTest {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
         Set<Exercise> newUserExercisesSet = new HashSet<>();
-        Exercise newExercise = new Exercise("1","description", 0,0,15.0);
+        Exercise newExercise = new Exercise("1", "description", 0, 0, 15.0);
         newUserExercisesSet.add(newExercise);
 
         user.setExercises(newUserExercisesSet);
@@ -196,4 +197,44 @@ class UserControllerTest {
                         }]
                         """));
     }
+
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_getUserWeightMap_whenMapEmpty() throws Exception {
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+        Set<UserWeight> userWeightSet = new HashSet<>();
+        user.setUserWeight(userWeightSet);
+
+        userRepository.save(user);
+
+        mockMvc.perform(get("/api/users/StandardUser/weight").with(csrf()))
+                .andExpect(content().json("""
+                        []
+                        """));
+    }
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_getUserWeightMap_whenMapNotEmpty() throws Exception {
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+        Set<UserWeight> userWeightSet = new HashSet<>();
+        userWeightSet.add(new UserWeight(LocalDate.parse("2023-01-12"), 56.0));
+        user.setUserWeight(userWeightSet);
+
+        userRepository.save(user);
+
+        mockMvc.perform(get("/api/users/StandardUser/weight").with(csrf()))
+                .andExpect(content().json("""
+                        [{
+                        "date":"2023-01-12",
+                        "weight":56.0
+                        }
+                        ]
+                        """));
+    }
+
+
 }

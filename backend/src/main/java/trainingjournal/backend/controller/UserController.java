@@ -31,6 +31,11 @@ public class UserController {
         return userService.getUserExercises(username);
     }
 
+    @GetMapping("{username}/weight")
+    public Set<UserWeight> getUserWeightMap(@PathVariable String username){
+        return userService.getUserWeight(username);
+    }
+
     @PostMapping("/login")
     public String login() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
@@ -67,5 +72,7 @@ public class UserController {
     public Week setDailyPlan(@PathVariable String username, @RequestBody Day dailyPlan){
         return userService.setDailyPlan(username, dailyPlan);
     }
+
+
 
 }

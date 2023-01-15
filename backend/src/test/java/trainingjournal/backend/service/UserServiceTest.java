@@ -59,13 +59,13 @@ class UserServiceTest {
     void test_updatePersonalData_whenWeightToUpdate(){
         GymUser user = new GymUser();
         user.setUsername("username");
-        Map<LocalDate, Double> newUserWeightMap = new HashMap<>();
-        newUserWeightMap.put(LocalDate.parse("2019-12-12"), 96.7);
-        user.setUserWeight(newUserWeightMap);
+        Set<UserWeight> userWeightSet = new HashSet<>();
+        userWeightSet.add((new UserWeight(LocalDate.parse("2019-12-12"), 96.7)));
+        user.setUserWeight(userWeightSet);
 
         when(userRepository.findByUsername("username")).thenReturn(user);
 
-        Map<LocalDate, Double> result = userService.updateWeight("username", 90.0).getUserWeight();
+        Set<UserWeight> result = userService.updateWeight("username", 90.0).getUserWeight();
 
         assertNotEquals(1,result.size());
     }
@@ -208,5 +208,41 @@ class UserServiceTest {
 
         assertEquals(newUserExercisesSet, result);
     }
+
+/*    @Test
+    void test_getUserWeightList(){
+        String username = "username";
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        Map<LocalDate, Double> newWeightMap = new HashMap<>();
+        newGymUser.setUserWeight(newWeightMap);
+        userRepository.save(newGymUser);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        Map<LocalDate, Double> result = userService.getUserWeight(username);
+
+        assertEquals(newWeightMap, result);
+    }
+    */
+    @Test
+    void test_getUserWeightList(){
+        String username = "username";
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        Set<UserWeight> newWeightMap = new HashSet<>();
+        newGymUser.setUserWeight(newWeightMap);
+        userRepository.save(newGymUser);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        Set<UserWeight> newList = new HashSet<>();
+
+      Set<UserWeight> result = userService.getUserWeight(username);
+
+        assertEquals(newList, result);
+    }
+
+
 
 }
