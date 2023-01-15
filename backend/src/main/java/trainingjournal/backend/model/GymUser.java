@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -21,8 +20,8 @@ public class GymUser {
         private String username;
         private Gender gender;
         private LocalDate birthday;
-        private Map<LocalDate,Double> userWeight;
-        private Double userHight;
+        private Set<UserWeight> userWeight;
+        private Double userHeight;
         private List<Week> weekList;
         private Set<Exercise> exercises;
         private LocalDate registerData;
