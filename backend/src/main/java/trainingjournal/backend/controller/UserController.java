@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @PutMapping("{username}/updateweight/")
-    public GymUser updateWeight(@PathVariable String username,
+    public Set<UserWeight> updateWeight(@PathVariable String username,
                                           @RequestBody String userWeight
     ) {
         return userService.updateWeight(username, Double.valueOf(userWeight));

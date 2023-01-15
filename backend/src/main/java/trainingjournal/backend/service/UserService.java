@@ -60,7 +60,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public GymUser updateWeight(String username, Double userWeight) {
+    public Set<UserWeight> updateWeight(String username, Double userWeight) {
         GymUser user = userRepository.findByUsername(username);
 
         Set<UserWeight> userWeightSet = user.getUserWeight();
@@ -72,7 +72,7 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(user);
 
-        return user;
+        return userWeightSet;
     }
 
 
