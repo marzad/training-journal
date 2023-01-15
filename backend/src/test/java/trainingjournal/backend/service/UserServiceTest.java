@@ -62,13 +62,31 @@ class UserServiceTest {
         Set<UserWeight> userWeightSet = new HashSet<>();
         userWeightSet.add((new UserWeight(LocalDate.parse("2019-12-12"), 96.7)));
         user.setUserWeight(userWeightSet);
+        userRepository.save(user);
 
         when(userRepository.findByUsername("username")).thenReturn(user);
 
         Set<UserWeight> result = userService.updateWeight("username", 90.0).getUserWeight();
 
-        assertNotEquals(1,result.size());
+        assertEquals(2,result.size());
     }
+    @Test
+    void test_updatePersonalData_whenWeightToUpdate_whenDateExist(){
+        GymUser user = new GymUser();
+        user.setUsername("username");
+        Set<UserWeight> userWeightSet = new HashSet<>();
+        userWeightSet.add((new UserWeight(LocalDate.now(), 96.7)));
+        user.setUserWeight(userWeightSet);
+        userRepository.save(user);
+
+        when(userRepository.findByUsername("username")).thenReturn(user);
+
+        Set<UserWeight> result = userService.updateWeight("username", 90.0).getUserWeight();
+
+        assertEquals(1, result.size());
+    }
+
+
     @Test
     void test_updatePersonalData_whenUsernameToUpdate(){
         GymUser user = new GymUser();

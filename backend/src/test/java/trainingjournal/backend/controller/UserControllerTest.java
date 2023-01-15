@@ -118,6 +118,25 @@ class UserControllerTest {
     }
 
     @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_updateWeight_whenItemExist() throws Exception {
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+       Set<UserWeight> userWeightSet = new HashSet<>();
+        userWeightSet.add(new UserWeight(LocalDate.now(), 96.7));
+        user.setUserWeight(userWeightSet);
+        userRepository.save(user);
+
+
+        mockMvc.perform(put("/api/users/StandardUser/updateweight/")
+                        .content("90.0")
+                        .with(csrf())
+                )
+                .andExpect(status().isOk());
+    }
+
+    @DirtiesContext
     @Test
     void test_addNewGymUser() throws Exception {
 
