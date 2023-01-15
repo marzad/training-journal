@@ -66,7 +66,7 @@ class UserServiceTest {
 
         when(userRepository.findByUsername("username")).thenReturn(user);
 
-        Set<UserWeight> result = userService.updateWeight("username", 90.0).getUserWeight();
+        Set<UserWeight> result = userService.updateWeight("username", 90.0);
 
         assertEquals(2,result.size());
     }
@@ -81,7 +81,7 @@ class UserServiceTest {
 
         when(userRepository.findByUsername("username")).thenReturn(user);
 
-        Set<UserWeight> result = userService.updateWeight("username", 90.0).getUserWeight();
+        Set<UserWeight> result = userService.updateWeight("username", 90.0);
 
         assertEquals(1, result.size());
     }

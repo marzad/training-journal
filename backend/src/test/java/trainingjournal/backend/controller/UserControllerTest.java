@@ -101,7 +101,7 @@ class UserControllerTest {
     @DirtiesContext
     @WithMockUser(username = "StandardUser")
     @Test
-    void test_updateWeight() throws Exception {
+    void test_updateWeight_whenNoItemExist() throws Exception {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
        Set<UserWeight> userWeightSet = new HashSet<>();
