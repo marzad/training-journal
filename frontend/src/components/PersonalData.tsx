@@ -1,7 +1,6 @@
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import UserWeightDetails from "./UserWeightDetails";
+import PersonalDataApiCalls from "../hooks/PersonalDataApiCalls";
 
 
 type PersonalDataProps = {
@@ -9,6 +8,8 @@ type PersonalDataProps = {
 }
 
 export default function PersonalData(props: PersonalDataProps) {
+
+    const {userWeightList, submitUserWeightData, getUserWeightData} = PersonalDataApiCalls()
 
     type PersonalDataForm = {
         newUsername: string,
@@ -21,35 +22,11 @@ export default function PersonalData(props: PersonalDataProps) {
 
     const [formInput, setFormInput] = useState<PersonalDataForm>(initPersonalData)
 
-    const [userWeightList, setUserWeightList] = useState<{date: Date, weight: number}[]>([])
-
-
-    const navigate = useNavigate()
-
     useEffect(() => {
-        getUserWeightData()
+        getUserWeightData(props.username!)
+            .catch(error => console.error(error))
+        //eslint-disable-next-line
     }, [])
-
-
-    function handlingFormOnChange(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-
-        if (formInput.userWeight > 0.5) {
-            axios.put("/api/users/" + props.username + "/updateweight/", formInput.userWeight,
-                {headers: {"Content-type": "text/plain"}})
-                .then(response => response.data)
-                .then(data => {
-                    setUserWeightList(data)
-                })
-                .catch(error => console.error(error))
-        } else {
-            axios.put("/api/users/" + props.username + "/updateusername/", formInput.newUsername,
-                {headers: {"Content-type": "text/plain"}})
-                .catch(error => console.error(error))
-                .then(() => navigate("/menu"))
-        }
-
-    }
 
     function handlingInputOnChange(event: ChangeEvent<HTMLInputElement>) {
 
@@ -58,18 +35,14 @@ export default function PersonalData(props: PersonalDataProps) {
         setFormInput(prevState => ({...prevState, [eventName]: eventValue}))
     }
 
-    function getUserWeightData() {
-        return axios.get("api/users/" + props.username + "/weight")
-            .then(response => response.data)
-            .then(data => {
-                setUserWeightList(data)
-            })
-            .catch(error => console.error(error))
+    function handlingFormOnChange(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+
+        submitUserWeightData(props.username!, formInput.userWeight, formInput.newUsername)
     }
 
     const getUserWeightDetails = userWeightList.map(weightItems => {
-        return <UserWeightDetails userWeight={weightItems}/>
-
+        return <UserWeightDetails userWeight={weightItems} key={weightItems.date.toString()}/>
     })
 
     return (
