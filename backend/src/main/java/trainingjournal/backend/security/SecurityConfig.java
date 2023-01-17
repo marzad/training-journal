@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity
@@ -32,9 +33,14 @@ public class SecurityConfig {
                 .antMatchers("/api/users/me").permitAll()
                 .antMatchers("/api/exercises").permitAll()
 
-
                 .antMatchers("/api/**").authenticated()
                 .and()
+                .logout(logout -> logout
+                        .logoutUrl("/api/users/logout")
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+                        .permitAll())
                 .build();
 }
 

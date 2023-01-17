@@ -26,6 +26,16 @@ public class UserController {
         }
         return "anonymous";
     }
+
+    @PostMapping("/login")
+    public String login() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+    @PostMapping("/logout")
+    public void logout(){
+        // it is called via SecurityConfig
+    }
+
     @GetMapping("/{username}/exercises")
     public Set<Exercise> getUserExerciseList(@PathVariable String username){
         return userService.getUserExercises(username);
@@ -36,10 +46,7 @@ public class UserController {
         return userService.getUserWeight(username);
     }
 
-    @PostMapping("/login")
-    public String login() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
+
 
     @PostMapping("{username}/exercises/")
     public Set<Exercise> addUserExercisesList(@PathVariable String username, @RequestBody List<ExerciseDTO> exercisesList) {
@@ -68,7 +75,7 @@ public class UserController {
         return userService.updateWeight(username, Double.valueOf(userWeight));
     }
 
-    @PostMapping("{username}/plans")
+    @PostMapping("{username}/dailyplan")
     public Week setDailyPlan(@PathVariable String username, @RequestBody Day dailyPlan){
         return userService.setDailyPlan(username, dailyPlan);
     }
