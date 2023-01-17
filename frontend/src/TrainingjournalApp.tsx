@@ -12,6 +12,7 @@ import Menu from "./pages/Menu";
 import WeekDaysSelect from "./pages/WeekdaysSelect";
 import {Weekdays} from "./model/Weekdays";
 import SelectDailyExercises from "./components/SelectDailyExercises";
+import LogoutPage from "./components/LogoutPage";
 
 export default function TrainingjournalApp(){
 
@@ -38,7 +39,9 @@ export default function TrainingjournalApp(){
                                username={userName}/>}/>
                     <Route path={"/menu"} element={<HeadPage username={userName}/>}/>
                     <Route path={"/weekdays"} element={<WeekDaysSelect selectedDay={setDay}/>}/>
-                    <Route path={"/selectexercises"} element={<SelectDailyExercises day={day}/>}/>
+                    <Route path={"/selectexercises"} element={<SelectDailyExercises day={day} username={userName}/>}/>
+                    <Route path={"/logout"} element={<LogoutPage/>}/>
+
                 </Routes>
             </section>
 

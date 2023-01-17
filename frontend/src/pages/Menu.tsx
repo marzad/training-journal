@@ -7,7 +7,7 @@ export default function Menu(){
         <NavLink to={"/login"}>Einloggen</NavLink>
         <NavLink to={"/signup"}>Registrieren</NavLink>
         <NavLink to={"/menu"}>Hauptmenü</NavLink>
-        <label>Ausloggen</label>
+        <NavLink to={"/logout"}>Ausloggen</NavLink>
         </>
     )
 }
