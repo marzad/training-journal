@@ -91,7 +91,7 @@ public class UserService implements UserDetailsService {
         newGymUser.setPassword(signupData.password());
         Set<UserWeight> userWeightMap = new HashSet<>(Set.of(new UserWeight(LocalDate.now(), signupData.userWeight())));
         newGymUser.setUserWeight(userWeightMap);
-        newGymUser.setUserHeight(signupData.userHight());
+        newGymUser.setUserHeight(signupData.userHeight());
 
         List<Week> newWeekplansList = new ArrayList<>();
         newGymUser.setWeekPlansList(newWeekplansList);
