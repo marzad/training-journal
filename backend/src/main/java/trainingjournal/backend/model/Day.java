@@ -5,6 +5,7 @@ import java.util.Set;
 public record Day(
         Weekday weekday,
         Set<Exercise> exerciseSet,
-        String notes
+        String notes,
+        boolean trainingfree
 ) {
 }
