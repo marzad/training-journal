@@ -92,7 +92,9 @@ public class UserService implements UserDetailsService {
         Set<UserWeight> userWeightMap = new HashSet<>(Set.of(new UserWeight(LocalDate.now(), signupData.userWeight())));
         newGymUser.setUserWeight(userWeightMap);
         newGymUser.setUserHeight(signupData.userHight());
-        newGymUser.setWeekList(new ArrayList<>());
+
+        List<Week> newWeekplansList = new ArrayList<>();
+        newGymUser.setWeekPlansList(newWeekplansList);
         newGymUser.setExercises(new HashSet<>());
         newGymUser.setRegisterData(LocalDate.now());
 
@@ -105,35 +107,31 @@ public class UserService implements UserDetailsService {
     }
 
     public Week setDailyPlan(String username, Day dailyPlan) {
+        GymUser user = userRepository.findByUsername(username);
 
         String weekID = (new IDGenerator()).getWeekID();
         Set<Day> newDailyPlanSet = new HashSet<>();
-        newDailyPlanSet.add(dailyPlan);
+
+        if(dailyPlan.trainingfree()){
+            newDailyPlanSet.add(new Day(dailyPlan.weekday(), new HashSet<>(), dailyPlan.notes(), dailyPlan.trainingfree()));
+        }else{
+            newDailyPlanSet.add(dailyPlan);
+        }
 
         Week newWeekplan;
         List<Week> newWeekplanList;
 
-        newWeekplanList = userRepository.findByUsername(username).getWeekList();
-        int indexOfWeek = -1;
+        newWeekplanList = user.getWeekPlansList();
 
-        if (!newWeekplanList.isEmpty()) {
-            int i = 0;
-            for (Week week : newWeekplanList) {
-                if (week.weekId().equals(weekID)) {
-                    indexOfWeek = i;
-                }
-                i++;
-            }
-        }
-
-        if (indexOfWeek == -1) {
+        if (newWeekplanList.isEmpty()) {
             newWeekplan = new Week(weekID, newDailyPlanSet);
             newWeekplanList.add(newWeekplan);
         } else {
-            newWeekplan = newWeekplanList.get(indexOfWeek);
+            newWeekplan = newWeekplanList.get(newWeekplanList.size() - 1);
             newWeekplan.dailyPlans().add(dailyPlan);
-            newWeekplanList.set(indexOfWeek, newWeekplan);
+            newWeekplanList.set(newWeekplanList.size() - 1, newWeekplan);
         }
+        userRepository.save(user);
         return newWeekplan;
     }
 
@@ -145,7 +143,7 @@ public class UserService implements UserDetailsService {
     public Set<UserWeight> getUserWeight(String username) {
         GymUser user = userRepository.findByUsername(username);
 
-        return  user.getUserWeight();
+        return user.getUserWeight();
     }
 
 }

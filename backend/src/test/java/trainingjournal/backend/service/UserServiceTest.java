@@ -124,13 +124,13 @@ class UserServiceTest {
 
         String username = "username";
 
-        Day dailyPlan = new Day(Weekday.MONDAY, new HashSet<>(), "");
+        Day dailyPlan = new Day(Weekday.MONDAY, new HashSet<>(), "", false);
         List<Week> newWeekList = new ArrayList<>();
-        newWeekList.add(new Week());
+        newWeekList.add(new Week("1", new HashSet<>()));
 
         GymUser newGymUser = new GymUser();
         newGymUser.setUsername(username);
-        newGymUser.setWeekList(newWeekList);
+        newGymUser.setWeekPlansList(newWeekList);
 
         when(userRepository.findByUsername("username")).thenReturn(newGymUser);
 
@@ -144,10 +144,10 @@ class UserServiceTest {
 
         String username = "username";
 
-        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "");
-        Day dailyPlan_2 = new Day(Weekday.MONDAY, new HashSet<>(), "abc");
+        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "", false);
+        Day dailyPlan_2 = new Day(Weekday.MONDAY, new HashSet<>(), "abc", false);
 
-        Week newWeek = new Week();
+        Week newWeek = new Week("1", new HashSet<>());
         newWeek.dailyPlans().add(dailyPlan_1);
 
         List<Week> newWeekList = new ArrayList<>();
@@ -155,14 +155,15 @@ class UserServiceTest {
 
         GymUser newGymUser = new GymUser();
         newGymUser.setUsername(username);
-        newGymUser.setWeekList(newWeekList);
+        newGymUser.setWeekPlansList(newWeekList);
+        userRepository.save(newGymUser);
 
         when(userRepository.findByUsername("username")).thenReturn(newGymUser);
 
 
         Week result = userService.setDailyPlan(username, dailyPlan_2);
 
-        assertNotEquals(newWeek,result);
+        assertEquals(newWeek.dailyPlans(), result.dailyPlans());
 
     }
 
@@ -171,8 +172,8 @@ class UserServiceTest {
 
         String username = "username";
 
-        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "");
-        Day dailyPlan_2 = new Day(Weekday.SATURDAY, new HashSet<>(), "");
+        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "", false);
+        Day dailyPlan_2 = new Day(Weekday.SATURDAY, new HashSet<>(), "", false);
 
         String weekID = (new IDGenerator()).getWeekID();
 
@@ -184,7 +185,34 @@ class UserServiceTest {
 
         GymUser newGymUser = new GymUser();
         newGymUser.setUsername(username);
-        newGymUser.setWeekList(newWeekList);
+        newGymUser.setWeekPlansList(newWeekList);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        Week result = userService.setDailyPlan(username, dailyPlan_2);
+
+        assertTrue(result.dailyPlans().size() >1);
+    }
+
+    @Test
+    void test_setWeekplan_whenWeekplanListNotEmpty_addTrainingfreeDay(){
+
+        String username = "username";
+
+        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "", false);
+        Day dailyPlan_2 = new Day(Weekday.SATURDAY, new HashSet<>(), "", true);
+
+        String weekID = (new IDGenerator()).getWeekID();
+
+        Week newWeek = new Week(weekID,new HashSet<>());
+        newWeek.dailyPlans().add(dailyPlan_1);
+
+        List<Week> newWeekList = new ArrayList<>();
+        newWeekList.add(newWeek);
+
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        newGymUser.setWeekPlansList(newWeekList);
 
         when(userRepository.findByUsername("username")).thenReturn(newGymUser);
 
@@ -227,22 +255,6 @@ class UserServiceTest {
         assertEquals(newUserExercisesSet, result);
     }
 
-/*    @Test
-    void test_getUserWeightList(){
-        String username = "username";
-        GymUser newGymUser = new GymUser();
-        newGymUser.setUsername(username);
-        Map<LocalDate, Double> newWeightMap = new HashMap<>();
-        newGymUser.setUserWeight(newWeightMap);
-        userRepository.save(newGymUser);
-
-        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
-
-        Map<LocalDate, Double> result = userService.getUserWeight(username);
-
-        assertEquals(newWeightMap, result);
-    }
-    */
     @Test
     void test_getUserWeightList(){
         String username = "username";

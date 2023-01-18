@@ -1,6 +1,7 @@
 package trainingjournal.backend.service;
 
 import org.springframework.stereotype.Service;
+import trainingjournal.backend.model.DefaultExercises;
 import trainingjournal.backend.model.ExerciseDTO;
 import trainingjournal.backend.repository.ExerciseRepository;
 
@@ -35,9 +36,9 @@ public class ExercisesService {
     }
 
     private void addPauseStratchingWarmupToRepo(){
-        this.addNewExercise("pause");
-        this.addNewExercise("warmup");
-        this.addNewExercise("stratching");
+
+        this.addNewExercise(DefaultExercises.WARMUP.name());
+        this.addNewExercise(DefaultExercises.STRETCHING.name());
     }
 
 

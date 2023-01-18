@@ -172,22 +172,23 @@ class UserControllerTest {
 
         List<Week> newWeekPlansList = new ArrayList<>();
 
-        user.setWeekList(newWeekPlansList);
+        user.setWeekPlansList(newWeekPlansList);
         userRepository.save(user);
 
-        mockMvc.perform(post("/api/users/StandardUser/plans")
+        mockMvc.perform(post("/api/users/StandardUser/dailyplan")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
                                 "weekday" : "MONDAY",
-                                "exerciseSet" : null,
-                                "notes" :  ""}
+                                "exerciseSet" : [],
+                                "notes" :  "",
+                                "trainingfree" : false}
                                 """)
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {
-                        "dailyPlans" : [{"weekday" : "MONDAY", "exerciseSet" : null, "notes" : ""}]
+                        "dailyPlans" : [{"weekday" : "MONDAY", "exerciseSet" : [], "notes" : "", "trainingfree" :  false}]
                         }
                         """));
     }
