@@ -106,11 +106,11 @@ class UserServiceTest {
         String username = "username";
         String password = "password";
         Double userWeight = 96.9;
-        Double userHight = 176.5;
+        Double userHeight = 176.5;
         Gender gender = Gender.MALE;
         String birthday = "1996-12-12";
 
-        GymUserSignup newUser = new GymUserSignup(username, gender, LocalDate.parse(birthday), userWeight, userHight, password);
+        GymUserSignup newUser = new GymUserSignup(username, gender, LocalDate.parse(birthday), userWeight, userHeight, password);
 
         when(userRepository.findByUsername("username")).thenReturn(null);
 

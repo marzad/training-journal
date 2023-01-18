@@ -8,7 +8,7 @@ public record GymUserSignup(
         Gender gender,
         LocalDate birthday,
         Double userWeight,
-        Double userHight,
+        Double userHeight,
         String password
 ) {
 

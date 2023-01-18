@@ -22,7 +22,7 @@ public class GymUser {
         private LocalDate birthday;
         private Set<UserWeight> userWeight;
         private Double userHeight;
-        private List<Week> weekList;
+        private List<Week> weekPlansList;
         private Set<Exercise> exercises;
         private LocalDate registerData;
         private String password;

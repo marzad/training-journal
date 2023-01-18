@@ -10,7 +10,7 @@ export default function SignUp() {
         gender: Gender,
         birthday: string,
         userWeight: number,
-        userHight: number,
+        userHeight: number,
         password: string
     }
     const initSignupData: SignupDataForm = {
@@ -18,7 +18,7 @@ export default function SignUp() {
         gender : Gender.FEMALE,
         birthday : "",
         userWeight : 0.0,
-        userHight : 0.0,
+        userHeight : 0.0,
         password : ""
     }
 
@@ -77,7 +77,7 @@ export default function SignUp() {
                 </select><br/>
                 <label>Geburtsdatum </label><input type={"date"} name={"birthday"} onChange={handleInputOnChange}/><br/>
                 <label>Gewicht </label><input type={"number"} step={"any"} name={"userWeight"} onChange={handleInputOnChange}/><br/>
-                <label>Größe </label><input type={"number"} step={"any"} name={"bodysize"} onChange={handleInputOnChange}/><br/>
+                <label>Größe </label><input type={"number"} step={"any"} name={"userHeight"} onChange={handleInputOnChange}/><br/>
                 <label>Password </label><input type={"password"} name={"password"} onChange={handleInputOnChange} autoComplete={""}/><br/>
                 <button type={"submit"}>Registrieren </button>
             </form>
