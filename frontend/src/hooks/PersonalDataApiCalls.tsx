@@ -1,22 +1,41 @@
 import axios from "axios";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-export default function PersonalDataApiCalls(){
+export default function PersonalDataApiCalls() {
     const navigate = useNavigate()
 
-    const [userWeightList, setUserWeightList] = useState<{date: Date, weight: number}[]>([])
+    const [userWeightList, setUserWeightList] = useState<{ date: Date, weight: number }[]>([])
+    const [username, setUsername] = useState()
 
-    function getUserWeightData(username: string) {
+    useEffect(() => {
+        getUsername()
+            .catch(error => console.error(error))
+    }, [])
+
+    function getUsername() {
+        return axios.get("/api/users/me")
+            .then(response => response.data)
+            .then(setUsername)
+    }
+
+    useEffect(() => {
+        if (username !== undefined) {
+            getUserWeightData()
+                .catch(error => console.error(error))
+        }
+        //eslint-disable-next-line
+    }, [username])
+
+    function getUserWeightData() {
         return axios.get("api/users/" + username + "/weight")
             .then(response => response.data)
             .then(data => {
                 setUserWeightList(data)
             })
-            .catch(error => console.error(error))
     }
 
-    function submitUserWeightData(username: string, userWeight: number, newUsername: string){
+    function submitUserWeightData(username: string, userWeight: number, newUsername: string) {
 
         if (userWeight > 0.5) {
             axios.put("/api/users/" + username + "/updateweight/", userWeight,
@@ -34,5 +53,5 @@ export default function PersonalDataApiCalls(){
         }
     }
 
-    return {userWeightList, submitUserWeightData, getUserWeightData}
+    return {username, userWeightList, submitUserWeightData}
 }

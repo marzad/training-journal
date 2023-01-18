@@ -1,15 +1,10 @@
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import UserWeightDetails from "./UserWeightDetails";
 import PersonalDataApiCalls from "../hooks/PersonalDataApiCalls";
 
+export default function PersonalData() {
 
-type PersonalDataProps = {
-    username: string | undefined
-}
-
-export default function PersonalData(props: PersonalDataProps) {
-
-    const {userWeightList, submitUserWeightData, getUserWeightData} = PersonalDataApiCalls()
+    const {username, userWeightList, submitUserWeightData} = PersonalDataApiCalls()
 
     type PersonalDataForm = {
         newUsername: string,
@@ -22,11 +17,6 @@ export default function PersonalData(props: PersonalDataProps) {
 
     const [formInput, setFormInput] = useState<PersonalDataForm>(initPersonalData)
 
-    useEffect(() => {
-        getUserWeightData(props.username!)
-            .catch(error => console.error(error))
-        //eslint-disable-next-line
-    }, [])
 
     function handlingInputOnChange(event: ChangeEvent<HTMLInputElement>) {
 
@@ -38,7 +28,7 @@ export default function PersonalData(props: PersonalDataProps) {
     function handlingFormOnChange(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
-        submitUserWeightData(props.username!, formInput.userWeight, formInput.newUsername)
+        submitUserWeightData(username!, formInput.userWeight, formInput.newUsername)
     }
 
     const getUserWeightDetails = userWeightList.map(weightItems => {
@@ -47,10 +37,10 @@ export default function PersonalData(props: PersonalDataProps) {
 
     return (
         <section>
-            <h2>Hallo {props.username}!</h2>
+            <h2>von {username}</h2>
             <form onSubmit={handlingFormOnChange}>
                 <label>Username</label><input type={"text"} onChange={handlingInputOnChange} name={"newUsername"}
-                                              placeholder={props.username}/><br/>
+                                              placeholder={username}/><br/>
                 <label>Gewicht</label><input type={"text"} onChange={handlingInputOnChange} name={"userWeight"}/><br/>
                 <button type={"submit"}>Speichern</button>
             </form>
