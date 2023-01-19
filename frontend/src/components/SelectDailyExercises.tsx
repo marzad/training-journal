@@ -72,8 +72,6 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
                     return existingItem
                 }
             }))
-
-
     }
 
     function handleInputOnChange(event: ChangeEvent<HTMLInputElement>, updatedExercise: Exercise) {
@@ -109,7 +107,6 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
     function handleOnChangeCheckbox(event: ChangeEvent<HTMLInputElement>) {
         if (event.target.checked) {
             setTrainingfree(true)
-            setUserExercisesList([])
         } else {
             setTrainingfree(false)
         }
