@@ -1,38 +1,30 @@
 import {Exercise} from "../model/Exercise";
+import {ChangeEvent} from "react";
+import "../css/UserExerciseDetails.css"
+
 
 type ExerciseDetailsProps = {
-    exercise : Exercise
+    exercise: Exercise
+    inputEntry: (event: ChangeEvent<HTMLInputElement>, entry: Exercise) => void
+    disabled: boolean
 }
-export default function UserExerciseDetails(props: ExerciseDetailsProps){
+export default function UserExerciseDetails(props: ExerciseDetailsProps) {
 
 
-    return(
-        <>
-            <div>
-                {props.exercise.description === "warmup" || props.exercise.description === "stretching"?
-                    <>
-                        <label>{props.exercise.description}</label>
-                        <input type="number" name={"repeats"} value = {props.exercise.repeats} required/> min
-                        <br/>
-                    </> :
-                    <>
-                        <label>{props.exercise.description}</label>
-                        <input type="number" name={"repeats"} placeholder={"10"} value = {props.exercise.repeats} required/>
-                        <input type="number" name={"sets"} placeholder={"3"} value = {props.exercise.sets} required/>
-                        <input type="number" name={"weight"} value = {props.exercise.weight} required/>
-                        <br/>
-                    </>
-                }
-                {props.exercise.description === "Pause" ?
-                    <>
-                        <label>{props.exercise.description}</label>
-                        <input type="checkbox" name={"Pause"} value = {props.exercise.repeats} required/>
-                        <br/>
-                    </> :
-                    <>
-                    </>
-                }
-            </div>
-        </>
+    function handleInputOnChange(event: ChangeEvent<HTMLInputElement>){
+        props.inputEntry(event,props.exercise)
+    }
+
+    return (
+        <div>
+            <label>{props.exercise.description}</label>
+            <input type="number" name={"repeats"} value={props.exercise.repeats} onChange={handleInputOnChange}
+                   disabled={props.disabled}/>
+            <input type="number" name={"sets"} value={props.exercise.sets} onChange={handleInputOnChange}
+                   disabled={props.disabled}/>
+            <input type="number" name={"weight"} value={props.exercise.weight} onChange={handleInputOnChange}
+                   disabled={props.disabled}/> kg
+            <br/>
+        </div>
     )
 }
