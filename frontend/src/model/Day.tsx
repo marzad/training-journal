@@ -1,7 +1,9 @@
 import {Exercise} from "./Exercise";
+import {Weekdays} from "./Weekdays";
 
 export type Day = {
-    data : string,
+    weekday : Weekdays,
     exercises : Exercise[]
-    notes: string
+    notes?: string
+    trainingfree: boolean
 }
