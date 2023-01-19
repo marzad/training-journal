@@ -63,33 +63,17 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
 //        navigate("/weekdays")
     }
 
+    function onChangeExerciseDetails(updatedExerciseEntry: Exercise) {
 
-    function handleStretchingWarmupInputOnChange(event: ChangeEvent<HTMLInputElement>){
-
-        const exercise: Exercise = findExerciseToUpdate(event.target.id)
-
-        const newExercise = {
-            id: exercise.id,
-            description: exercise.description,
-            repeats: event.target.value,
-            sets: "",
-            weight: ""
-        }
-        onChangeExerciseDetails(newExercise)
-    }
-
-    function onChangeExerciseDetails(entry: Exercise) {
-        if (userExercisesList.find(item => item.id === entry.id)) {
-            setUserExercisesList(prevState => prevState.map(exercisesItem => {
-                if (exercisesItem.id === entry.id) {
-                    return entry
+            setUserExercisesList(prevState => prevState.map(existingItem => {
+                if (existingItem.id === updatedExerciseEntry.id) {
+                    return updatedExerciseEntry
                 } else {
-                    return exercisesItem
+                    return existingItem
                 }
             }))
-        } else {
-            setUserExercisesList(prevState => [...prevState, entry])
-        }
+
+
     }
 
     function handleInputOnChange(event: ChangeEvent<HTMLInputElement>, updatedExercise: Exercise) {
@@ -99,13 +83,6 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
        onChangeExerciseDetails(newUpdatedExercise)
     }
 
-
-    function findExerciseToUpdate(description: string): Exercise {
-        return userExercisesList.find(exercise => {
-            return exercise.description === description
-        })!
-    }
-
     const exercises = userExercisesList?.map(exerciseItem => {
 
         if(exerciseItem.description === "STRETCHING" || exerciseItem.description === "WARMUP"){
@@ -113,7 +90,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
             <>
                 <label>{exerciseItem.description}</label>
                 <input type="number" name={"repeats"} value={exerciseItem.repeats}
-                       onChange={handleStretchingWarmupInputOnChange}
+                       onChange={(event) => handleInputOnChange(event, exerciseItem)}
                        id={exerciseItem.description} disabled={trainingfree} key={exerciseItem.id}/> min
                 <br/>
             </>)
