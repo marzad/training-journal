@@ -28,6 +28,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
             getUserExercisesList()
                 .catch(error => console.error(error))
         }
+        //eslint-disable-next-line
     }, [username])
 
 
@@ -40,7 +41,6 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
             })
             .catch(error => console.error(error))
     }
-
 
     const navigate = useNavigate()
 
@@ -60,7 +60,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
         axios.post("/api/users/" + username + "/dailyplan",
             newPlan)
             .catch(error => console.error(error))
-//        navigate("/weekdays")
+            .then(() => navigate("/weekdays"))
     }
 
     function onChangeExerciseDetails(updatedExerciseEntry: Exercise) {
