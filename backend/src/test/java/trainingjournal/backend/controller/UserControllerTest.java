@@ -104,7 +104,7 @@ class UserControllerTest {
     void test_updateWeight_whenNoItemExist() throws Exception {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
-       Set<UserWeight> userWeightSet = new HashSet<>();
+        Set<UserWeight> userWeightSet = new HashSet<>();
         userWeightSet.add(new UserWeight(LocalDate.parse("2021-12-12"), 96.7));
         user.setUserWeight(userWeightSet);
         userRepository.save(user);
@@ -123,7 +123,7 @@ class UserControllerTest {
     void test_updateWeight_whenItemExist() throws Exception {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
-       Set<UserWeight> userWeightSet = new HashSet<>();
+        Set<UserWeight> userWeightSet = new HashSet<>();
         userWeightSet.add(new UserWeight(LocalDate.now(), 96.7));
         user.setUserWeight(userWeightSet);
         userRepository.save(user);
@@ -234,6 +234,7 @@ class UserControllerTest {
                         []
                         """));
     }
+
     @DirtiesContext
     @WithMockUser(username = "StandardUser")
     @Test
@@ -253,6 +254,25 @@ class UserControllerTest {
                         "weight":56.0
                         }
                         ]
+                        """));
+    }
+
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_getUserPlans() throws Exception{
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+
+        List<Week> newWeekPlansList = new ArrayList<>();
+
+        user.setWeekPlansList(newWeekPlansList);
+        userRepository.save(user);
+
+        mockMvc.perform(get("/api/users/StandardUser/plans"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        []
                         """));
     }
 

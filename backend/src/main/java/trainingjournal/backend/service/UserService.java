@@ -152,11 +152,15 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username).getExercises();
     }
 
-
     public Set<UserWeight> getUserWeight(String username) {
         GymUser user = userRepository.findByUsername(username);
 
         return user.getUserWeight();
+    }
+
+    public List<Week> getUserPlans(String username){
+        GymUser user = userRepository.findByUsername(username);
+        return user.getWeekPlansList();
     }
 
 }
