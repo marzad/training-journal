@@ -59,7 +59,7 @@ export default function ExercisePage(props: ExercisePageProps) {
         .map(exerciseEntity => {
             return (
                 <div>
-                    <ExerciseDetails key={exerciseEntity.id} exercise={exerciseEntity}
+                    <ExerciseDetails key={exerciseEntity.id.toString()} exercise={exerciseEntity}
                                      selectedExercisesForUser={setSelectedExercisesList}/>
                 </div>)
         })

@@ -31,13 +31,13 @@ export default function TrainingjournalApp(){
                 <Routes>
                     <Route path={"/login"} element={<LoginPage login={login}/>}/>
                     <Route path={"/signup"} element={<SignUp/>}/>
-                    <Route path={"/user"} element={<PersonalData username={userName}/>}/>
+                    <Route path={"/user"} element={<PersonalData/>}/>
                     <Route path={"/exercises"}
                            element={<ExercisePage
                                exercises={exercises}
                                selectedExercisesList={selectedExercisesList}
                                username={userName}/>}/>
-                    <Route path={"/menu"} element={<HeadPage username={userName}/>}/>
+                    <Route path={"/menu"} element={<HeadPage/>}/>
                     <Route path={"/weekdays"} element={<WeekDaysSelect selectedDay={setDay}/>}/>
                     <Route path={"/selectexercises"} element={<SelectDailyExercises day={day} username={userName}/>}/>
                     <Route path={"/logout"} element={<LogoutPage/>}/>
