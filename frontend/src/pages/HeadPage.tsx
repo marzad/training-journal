@@ -1,13 +1,19 @@
 import {useNavigate} from "react-router-dom";
 import "../css/HeadPage.css"
-import React from "react";
-
-type HeadPageProps ={
-    username : string | undefined
-}
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
 
-export default function HeadPage(props: HeadPageProps){
+export default function HeadPage(){
+
+    const [username, setUsername] = useState()
+
+    useEffect(() => {
+        axios.get("/api/users/me")
+            .then(response => response.data)
+            .then(setUsername)
+            .catch(error => console.error(error))
+    }, [])
 
     const navigate = useNavigate()
 
@@ -29,7 +35,7 @@ export default function HeadPage(props: HeadPageProps){
 
     return(
         <section className={"Buttons"}>
-            <h2>Hallo {props.username}!</h2>
+            <h2>von {username}</h2>
             <div>
                 <button onClick={handlePersonalDataNavigation}>Persönliche Angaben</button><br/>
                 <button onClick={handleExercisesNavigation}>Übungen</button><br/>
