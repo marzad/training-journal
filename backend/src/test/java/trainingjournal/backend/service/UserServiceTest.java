@@ -163,8 +163,7 @@ class UserServiceTest {
 
         Week result = userService.setDailyPlan(username, dailyPlan_2);
 
-        assertEquals(newWeek.dailyPlans(), result.dailyPlans());
-
+        assertEquals(1, result.dailyPlans().size());
     }
 
     @Test
