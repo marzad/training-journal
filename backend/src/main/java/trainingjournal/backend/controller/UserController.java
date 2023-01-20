@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import trainingjournal.backend.model.*;
 import trainingjournal.backend.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 import java.util.Set;
@@ -32,8 +33,10 @@ public class UserController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
     @PostMapping("/logout")
-    public void logout(){
-        // it is called via SecurityConfig
+    public String logout(HttpSession httpSession){
+        httpSession.invalidate();
+        SecurityContextHolder.clearContext();
+        return "anonymous";
     }
 
     @GetMapping("/{username}/exercises")
