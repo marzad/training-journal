@@ -9,8 +9,8 @@ type LoginPageProps = {
 
 export default function LoginPage(props: LoginPageProps) {
 
-    const [userName, setUserName] = useState<string>("anton")
-    const [password, setPassword] = useState<string>("123")
+    const [userName, setUserName] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
 
     const navigate = useNavigate()
 
