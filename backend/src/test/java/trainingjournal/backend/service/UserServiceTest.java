@@ -86,7 +86,6 @@ class UserServiceTest {
         assertEquals(1, result.size());
     }
 
-
     @Test
     void test_updatePersonalData_whenUsernameToUpdate(){
         GymUser user = new GymUser();
@@ -277,6 +276,17 @@ class UserServiceTest {
         assertEquals(newList, result);
     }
 
+    @Test
+    void test_getWeekId(){
+        Calendar newCalendar = new GregorianCalendar();
+        newCalendar.setTime(new Date());
+        int weekNumber = newCalendar.get(Calendar.WEEK_OF_YEAR);
 
+        String newDate = LocalDate.now().getYear() + "_" + weekNumber;
+
+        String result = (new IDGenerator()).getWeekID();
+
+        assertEquals(newDate, result);
+    }
 
 }
