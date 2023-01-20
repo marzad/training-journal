@@ -289,4 +289,41 @@ class UserServiceTest {
         assertEquals(newDate, result);
     }
 
+    @Test
+    void test_getUserPlans_whenWeekplansListNotEmpty(){
+        String username = "username";
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        Set<Day> weekPlans = new HashSet<>();
+        Week week = new Week("1", weekPlans);
+        List<Week> weekList = new ArrayList<>();
+        weekList.add(week);
+        newGymUser.setWeekPlansList(weekList);
+
+        userRepository.save(newGymUser);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        List<Week> result = userService.getUserPlans(username);
+
+        assertEquals(weekList, result);
+    }
+
+    @Test
+    void test_getUserPlans_whenWeekplansListEmpty(){
+        String username = "username";
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+        List<Week> weekList = new ArrayList<>();
+        newGymUser.setWeekPlansList(weekList);
+
+        userRepository.save(newGymUser);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        List<Week> result = userService.getUserPlans(username);
+
+        assertEquals(weekList, result);
+    }
+
 }

@@ -49,7 +49,10 @@ public class UserController {
         return userService.getUserWeight(username);
     }
 
-
+    @GetMapping("{username}/plans")
+    public List<Week> getUserPlans(@PathVariable String username){
+        return userService.getUserPlans(username);
+    }
 
     @PostMapping("{username}/exercises/")
     public Set<Exercise> addUserExercisesList(@PathVariable String username, @RequestBody List<ExerciseDTO> exercisesList) {
@@ -82,7 +85,5 @@ public class UserController {
     public Week setDailyPlan(@PathVariable String username, @RequestBody Day dailyPlan){
         return userService.setDailyPlan(username, dailyPlan);
     }
-
-
 
 }
