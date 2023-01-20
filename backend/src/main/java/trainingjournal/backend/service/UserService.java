@@ -12,6 +12,7 @@ import trainingjournal.backend.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Predicate;
 
 
 @Service
@@ -141,6 +142,8 @@ public class UserService implements UserDetailsService {
 
     private Week updateWeek(Week week, Day dailyPlan){
         Set<Day> weekPlans = week.dailyPlans();
+        Predicate<Day> predicate = day -> (day.weekday().equals(dailyPlan.weekday()));
+        weekPlans.removeIf(predicate);
         weekPlans.add(dailyPlan);
         return new Week(week.weekId(), weekPlans);
     }

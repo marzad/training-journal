@@ -1,10 +1,8 @@
 import {Weekdays} from "../model/Weekdays";
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import axios from "axios";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {Exercise} from "../model/Exercise";
-import {useNavigate} from "react-router-dom";
-import {Day} from "../model/Day";
 import UserExerciseDetails from "./UserExerciseDetails";
+import DailyExercisesApiCalls from "../hooks/DailyExercisesApiCalls";
 
 type SelectDailyExercisesProps = {
     day: Weekdays | undefined
@@ -13,66 +11,10 @@ type SelectDailyExercisesProps = {
 
 export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
 
-    const [username, setUsername] = useState()
-    const [userExercisesList, setUserExercisesList] = useState<Exercise[]>([])
     const [trainingfree, setTrainingfree] = useState(false)
     const [notes, setNotes] = useState<string>("")
 
-    useEffect(() => {
-        getUsername()
-            .catch(error => console.error(error))
-    }, [])
-
-    useEffect(() => {
-        if (username !== undefined) {
-            getUserExercisesList()
-                .catch(error => console.error(error))
-        }
-        //eslint-disable-next-line
-    }, [username])
-
-
-    function getUsername() {
-
-        return axios.get("/api/users/me")
-            .then(response => response.data)
-            .then(data => {
-                setUsername(data)
-            })
-            .catch(error => console.error(error))
-    }
-
-    const navigate = useNavigate()
-
-    function getUserExercisesList() {
-
-        return axios.get("/api/users/" + username + "/exercises/")
-            .then(response => response.data)
-            .then(data => {
-                setUserExercisesList(data)
-            })
-    }
-
-    function saveUserDailyPlan(newPlan: Day) {
-
-        console.log(newPlan)
-
-        axios.post("/api/users/" + username + "/dailyplan",
-            newPlan)
-            .catch(error => console.error(error))
-            .then(() => navigate("/weekdays"))
-    }
-
-    function onChangeExerciseDetails(updatedExerciseEntry: Exercise) {
-
-            setUserExercisesList(prevState => prevState.map(existingItem => {
-                if (existingItem.id === updatedExerciseEntry.id) {
-                    return updatedExerciseEntry
-                } else {
-                    return existingItem
-                }
-            }))
-    }
+    const {userExercisesList, saveUserDailyPlan, onChangeExerciseDetails} = DailyExercisesApiCalls()
 
     function handleInputOnChange(event: ChangeEvent<HTMLInputElement>, updatedExercise: Exercise) {
         let eventName = event.target.name
