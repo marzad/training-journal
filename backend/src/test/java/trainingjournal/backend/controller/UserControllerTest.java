@@ -180,7 +180,7 @@ class UserControllerTest {
                         .content("""
                                 {
                                 "weekday" : "MONDAY",
-                                "exerciseSet" : [],
+                                "exercises" : [],
                                 "notes" :  "",
                                 "trainingfree" : false}
                                 """)
@@ -188,7 +188,7 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {
-                        "dailyPlans" : [{"weekday" : "MONDAY", "exerciseSet" : [], "notes" : "", "trainingfree" :  false}]
+                        "dailyPlans" : [{"weekday" : "MONDAY", "exercises" : [], "notes" : "", "trainingfree" :  false}]
                         }
                         """));
     }

@@ -186,12 +186,17 @@ class UserServiceTest {
         GymUser newGymUser = new GymUser();
         newGymUser.setUsername(username);
         newGymUser.setWeekPlansList(newWeekList);
+        newWeek.dailyPlans().add(dailyPlan_2);
+
 
         when(userRepository.findByUsername("username")).thenReturn(newGymUser);
 
-        Week result = userService.setDailyPlan(username, dailyPlan_2);
 
-        assertTrue(result.dailyPlans().size() >1);
+
+        Week result = userService.setDailyPlan(username, dailyPlan_2);
+        System.out.println(result);
+
+        assertEquals(newWeek,result);
     }
 
     @Test

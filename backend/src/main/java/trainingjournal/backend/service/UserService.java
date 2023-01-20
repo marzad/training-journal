@@ -110,29 +110,39 @@ public class UserService implements UserDetailsService {
         GymUser user = userRepository.findByUsername(username);
 
         String weekID = (new IDGenerator()).getWeekID();
-        Set<Day> newDailyPlanSet = new HashSet<>();
+        List<Week> weekplanList = user.getWeekPlansList();
+        Week week;
 
-        if(dailyPlan.trainingfree()){
-            newDailyPlanSet.add(new Day(dailyPlan.weekday(), new HashSet<>(), dailyPlan.notes(), dailyPlan.trainingfree()));
+
+        int indexOfWeek = getIndexOfWeek(weekplanList, weekID);
+        if(indexOfWeek != -1){
+            week = updateWeek(weekplanList.get(indexOfWeek), dailyPlan);
+            weekplanList.set(indexOfWeek, week);
         }else{
-            newDailyPlanSet.add(dailyPlan);
+            Set<Day> newSetOfDays = new HashSet<>(Set.of(dailyPlan));
+            week = new Week(weekID, newSetOfDays);
+            weekplanList.add(week);
         }
 
-        Week newWeekplan;
-        List<Week> newWeekplanList;
-
-        newWeekplanList = user.getWeekPlansList();
-
-        if (newWeekplanList.isEmpty()) {
-            newWeekplan = new Week(weekID, newDailyPlanSet);
-            newWeekplanList.add(newWeekplan);
-        } else {
-            newWeekplan = newWeekplanList.get(newWeekplanList.size() - 1);
-            newWeekplan.dailyPlans().add(dailyPlan);
-            newWeekplanList.set(newWeekplanList.size() - 1, newWeekplan);
-        }
         userRepository.save(user);
-        return newWeekplan;
+        return week;
+    }
+
+    private int getIndexOfWeek(List<Week> weekList, String weekId) {
+        int i = 0;
+        for (Week week : weekList) {
+            if (week.weekId().equals(weekId)) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    private Week updateWeek(Week week, Day dailyPlan){
+        Set<Day> weekPlans = week.dailyPlans();
+        weekPlans.add(dailyPlan);
+        return new Week(week.weekId(), weekPlans);
     }
 
     public Set<Exercise> getUserExercises(String username) {
