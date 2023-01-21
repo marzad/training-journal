@@ -1,10 +1,10 @@
 package trainingjournal.backend.model;
 
-import java.util.Set;
+import java.util.List;
 
 public record Day(
         Weekday weekday,
-        Set<Exercise> exercises,
+        List<Exercise> exercises,
         String notes,
         boolean trainingfree
 ) {
