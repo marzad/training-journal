@@ -1,5 +1,6 @@
 import {Day} from "../model/Day";
 import {Exercise} from "../model/Exercise";
+import "../css/UserWeekOverview.css"
 
 
 type UserWeekOverviewProps = {
@@ -27,39 +28,38 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
         return plan
     }
 
-
     const mapExercises = (weekday: string) => {
         const dailyPlan = day(weekday)
         if (dailyPlan.trainigfree) {
             return (
-                <label>
+                <p>
+                    kein Training<br/>
                     {dailyPlan.notes}
-                </label>
+                </p>
             )
         } else {
             return (
-                <>
+                <div>
                     {
                         dailyPlan.exercises.map(exercise => {
                             if (exercise.repeats !== 0)
                                 return (
-                                    <>
-                                        {exercise.description}
+                                    <p>
+                                        {exercise.description}&nbsp;
                                         {exercise.repeats}
-                                        {exercise.sets !== 0 ? exercise.sets : ""}
-                                        {exercise.weight !== 0 ? exercise.weight : ""}
+                                        {exercise.sets !== 0 ? "/" + exercise.sets : ""}
+                                        {exercise.weight !== 0 ? "/" + exercise.weight : ""}
                                         <br/>
-                                    </>
+                                    </p>
                                 )
                             return <></>
                         })
                     }
                     {dailyPlan.notes}
-                </>
+                </div>
             )
         }
     }
-
 
     return (
         <section>
@@ -78,13 +78,13 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
                 </thead>
                 <tbody>
                 <tr>
-                    <th>{mapExercises("MONDAY")}</th>
-                    <th>{mapExercises("TUESDAY")}</th>
-                    <th>{mapExercises("WEDNESDAY")}</th>
-                    <th>{mapExercises("THURSDAY")}</th>
-                    <th>{mapExercises("FRIDAY")}</th>
-                    <th>{mapExercises("SATURDAY")}</th>
-                    <th>{mapExercises("SUNDAY")}</th>
+                    <td>{mapExercises("MONDAY")}</td>
+                    <td>{mapExercises("TUESDAY")}</td>
+                    <td>{mapExercises("WEDNESDAY")}</td>
+                    <td>{mapExercises("THURSDAY")}</td>
+                    <td>{mapExercises("FRIDAY")}</td>
+                    <td>{mapExercises("SATURDAY")}</td>
+                    <td>{mapExercises("SUNDAY")}</td>
                 </tr>
                 </tbody>
             </table>
