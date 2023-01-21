@@ -35,9 +35,14 @@ export default function UserWeekplans(props: UserWeekplansProps) {
         )
     })
 
+    function handleOnClickReturn(){
+        navigate("/menu")
+    }
+
     return (
         <section>
-            {mappedUserPlans}
+            {mappedUserPlans}<br/>
+            <button onClick={handleOnClickReturn}>zurück</button>
         </section>
     )
 }
