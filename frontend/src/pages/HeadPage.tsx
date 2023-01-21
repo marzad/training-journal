@@ -30,7 +30,7 @@ export default function HeadPage(){
     }
 
     function handleCalendarNavigation(){
-        navigate("/calendar")
+        navigate("/plansoverview")
     }
 
     return(
