@@ -37,10 +37,10 @@ export default function HeadPage(){
         <section className={"Buttons"}>
             <h2>von {username}</h2>
             <div>
-                <button onClick={handlePersonalDataNavigation}>Persönliche Angaben</button><br/>
-                <button onClick={handleExercisesNavigation}>Übungen</button><br/>
-                <button onClick={handleWeekPlanNavigation}>Wochenplan</button><br/>
-                <button onClick={handleCalendarNavigation}>Kalender</button>
+                <button onClick={handlePersonalDataNavigation}>Persönliche Angaben ändern</button><br/>
+                <button onClick={handleExercisesNavigation}>Übungen markieren</button><br/>
+                <button onClick={handleWeekPlanNavigation}>Wochenplan erstellen</button><br/>
+                <button onClick={handleCalendarNavigation}>Übersicht</button>
             </div>
         </section>
     )

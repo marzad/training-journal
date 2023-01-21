@@ -28,8 +28,12 @@ export default function LoginPage(props: LoginPageProps) {
             .then(() => navigate("/menu"))
     }
 
+    function handleOnClick(){
+        navigate("/signup")
+    }
+
     return (
-        <>
+        <section>
             <form onSubmit={onSubmit}>
                 <input type={"text"} value={userName} name={"userName"} onChange={handleUsernameOnChange}/><br/>
                 <input type={"password"}
@@ -39,6 +43,7 @@ export default function LoginPage(props: LoginPageProps) {
                        autoComplete={"false"}/><br/>
                 <button type={"submit"}>Login</button>
             </form>
-        </>
+            <button onClick={handleOnClick}>Registrieren</button>
+        </section>
     )
 }
