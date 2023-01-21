@@ -1,6 +1,7 @@
 import {Day} from "../model/Day";
 import {Exercise} from "../model/Exercise";
 import "../css/UserWeekOverview.css"
+import {useNavigate} from "react-router-dom";
 
 
 type UserWeekOverviewProps = {
@@ -10,6 +11,8 @@ type UserWeekOverviewProps = {
 
 
 export default function UserWeekOverview(props: UserWeekOverviewProps) {
+
+    const navigate = useNavigate()
 
     const day = (searchedWeekday: string) => {
         let plan: { exercises: Exercise[], notes?: string, trainigfree: boolean } = {
@@ -61,6 +64,10 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
         }
     }
 
+    function handleOnClick(){
+        navigate(-1)
+    }
+
     return (
         <section>
             {props.weekId}
@@ -88,6 +95,8 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
                 </tr>
                 </tbody>
             </table>
+
+            <button onClick={handleOnClick}>zurück</button>
         </section>
     )
 }

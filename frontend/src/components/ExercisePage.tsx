@@ -72,6 +72,10 @@ export default function ExercisePage(props: ExercisePageProps) {
         navigate("/menu")
     }
 
+    function handleOnClick(){
+        navigate("/menu")
+    }
+
     return (
         <section className={"exercisesList"}>
             <h2>Hallo {props.username}!</h2>
@@ -82,7 +86,8 @@ export default function ExercisePage(props: ExercisePageProps) {
                 <br/>
             </form>
             <input type={"text"} name={"newExercise"} value={newExercise} onChange={inputNewExercise}/>
-            <button onClick={onClickNewExercise}> Neue Übung speichern</button>
+            <button onClick={onClickNewExercise}> Neue Übung speichern</button><br/>
+            <button onClick={handleOnClick}>zurück</button>
         </section>
     )
 }

@@ -1,6 +1,7 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import UserWeightDetails from "./UserWeightDetails";
 import PersonalDataApiCalls from "../hooks/PersonalDataApiCalls";
+import {useNavigate} from "react-router-dom";
 
 export default function PersonalData() {
 
@@ -16,6 +17,8 @@ export default function PersonalData() {
     }
 
     const [formInput, setFormInput] = useState<PersonalDataForm>(initPersonalData)
+
+    const navigate = useNavigate()
 
 
     function handlingInputOnChange(event: ChangeEvent<HTMLInputElement>) {
@@ -35,9 +38,12 @@ export default function PersonalData() {
         return <UserWeightDetails userWeight={weightItems} key={weightItems.date.toString()}/>
     })
 
+    function handleOnClick(){
+        navigate("/menu")
+    }
+
     return (
         <section>
-            <h2>von {username}</h2>
             <form onSubmit={handlingFormOnChange}>
                 <label>Username</label><input type={"text"} onChange={handlingInputOnChange} name={"newUsername"}
                                               placeholder={username}/><br/>
@@ -47,6 +53,7 @@ export default function PersonalData() {
             <form>
                 {getUserWeightDetails}
             </form>
+            <button onClick={handleOnClick}>zurück</button>
         </section>
     )
 }

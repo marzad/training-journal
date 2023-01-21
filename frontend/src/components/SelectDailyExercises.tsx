@@ -3,6 +3,7 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import {Exercise} from "../model/Exercise";
 import UserExerciseDetails from "./UserExerciseDetails";
 import DailyExercisesApiCalls from "../hooks/DailyExercisesApiCalls";
+import {useNavigate} from "react-router-dom";
 
 type SelectDailyExercisesProps = {
     day: Weekdays | undefined
@@ -15,6 +16,8 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
     const [notes, setNotes] = useState<string>("")
 
     const {userExercisesList, saveUserDailyPlan, onChangeExerciseDetails} = DailyExercisesApiCalls()
+
+    const navigate = useNavigate()
 
     function handleInputOnChange(event: ChangeEvent<HTMLInputElement>, updatedExercise: Exercise) {
         let eventName = event.target.name
@@ -66,6 +69,10 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
         saveUserDailyPlan(dailyPlanEntry)
     }
 
+    function handleOnClick(){
+        navigate(-1)
+    }
+
     return (
         <section>
             <h3>{props.day}</h3>
@@ -81,6 +88,8 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
                 <button type={"submit"}>Speichern</button>
 
             </form>
+            <button onClick={handleOnClick}>zurück</button>
+
         </section>
     )
 }

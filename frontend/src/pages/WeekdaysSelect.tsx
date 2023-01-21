@@ -39,7 +39,7 @@ export default function WeekDaysSelect(props: WeekDaysSelectProps){
     }
 
     const handleOnClickReturn = () => {
-        navigation(-1)
+        navigation("/menu")
     }
 
     return(
@@ -51,7 +51,7 @@ export default function WeekDaysSelect(props: WeekDaysSelectProps){
             <button value={"FRIDAY"} onClick={handleOnClickFriday}>Freitag</button><br/>
             <button value={"SATURDAY"} onClick={handleOnClickSaturday}>Samstag</button><br/>
             <button value={"SUNDAY"} onClick={handleOnClickSunday}>Sonntag</button><br/>
-            <button onClick={handleOnClickReturn}>Zurück</button>
+            <button onClick={handleOnClickReturn}>zurück</button>
         </section>
     )
 }
