@@ -31,7 +31,6 @@ export default function DailyExercisesApiCalls(){
             .then(data => {
                 setUsername(data)
             })
-            .catch(error => console.error(error))
     }
 
     const navigate = useNavigate()
