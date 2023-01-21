@@ -13,6 +13,10 @@ import WeekDaysSelect from "./pages/WeekdaysSelect";
 import {Weekdays} from "./model/Weekdays";
 import SelectDailyExercises from "./components/SelectDailyExercises";
 import LogoutPage from "./components/LogoutPage";
+import UserWeekplans from "./components/UserWeekplans";
+import UserWeekOverview from "./components/UserWeekOverview";
+import {Day} from "./model/Day";
+
 
 export default function TrainingjournalApp(){
 
@@ -22,6 +26,11 @@ export default function TrainingjournalApp(){
 
     const {exercises} = useExercise()
 
+    const [weekId, setWeekId] = useState("")
+    const [dailyPlans, setDailyPlans] = useState<Set<Day>>(new Set())
+
+
+
     return(
         <BrowserRouter>
             <header>
@@ -29,6 +38,7 @@ export default function TrainingjournalApp(){
             </header>
             <section>
                 <Routes>
+                    <Route path={"/"} element={<LoginPage login={login}/>}/>
                     <Route path={"/login"} element={<LoginPage login={login}/>}/>
                     <Route path={"/signup"} element={<SignUp/>}/>
                     <Route path={"/user"} element={<PersonalData/>}/>
@@ -41,6 +51,8 @@ export default function TrainingjournalApp(){
                     <Route path={"/weekdays"} element={<WeekDaysSelect selectedDay={setDay}/>}/>
                     <Route path={"/selectexercises"} element={<SelectDailyExercises day={day} username={userName}/>}/>
                     <Route path={"/logout"} element={<LogoutPage/>}/>
+                    <Route path={"/plansoverview"} element={<UserWeekplans weekId={setWeekId} dailyPlans={setDailyPlans}/>}/>
+                    <Route path={"/weekoverview"} element={<UserWeekOverview weekId={weekId} dailyPlans={dailyPlans}/>}/>
 
                 </Routes>
             </section>
