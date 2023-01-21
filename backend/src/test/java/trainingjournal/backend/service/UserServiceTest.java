@@ -123,7 +123,7 @@ class UserServiceTest {
 
         String username = "username";
 
-        Day dailyPlan = new Day(Weekday.MONDAY, new HashSet<>(), "", false);
+        Day dailyPlan = new Day(Weekday.MONDAY,new ArrayList<>(), "", false);
         List<Week> newWeekList = new ArrayList<>();
         newWeekList.add(new Week("1", new HashSet<>()));
 
@@ -143,8 +143,8 @@ class UserServiceTest {
 
         String username = "username";
 
-        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "", false);
-        Day dailyPlan_2 = new Day(Weekday.MONDAY, new HashSet<>(), "abc", false);
+        Day dailyPlan_1 = new Day(Weekday.MONDAY, new ArrayList<>(), "", false);
+        Day dailyPlan_2 = new Day(Weekday.MONDAY, new ArrayList<>(), "abc", false);
 
         Week newWeek = new Week("1", new HashSet<>());
         newWeek.dailyPlans().add(dailyPlan_1);
@@ -170,8 +170,8 @@ class UserServiceTest {
 
         String username = "username";
 
-        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "", false);
-        Day dailyPlan_2 = new Day(Weekday.SATURDAY, new HashSet<>(), "", false);
+        Day dailyPlan_1 = new Day(Weekday.MONDAY, new ArrayList<>(), "", false);
+        Day dailyPlan_2 = new Day(Weekday.SATURDAY, new ArrayList<>(), "", false);
 
         String weekID = (new IDGenerator()).getWeekID();
 
@@ -202,8 +202,8 @@ class UserServiceTest {
 
         String username = "username";
 
-        Day dailyPlan_1 = new Day(Weekday.MONDAY, new HashSet<>(), "", false);
-        Day dailyPlan_2 = new Day(Weekday.SATURDAY, new HashSet<>(), "", true);
+        Day dailyPlan_1 = new Day(Weekday.MONDAY, new ArrayList<>(), "", false);
+        Day dailyPlan_2 = new Day(Weekday.SATURDAY, new ArrayList<>(), "", true);
 
         String weekID = (new IDGenerator()).getWeekID();
 
