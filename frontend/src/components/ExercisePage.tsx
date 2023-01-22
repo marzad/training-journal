@@ -1,6 +1,5 @@
 import ExerciseDetails from "./ExerciseDetails";
 import {ChangeEvent, FormEvent, useState} from "react";
-import "../css/ExercisePage.css"
 import {useNavigate} from "react-router-dom";
 import ExerciseApiCalls from "../hooks/ExerciseApiCalls";
 import {ExerciseDTO} from "../model/ExerciseDTO";

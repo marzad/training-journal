@@ -34,7 +34,10 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
                 <label>{exerciseItem.description}</label>
                 <input type="number" name={"repeats"} value={exerciseItem.repeats}
                        onChange={(event) => handleInputOnChange(event, exerciseItem)}
-                       id={exerciseItem.description} disabled={trainingfree} key={exerciseItem.id}/> min
+                       id={exerciseItem.description}
+                       disabled={trainingfree}
+                       key={exerciseItem.id}
+                       className={"NumberInput"}/> min
                 <br/>
             </>)
         }
