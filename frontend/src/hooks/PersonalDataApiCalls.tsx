@@ -22,10 +22,16 @@ export default function PersonalDataApiCalls() {
     useEffect(() => {
         if (username !== undefined) {
             getUserWeightData()
+                .then(() => dataMap())
                 .catch(error => console.error(error))
         }
         //eslint-disable-next-line
     }, [username])
+
+    useEffect(() => {
+        dataMap()
+        //eslint-disable-next-line
+    },[username, userWeightList])
 
     function getUserWeightData() {
         return axios.get("api/users/" + username + "/weight")
@@ -52,6 +58,21 @@ export default function PersonalDataApiCalls() {
                 .then(() => navigate("/menu"))
         }
     }
+    type chartDataType = {
+        name: string,
+        uv: number,
+        pv: number,
+        amt: number
+    }
 
-    return {username, userWeightList, submitUserWeightData}
+    const [chartData, setChartData] = useState<chartDataType[]>([])
+
+    const dataMap = () => {
+
+        userWeightList.map(weightItem => {
+            return setChartData(prevState => [...prevState,{name: weightItem.date.toString(), uv: weightItem.bmi, pv: 0, amt: 0}])
+        })
+    }
+
+    return {username, userWeightList, submitUserWeightData, chartData}
 }

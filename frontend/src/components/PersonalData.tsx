@@ -2,10 +2,11 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import UserWeightDetails from "./UserWeightDetails";
 import PersonalDataApiCalls from "../hooks/PersonalDataApiCalls";
 import {useNavigate} from "react-router-dom";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 export default function PersonalData() {
 
-    const {username, userWeightList, submitUserWeightData} = PersonalDataApiCalls()
+    const {username, userWeightList, submitUserWeightData, chartData} = PersonalDataApiCalls()
 
     type PersonalDataForm = {
         newUsername: string,
@@ -42,6 +43,17 @@ export default function PersonalData() {
         navigate("/menu")
     }
 
+    const renderLineChart = () => {
+        return(
+            <LineChart width={400} height={300} data={chartData}>
+                <Line type={"monotone"} dataKey={"uv"}/>
+                <CartesianGrid stroke="#ccc"/>
+                <XAxis dataKey="name"/>
+                <YAxis/>
+            </LineChart>
+            )
+    }
+
     return (
         <section>
             <form onSubmit={handlingFormOnChange}>
@@ -52,6 +64,7 @@ export default function PersonalData() {
             </form>
             <form>
                 {getUserWeightDetails}
+                {renderLineChart()}
             </form>
             <button onClick={handleOnClick}>zurück</button>
         </section>

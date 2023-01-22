@@ -1,11 +1,10 @@
 import {useNavigate} from "react-router-dom";
 import "../css/HeadPage.css"
-import React, {useEffect, useState} from "react";
-import axios from "axios";
-
+import React  from "react";
 
 export default function HeadPage(){
 
+/*
     const [username, setUsername] = useState()
 
     useEffect(() => {
@@ -14,6 +13,7 @@ export default function HeadPage(){
             .then(setUsername)
             .catch(error => console.error(error))
     }, [])
+*/
 
     const navigate = useNavigate()
 
@@ -35,7 +35,6 @@ export default function HeadPage(){
 
     return(
         <section className={"Buttons"}>
-            <h2>von {username}</h2>
             <div>
                 <button onClick={handlePersonalDataNavigation}>Persönliche Angaben ändern</button><br/>
                 <button onClick={handleExercisesNavigation}>Übungen markieren</button><br/>
