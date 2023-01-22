@@ -17,6 +17,7 @@ import UserWeekplans from "./components/UserWeekplans";
 import UserWeekOverview from "./components/UserWeekOverview";
 import {Day} from "./model/Day";
 import SettingsPage from "./components/SettingsPage";
+import Header from "./pages/Header";
 
 
 
@@ -31,12 +32,10 @@ export default function TrainingjournalApp(){
     const [weekId, setWeekId] = useState("")
     const [dailyPlans, setDailyPlans] = useState<Set<Day>>(new Set())
 
-
-
     return(
         <BrowserRouter>
             <header>
-                <h1>Trainingjournal</h1>
+                <Header/>
             </header>
             <section>
                 <Routes>
