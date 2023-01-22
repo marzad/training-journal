@@ -4,25 +4,10 @@ import React  from "react";
 
 export default function HeadPage(){
 
-/*
-    const [username, setUsername] = useState()
-
-    useEffect(() => {
-        axios.get("/api/users/me")
-            .then(response => response.data)
-            .then(setUsername)
-            .catch(error => console.error(error))
-    }, [])
-*/
-
     const navigate = useNavigate()
 
     function handlePersonalDataNavigation(){
         navigate("/user")
-    }
-
-    function handleExercisesNavigation(){
-        navigate("/exercises")
     }
 
     function handleWeekPlanNavigation(){
@@ -33,13 +18,25 @@ export default function HeadPage(){
         navigate("/plansoverview")
     }
 
+    function handleSettings(){
+        navigate("/settings")
+    }
+
+    function handleLogout(){
+        navigate("/logout")
+    }
+
     return(
         <section className={"Buttons"}>
             <div>
-                <button onClick={handlePersonalDataNavigation}>Persönliche Angaben ändern</button><br/>
-                <button onClick={handleExercisesNavigation}>Übungen markieren</button><br/>
                 <button onClick={handleWeekPlanNavigation}>Wochenplan erstellen</button><br/>
-                <button onClick={handleCalendarNavigation}>Übersicht</button>
+                <button onClick={handlePersonalDataNavigation}>Gewicht eintragen</button><br/>
+                <button onClick={handleCalendarNavigation}>Übersicht</button><br/>
+                <button onClick={handleSettings}>Einstellungen</button><br/>
+                <button onClick={handleLogout}>Ausloggen</button>
+
+                {/*<button onClick={handleExercisesNavigation}>Übungen markieren</button><br/>*/}
+
             </div>
         </section>
     )

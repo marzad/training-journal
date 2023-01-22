@@ -16,6 +16,8 @@ import LogoutPage from "./components/LogoutPage";
 import UserWeekplans from "./components/UserWeekplans";
 import UserWeekOverview from "./components/UserWeekOverview";
 import {Day} from "./model/Day";
+import SettingsPage from "./components/SettingsPage";
+
 
 
 export default function TrainingjournalApp(){
@@ -53,6 +55,7 @@ export default function TrainingjournalApp(){
                     <Route path={"/logout"} element={<LogoutPage/>}/>
                     <Route path={"/plansoverview"} element={<UserWeekplans weekId={setWeekId} dailyPlans={setDailyPlans}/>}/>
                     <Route path={"/weekoverview"} element={<UserWeekOverview weekId={weekId} dailyPlans={dailyPlans}/>}/>
+                    <Route path={"/settings"} element={<SettingsPage/>}/>
 
                 </Routes>
             </section>
