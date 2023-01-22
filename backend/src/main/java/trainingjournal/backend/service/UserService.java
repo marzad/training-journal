@@ -166,7 +166,10 @@ public class UserService implements UserDetailsService {
     }
 
     private Double bmiCalculate(Double height, Double weight){
-        return weight/Math.pow(height, 2);
+
+        long bmiLong = Math.round(weight*Math.pow(10,4)/Math.pow(height,2)*100);
+
+        return (double)(bmiLong)/100;
     }
 
 }

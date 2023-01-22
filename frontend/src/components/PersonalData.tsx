@@ -45,7 +45,7 @@ export default function PersonalData() {
 
     const renderLineChart = () => {
         return(
-            <LineChart width={400} height={300} data={chartData}>
+            <LineChart width={400} height={200} data={chartData}>
                 <Line type={"monotone"} dataKey={"uv"}/>
                 <CartesianGrid stroke="#ccc"/>
                 <XAxis dataKey="name"/>
