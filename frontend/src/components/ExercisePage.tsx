@@ -78,15 +78,14 @@ export default function ExercisePage(props: ExercisePageProps) {
 
     return (
         <section className={"exercisesList"}>
-            <h2>Hallo {props.username}!</h2>
             <form onSubmit={onSubmit}>
                 {exerciseDetailComponents}
                 <br/>
-                    <button type={"submit"} disabled={selectedExercises.length === 0}>Auswahl speichern</button>
+                    <button type={"submit"} disabled={selectedExercises.length === 0}> Persönliche Auswahl speichern</button>
                 <br/>
             </form>
             <input type={"text"} name={"newExercise"} value={newExercise} onChange={inputNewExercise}/>
-            <button onClick={onClickNewExercise}> Neue Übung speichern</button><br/>
+            <button onClick={onClickNewExercise}> Neue Übung hinzufügen</button><br/>
             <button onClick={handleOnClick}>zurück</button>
         </section>
     )
