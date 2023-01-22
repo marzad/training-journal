@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 export default function PersonalDataApiCalls() {
     const navigate = useNavigate()
 
-    const [userWeightList, setUserWeightList] = useState<{ date: Date, weight: number }[]>([])
+    const [userWeightList, setUserWeightList] = useState<{ date: Date, weight: number, bmi: number }[]>([])
     const [username, setUsername] = useState()
 
     useEffect(() => {
