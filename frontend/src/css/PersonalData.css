@@ -1,0 +1,6 @@
+td{
+    width: 33.3%;
+}
+td:nth-child(odd), th:nth-child(odd) {
+    background-color: #D6EEEE;
+}
