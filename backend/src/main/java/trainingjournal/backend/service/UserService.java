@@ -68,7 +68,7 @@ public class UserService implements UserDetailsService {
 
         if (userWeight > 0.5) {
             userWeightSet.removeIf(userWeightNext -> userWeightNext.date().equals(LocalDate.now()));
-            userWeightSet.add(new UserWeight(LocalDate.now(), userWeight));
+            userWeightSet.add(new UserWeight(LocalDate.now(), userWeight, bmiCalculate(user.getUserHeight(), userWeight)));
         }
 
         userRepository.save(user);
@@ -90,7 +90,9 @@ public class UserService implements UserDetailsService {
         newGymUser.setGender(signupData.gender());
         newGymUser.setBirthday(signupData.birthday());
         newGymUser.setPassword(signupData.password());
-        Set<UserWeight> userWeightMap = new HashSet<>(Set.of(new UserWeight(LocalDate.now(), signupData.userWeight())));
+        Set<UserWeight> userWeightMap = new HashSet<>(Set.of(new UserWeight(LocalDate.now(),
+                signupData.userWeight(),
+                bmiCalculate(signupData.userHeight(), signupData.userWeight()))));
         newGymUser.setUserWeight(userWeightMap);
         newGymUser.setUserHeight(signupData.userHeight());
 
@@ -161,6 +163,10 @@ public class UserService implements UserDetailsService {
     public List<Week> getUserPlans(String username){
         GymUser user = userRepository.findByUsername(username);
         return user.getWeekPlansList();
+    }
+
+    private Double bmiCalculate(Double height, Double weight){
+        return weight/Math.pow(height, 2);
     }
 
 }
