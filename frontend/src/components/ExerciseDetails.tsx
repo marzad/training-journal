@@ -19,8 +19,8 @@ export default function ExerciseDetails(props: ExerciseDetailsProps){
 
     return(
         <>
-            <label>{props.exercise.description}</label>
             <input type={"checkbox"} onChange={checkBoxOnChange} key={props.exercise.id}/>
+            <label>{props.exercise.description}</label>
             <br/>
         </>
     )
