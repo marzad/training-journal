@@ -19,11 +19,11 @@ export default function UserExerciseDetails(props: ExerciseDetailsProps) {
         <div>
             <label>{props.exercise.description}</label>
             <input type="number" name={"repeats"} value={props.exercise.repeats} onChange={handleInputOnChange}
-                   disabled={props.disabled}/>
+                   disabled={props.disabled} className={"NumberInput"}/>/
             <input type="number" name={"sets"} value={props.exercise.sets} onChange={handleInputOnChange}
-                   disabled={props.disabled}/>
+                   disabled={props.disabled} className={"NumberInput"}/>/
             <input type="number" name={"weight"} value={props.exercise.weight} onChange={handleInputOnChange}
-                   disabled={props.disabled}/> kg
+                   disabled={props.disabled} className={"NumberInput"}/> kg
             <br/>
         </div>
     )

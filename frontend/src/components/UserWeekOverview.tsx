@@ -64,7 +64,7 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
         }
     }
 
-    function handleOnClick(){
+    function handleOnClick() {
         navigate(-1)
     }
 
@@ -72,30 +72,37 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
         <section>
             {props.weekId}
             <table>
-                <thead>
-                <tr>
-                    <th>Montag</th>
-                    <th>Dienstag</th>
-                    <th>Mittwoch</th>
-                    <th>Donnerstag</th>
-                    <th>Freitag</th>
-                    <th>Samstag</th>
-                    <th>Sonntag</th>
-                </tr>
-                </thead>
                 <tbody>
                 <tr>
+                    <td>Montag</td>
                     <td>{mapExercises("MONDAY")}</td>
+                </tr>
+                <tr>
+                    <td>Dienstag</td>
                     <td>{mapExercises("TUESDAY")}</td>
+                </tr>
+                <tr>
+                    <td>Mittwoch</td>
                     <td>{mapExercises("WEDNESDAY")}</td>
+                </tr>
+                <tr>
+                    <td>Donnerstag</td>
                     <td>{mapExercises("THURSDAY")}</td>
+                </tr>
+                <tr>
+                    <td>Freitag</td>
                     <td>{mapExercises("FRIDAY")}</td>
+                </tr>
+                <tr>
+                    <td>Samstag</td>
                     <td>{mapExercises("SATURDAY")}</td>
+                </tr>
+                <tr>
+                    <td>Sonntag</td>
                     <td>{mapExercises("SUNDAY")}</td>
                 </tr>
                 </tbody>
             </table>
-
             <button onClick={handleOnClick}>zurück</button>
         </section>
     )
