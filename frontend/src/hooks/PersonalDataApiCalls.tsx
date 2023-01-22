@@ -1,9 +1,7 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 
 export default function PersonalDataApiCalls() {
-    const navigate = useNavigate()
 
     const [userWeightList, setUserWeightList] = useState<{ date: Date, weight: number, bmi: number }[]>([])
     const [username, setUsername] = useState()
@@ -20,7 +18,7 @@ export default function PersonalDataApiCalls() {
     }
 
     useEffect(() => {
-        if (username !== undefined || username !== "") {
+        if (username !== undefined && username !== "") {
             getUserWeightData()
                 .then(() => dataMap())
                 .catch(error => console.error(error))
@@ -41,7 +39,7 @@ export default function PersonalDataApiCalls() {
             })
     }
 
-    function submitUserWeightData(username: string, userWeight: number, newUsername: string) {
+    function submitUserWeightData(username: string, userWeight: number) {
 
         if (userWeight > 0.5) {
             axios.put("/api/users/" + username + "/updateweight/", userWeight,
@@ -51,11 +49,6 @@ export default function PersonalDataApiCalls() {
                     setUserWeightList(data)
                 })
                 .catch(error => console.error(error))
-        } else {
-            axios.put("/api/users/" + username + "/updateusername/", newUsername,
-                {headers: {"Content-type": "text/plain"}})
-                .catch(error => console.error(error))
-                .then(() => navigate("/menu"))
         }
     }
     type chartDataType = {

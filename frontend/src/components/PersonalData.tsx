@@ -8,31 +8,19 @@ export default function PersonalData() {
 
     const {username, userWeightList, submitUserWeightData, chartData} = PersonalDataApiCalls()
 
-    type PersonalDataForm = {
-        newUsername: string,
-        userWeight: number
-    }
-    const initPersonalData = {
-        newUsername: "",
-        userWeight: 0.5
-    }
-
-    const [formInput, setFormInput] = useState<PersonalDataForm>(initPersonalData)
+    const [formInput, setFormInput] = useState<number>(0.5)
 
     const navigate = useNavigate()
 
 
-    function handlingInputOnChange(event: ChangeEvent<HTMLInputElement>) {
-
-        let eventName = event.target.name
-        let eventValue = event.target.value
-        setFormInput(prevState => ({...prevState, [eventName]: eventValue}))
+    function handleInputOnChange(event: ChangeEvent<HTMLInputElement>) {
+        setFormInput(Number(event.target.value))
     }
 
-    function handlingFormOnChange(event: FormEvent<HTMLFormElement>) {
+    function handleFormOnChange(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
-        submitUserWeightData(username!, formInput.userWeight, formInput.newUsername)
+        submitUserWeightData(username!, formInput)
     }
 
     const getUserWeightDetails = userWeightList.map(weightItems => {
@@ -56,10 +44,8 @@ export default function PersonalData() {
 
     return (
         <section>
-            <form onSubmit={handlingFormOnChange}>
-                <label>Username</label><input type={"text"} onChange={handlingInputOnChange} name={"newUsername"}
-                                              placeholder={username}/><br/>
-                <label>Gewicht</label><input type={"text"} onChange={handlingInputOnChange} name={"userWeight"}/><br/>
+            <form onSubmit={handleFormOnChange}>
+                <label>Gewicht</label><input type={"text"} onChange={handleInputOnChange} name={"userWeight"}/><br/>
                 <button type={"submit"}>Speichern</button>
             </form>
             <form>
