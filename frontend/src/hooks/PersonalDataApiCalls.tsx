@@ -20,7 +20,7 @@ export default function PersonalDataApiCalls() {
     }
 
     useEffect(() => {
-        if (username !== undefined) {
+        if (username !== undefined || username !== "") {
             getUserWeightData()
                 .then(() => dataMap())
                 .catch(error => console.error(error))
@@ -68,9 +68,8 @@ export default function PersonalDataApiCalls() {
     const [chartData, setChartData] = useState<chartDataType[]>([])
 
     const dataMap = () => {
-
-        userWeightList.map(weightItem => {
-            return setChartData(prevState => [...prevState,{name: weightItem.date.toString(), uv: weightItem.bmi, pv: 0, amt: 0}])
+        userWeightList.forEach(weightItem => {
+            setChartData(prevState => [...prevState,{name: weightItem.date.toString(), uv: weightItem.bmi, pv: 0, amt: 0}])
         })
     }
 
