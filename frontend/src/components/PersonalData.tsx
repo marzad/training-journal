@@ -1,8 +1,8 @@
 import {ChangeEvent, FormEvent, useState} from "react";
-import UserWeightDetails from "./UserWeightDetails";
 import PersonalDataApiCalls from "../hooks/PersonalDataApiCalls";
 import {useNavigate} from "react-router-dom";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import {LineChart, Line, CartesianGrid, XAxis, YAxis} from 'recharts';
+import "../css/PersonalData.css"
 
 export default function PersonalData() {
 
@@ -24,22 +24,36 @@ export default function PersonalData() {
     }
 
     const getUserWeightDetails = userWeightList.map(weightItems => {
-        return <UserWeightDetails userWeight={weightItems} key={weightItems.date.toString()}/>
+        return (
+            <table>
+                <tr>
+                    <td>
+                        {weightItems.date.toString()}
+                    </td>
+                    <td>
+                        {weightItems.weight}
+                    </td>
+                    <td>
+                        {weightItems.bmi}
+                    </td>
+                </tr>
+            </table>
+        )
     })
 
-    function handleOnClick(){
+    function handleOnClick() {
         navigate("/menu")
     }
 
     const renderLineChart = () => {
-        return(
-            <LineChart width={400} height={200} data={chartData}>
+        return (
+            <LineChart width={350} height={150} data={chartData}>
                 <Line type={"monotone"} dataKey={"uv"}/>
                 <CartesianGrid stroke="#ccc"/>
                 <XAxis dataKey="name"/>
                 <YAxis/>
             </LineChart>
-            )
+        )
     }
 
     return (
@@ -49,9 +63,19 @@ export default function PersonalData() {
                 <button type={"submit"}>Speichern</button>
             </form>
             <form>
+                <table>
+                    <thead>
+                    <th>Datum</th>
+                    <th>Gewicht</th>
+                    <th>BMI</th>
+                    </thead>
+                </table>
                 {getUserWeightDetails}
-                {renderLineChart()}
             </form>
+            <div className={"Linechart"}>
+                <label>BMI</label><br/>
+                {renderLineChart()}
+            </div>
             <button onClick={handleOnClick}>zurück</button>
         </section>
     )
