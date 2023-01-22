@@ -82,7 +82,7 @@ class UserControllerTest {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
         Set<UserWeight> userWeightSet = new HashSet<>();
-        userWeightSet.add(new UserWeight(LocalDate.parse("2021-12-12"), 96.7));
+        userWeightSet.add(new UserWeight(LocalDate.parse("2021-12-12"), 96.7, 25.0));
         user.setUserWeight(userWeightSet);
         userRepository.save(user);
 
@@ -104,8 +104,9 @@ class UserControllerTest {
     void test_updateWeight_whenNoItemExist() throws Exception {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
+        user.setUserHeight(170.0);
         Set<UserWeight> userWeightSet = new HashSet<>();
-        userWeightSet.add(new UserWeight(LocalDate.parse("2021-12-12"), 96.7));
+        userWeightSet.add(new UserWeight(LocalDate.parse("2021-12-12"), 96.7, 25.0));
         user.setUserWeight(userWeightSet);
         userRepository.save(user);
 
@@ -123,8 +124,9 @@ class UserControllerTest {
     void test_updateWeight_whenItemExist() throws Exception {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
+        user.setUserHeight(170.0);
         Set<UserWeight> userWeightSet = new HashSet<>();
-        userWeightSet.add(new UserWeight(LocalDate.now(), 96.7));
+        userWeightSet.add(new UserWeight(LocalDate.now(), 96.7, 25.0));
         user.setUserWeight(userWeightSet);
         userRepository.save(user);
 
@@ -148,7 +150,7 @@ class UserControllerTest {
                                 "gender" : "MALE",
                                 "birthday" : "1996-12-12",
                                 "userWeight" : "96.0",
-                                "userHight" : "176.0",
+                                "userHeight" : "176.0",
                                 "password" : "password"
                                 }
                                 """)
@@ -242,7 +244,7 @@ class UserControllerTest {
         GymUser user = new GymUser();
         user.setUsername("StandardUser");
         Set<UserWeight> userWeightSet = new HashSet<>();
-        userWeightSet.add(new UserWeight(LocalDate.parse("2023-01-12"), 56.0));
+        userWeightSet.add(new UserWeight(LocalDate.parse("2023-01-12"), 56.0, 25.0));
         user.setUserWeight(userWeightSet);
 
         userRepository.save(user);

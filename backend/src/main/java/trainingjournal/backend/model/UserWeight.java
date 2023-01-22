@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public record UserWeight(
         LocalDate date,
-        Double weight
+        Double weight,
+        Double bmi
 ) {
 }

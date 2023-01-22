@@ -59,8 +59,9 @@ class UserServiceTest {
     void test_updatePersonalData_whenWeightToUpdate(){
         GymUser user = new GymUser();
         user.setUsername("username");
+        user.setUserHeight(170.0);
         Set<UserWeight> userWeightSet = new HashSet<>();
-        userWeightSet.add((new UserWeight(LocalDate.parse("2019-12-12"), 96.7)));
+        userWeightSet.add((new UserWeight(LocalDate.parse("2019-12-12"), 96.7, (170.0/Math.pow(96.7, 2)))));
         user.setUserWeight(userWeightSet);
         userRepository.save(user);
 
@@ -74,8 +75,9 @@ class UserServiceTest {
     void test_updatePersonalData_whenWeightToUpdate_whenDateExist(){
         GymUser user = new GymUser();
         user.setUsername("username");
+        user.setUserHeight(170.0);
         Set<UserWeight> userWeightSet = new HashSet<>();
-        userWeightSet.add((new UserWeight(LocalDate.now(), 96.7)));
+        userWeightSet.add((new UserWeight(LocalDate.now(), 96.7, (170.0/Math.pow(96.7,2)))));
         user.setUserWeight(userWeightSet);
         userRepository.save(user);
 
