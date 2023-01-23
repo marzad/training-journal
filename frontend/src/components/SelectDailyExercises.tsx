@@ -30,16 +30,15 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
 
         if(exerciseItem.description === "STRETCHING" || exerciseItem.description === "WARMUP"){
             return(
-            <>
+            <div key={exerciseItem.id}>
                 <label>{exerciseItem.description}</label>
                 <input type="number" name={"repeats"} value={exerciseItem.repeats}
                        onChange={(event) => handleInputOnChange(event, exerciseItem)}
                        id={exerciseItem.description}
                        disabled={trainingfree}
-                       key={exerciseItem.id}
                        className={"NumberInput"}/> min
                 <br/>
-            </>)
+            </div>)
         }
         else{
             return(
@@ -76,15 +75,18 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
         navigate(-1)
     }
 
+    function selectExercises(){
+        navigate("/exercises")
+    }
+
     return (
         <section>
             <h3>{props.day}</h3>
             <form onSubmit={handleOnSubmit}>
-
                 <label>Trainingsfrei</label>
                 <input type={"checkbox"} onChange={handleOnChangeCheckbox}/><br/>
                 <>
-                    {exercises}
+                    {userExercisesList? exercises : selectExercises()}
                 </>
                 <label>Notizen</label><input type={"text"} name="notes" value={notes}
                                              onChange={handleOnChangeNotesInputFields} maxLength={300}/>
