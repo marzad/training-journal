@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import useUser from "./hooks/UseUser";
 import ExercisePage from "./components/ExercisePage";
-import HeadPage from "./pages/HeadPage";
+import MainPage from "./pages/MainPage";
 import useExercise from "./hooks/UseExercise";
 import "../src/css/TrainingjournalApp.css"
 import PersonalData from "./components/PersonalData";
@@ -48,7 +48,7 @@ export default function TrainingjournalApp(){
                                exercises={exercises}
                                selectedExercisesList={selectedExercisesList}
                                username={userName}/>}/>
-                    <Route path={"/menu"} element={<HeadPage/>}/>
+                    <Route path={"/menu"} element={<MainPage/>}/>
                     <Route path={"/weekdays"} element={<WeekDaysSelect selectedDay={setDay}/>}/>
                     <Route path={"/selectexercises"} element={<SelectDailyExercises day={day} username={userName}/>}/>
                     <Route path={"/logout"} element={<LogoutPage/>}/>
