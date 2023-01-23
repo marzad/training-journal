@@ -4,8 +4,7 @@ export default function Header(){
 
     return(
         <section>
-            <h1>Trainingjournal</h1>
-            <img src={require("../images/gym-icon.png")} alt={"gym-icon"} width={"30%"}/>
+            <img src={require("../images/trainingjournal_free-file.png")} alt={"trainingjournal-icon"} width={"20%"}/>
         </section>
     )
 }
