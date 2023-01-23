@@ -278,4 +278,13 @@ class UserControllerTest {
                         """));
     }
 
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_logout() throws Exception{
+
+        mockMvc.perform(post("/api/users/logout").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("anonymous"));
+    }
 }
