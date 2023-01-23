@@ -41,7 +41,7 @@ export default function UserWeekplans(props: UserWeekplansProps) {
 
     return (
         <section>
-            {mappedUserPlans}<br/>
+            {userPlans?.length !== 0? mappedUserPlans : "Es gibt noch keine Trainingspläne!"}<br/>
             <button onClick={handleOnClickReturn}>zurück</button>
         </section>
     )
