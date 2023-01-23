@@ -12,7 +12,6 @@ export default function UserWeekplansApiCalls(){
     }, [])
 
     function getUsername() {
-
         return axios.get("/api/users/me")
             .then(response => response.data)
             .then(data => {
@@ -21,7 +20,7 @@ export default function UserWeekplansApiCalls(){
     }
 
     useEffect(() => {
-        if (username !== undefined) {
+        if (username !== undefined && username !== "") {
             getUserPlans()
                 .catch(error => console.error(error))
         }
