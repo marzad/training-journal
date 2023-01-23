@@ -32,6 +32,7 @@ public class UserController {
     public String login() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
+
     @PostMapping("/logout")
     public String logout(HttpSession httpSession){
         httpSession.invalidate();
