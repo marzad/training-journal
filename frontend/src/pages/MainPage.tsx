@@ -1,8 +1,8 @@
 import {useNavigate} from "react-router-dom";
-import "../css/HeadPage.css"
+import "../css/MainPage.css"
 import React  from "react";
 
-export default function HeadPage(){
+export default function MainPage(){
 
     const navigate = useNavigate()
 
@@ -31,7 +31,7 @@ export default function HeadPage(){
             <div>
                 <button onClick={handleWeekPlanNavigation}>Wochenplan erstellen</button><br/>
                 <button onClick={handlePersonalDataNavigation}>Gewicht eintragen</button><br/>
-                <button onClick={handleCalendarNavigation}>Übersicht</button><br/>
+                <button onClick={handleCalendarNavigation}>Archiv</button><br/>
                 <button onClick={handleSettings}>Einstellungen</button><br/>
                 <button onClick={handleLogout}>Ausloggen</button>
 
