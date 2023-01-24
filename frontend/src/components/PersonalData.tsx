@@ -26,7 +26,7 @@ export default function PersonalData() {
 
     const getUserWeightDetails = userWeightList.map(weightItems => {
         return (
-            <table>
+            <table key={weightItems.date.toString()}>
                 <tbody>
                 <tr>
                     <td>

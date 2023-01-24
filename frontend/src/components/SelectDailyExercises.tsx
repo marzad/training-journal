@@ -5,6 +5,7 @@ import UserExerciseDetails from "./UserExerciseDetails";
 import DailyExercisesApiCalls from "../hooks/DailyExercisesApiCalls";
 import {useNavigate} from "react-router-dom";
 
+
 type SelectDailyExercisesProps = {
     day: Weekdays | undefined
     username: string | undefined
