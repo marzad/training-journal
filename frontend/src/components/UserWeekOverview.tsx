@@ -69,7 +69,7 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
     }
 
     return (
-        <section>
+        <section key={props.weekId}>
             {props.weekId}
             <table>
                 <tbody>
