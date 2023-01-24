@@ -13,6 +13,7 @@ export default function LogoutPage(){
 
     function logout(){
         return axios.post("/api/users/logout")
+            .then(() => navigation("/login"))
             .catch(error => console.error(error))
     }
 

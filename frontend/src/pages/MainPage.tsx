@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import "../css/MainPage.css"
 import React  from "react";
+import axios from "axios/index";
 
 export default function MainPage(){
 
@@ -23,7 +24,9 @@ export default function MainPage(){
     }
 
     function handleLogout(){
-        navigate("/logout")
+        return axios.post("/api/users/logout")
+            .then(() => navigate("/login"))
+            .catch(error => console.error(error))
     }
 
     return(
