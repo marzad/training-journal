@@ -27,7 +27,7 @@ export default function LoginPage(props: LoginPageProps) {
             .then(() => navigate("/menu"))
     }
 
-    function handleOnClick(){
+    function handleRegisterOnClick(){
         navigate("/signup")
     }
 
@@ -42,7 +42,7 @@ export default function LoginPage(props: LoginPageProps) {
                        autoComplete={"false"}/><br/>
                 <button type={"submit"}>Login</button>
             </form>
-            <button onClick={handleOnClick}>Registrieren</button>
+            <button onClick={handleRegisterOnClick}>Registrieren</button>
         </section>
     )
 }

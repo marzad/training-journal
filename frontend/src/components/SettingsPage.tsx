@@ -19,11 +19,11 @@ export default function SettingsPage(){
             .then(setCurrentUsername)
     }
 
-    function handleInputOnChange(event: ChangeEvent<HTMLInputElement>) {
+    function handleUsernameInputOnChange(event: ChangeEvent<HTMLInputElement>) {
         setNewUsername(event.target.value)
     }
 
-    function handleFormOnChange(event: FormEvent<HTMLFormElement>) {
+    function handleSubmitUsername(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         submitUsername()
     }
@@ -35,25 +35,25 @@ export default function SettingsPage(){
             .then(() => navigate("/login"))
     }
 
-    function handleOnClick(){
+    function handleUpdateExercisesOnClick(){
         navigate("/exercises")
     }
 
-    function handleOnClickReturn(){
+    function handleReturnOnClick(){
         navigate("/menu")
     }
 
     return(
         <section>
-            <form onSubmit={handleFormOnChange}>
-                <label>Username</label><input type={"text"} onChange={handleInputOnChange} name={"newUsername"}
+            <form onSubmit={handleSubmitUsername}>
+                <label>Username</label><input type={"text"} onChange={handleUsernameInputOnChange} name={"newUsername"}
                                               placeholder={currentUsername}/>
                 <button type={"submit"}>Ändern</button><br/>
                 (Passwort ändern)
             </form>
 
-            <button onClick={handleOnClick}>Liste der Übungen bearbeiten</button><br/>
-            <button onClick={handleOnClickReturn}>zurück</button><br/>
+            <button onClick={handleUpdateExercisesOnClick}>Liste der Übungen bearbeiten</button><br/>
+            <button onClick={handleReturnOnClick}>zurück</button><br/>
         </section>
     )
 }

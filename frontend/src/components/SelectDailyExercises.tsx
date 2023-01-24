@@ -19,7 +19,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
 
     const navigate = useNavigate()
 
-    function handleInputOnChange(event: ChangeEvent<HTMLInputElement>, updatedExercise: Exercise) {
+    function handleExercisesSettingInputOnChange(event: ChangeEvent<HTMLInputElement>, updatedExercise: Exercise) {
         let eventName = event.target.name
 
         const newUpdatedExercise = {...updatedExercise, [eventName]: event.target.value}
@@ -33,7 +33,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
             <div key={exerciseItem.id}>
                 <label>{exerciseItem.description}</label>
                 <input type="number" name={"repeats"} value={exerciseItem.repeats}
-                       onChange={(event) => handleInputOnChange(event, exerciseItem)}
+                       onChange={(event) => handleExercisesSettingInputOnChange(event, exerciseItem)}
                        id={exerciseItem.description}
                        disabled={trainingfree}
                        className={"NumberInput"}/> min
@@ -42,7 +42,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
         }
         else{
             return(
-            <UserExerciseDetails exercise={exerciseItem} inputEntry={handleInputOnChange}
+            <UserExerciseDetails exercise={exerciseItem} inputEntry={handleExercisesSettingInputOnChange}
                                  disabled={trainingfree} key={exerciseItem.id}/>)
         }
     })
@@ -71,7 +71,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
         saveUserDailyPlan(dailyPlanEntry)
     }
 
-    function handleOnClick(){
+    function handleReturnOnClick(){
         navigate(-1)
     }
 
@@ -93,7 +93,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
                 <button type={"submit"}>Speichern</button>
 
             </form>
-            <button onClick={handleOnClick}>zurück</button>
+            <button onClick={handleReturnOnClick}>zurück</button>
 
         </section>
     )
