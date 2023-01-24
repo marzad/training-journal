@@ -43,7 +43,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
         }
         else{
             return(
-            <UserExerciseDetails exercise={exerciseItem} inputEntry={() => handleExercisesSettingInputOnChange}
+            <UserExerciseDetails exercise={exerciseItem} inputEntry={handleExercisesSettingInputOnChange}
                                  disabled={trainingfree} key={exerciseItem.id}/>)
         }
     })
