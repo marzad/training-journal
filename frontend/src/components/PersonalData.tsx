@@ -70,9 +70,9 @@ export default function PersonalData() {
             <form>
                 <table>
                     <thead>
-                    <th>Datum</th>
-                    <th>Gewicht</th>
-                    <th>BMI</th>
+                    <td>Datum</td>
+                    <td>Gewicht</td>
+                    <td>BMI</td>
                     </thead>
                 </table>
                 {getUserWeightDetails}
