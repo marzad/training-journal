@@ -328,4 +328,20 @@ class UserServiceTest {
         assertEquals(weekList, result);
     }
 
+    @Test
+    void test_getUserData(){
+        String username = "username";
+        GymUser newGymUser = new GymUser();
+        newGymUser.setUsername(username);
+
+        userRepository.save(newGymUser);
+
+        when(userRepository.findByUsername("username")).thenReturn(newGymUser);
+
+        GymUser result = userService.getUserData(username);
+
+        assertEquals(newGymUser, result);
+    }
+
+
 }
