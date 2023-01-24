@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {LineChart, Line, CartesianGrid, XAxis, YAxis} from 'recharts';
 import "../css/PersonalData.css"
 
+
 export default function PersonalData() {
 
     const {username, userWeightList, submitUserWeightData, chartData} = PersonalDataApiCalls()
@@ -59,7 +60,7 @@ export default function PersonalData() {
     }
 
     return (
-        <section>
+        <section key={0}>
             <form onSubmit={handleFormOnChange}>
                 <label>Gewicht</label><input type={"text"} onChange={handleInputOnChange} name={"userWeight"}/><br/>
                 <button type={"submit"}>Speichern</button>

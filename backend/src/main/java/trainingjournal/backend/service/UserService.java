@@ -171,5 +171,4 @@ public class UserService implements UserDetailsService {
 
         return (double)(bmiLong)/100;
     }
-
 }

@@ -64,7 +64,7 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
         }
     }
 
-    function handleOnClick() {
+    function handleReturnOnClick() {
         navigate(-1)
     }
 
@@ -103,7 +103,7 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
                 </tr>
                 </tbody>
             </table>
-            <button onClick={handleOnClick}>zurück</button>
+            <button onClick={handleReturnOnClick}>zurück</button>
         </section>
     )
 }

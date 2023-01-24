@@ -13,7 +13,7 @@ export default function UserWeekplans(props: UserWeekplansProps) {
 
     const navigate = useNavigate()
 
-    const handleOnClick = (value: string) => {
+    const currentWeekday = (value: string) => {
 
         const week = userPlans?.find(weekItem => {
             if (weekItem.weekId === value) {
@@ -30,19 +30,19 @@ export default function UserWeekplans(props: UserWeekplansProps) {
     const mappedUserPlans = userPlans?.map(week => {
         return (
             <button value={week.weekId}
-                    onClick={() => handleOnClick(week.weekId)}
+                    onClick={() => currentWeekday(week.weekId)}
                     key={week.weekId}>{week.weekId}</button>
         )
     })
 
-    function handleOnClickReturn(){
+    function handleReturnOnClick(){
         navigate("/menu")
     }
 
     return (
         <section>
             {userPlans?.length !== 0? mappedUserPlans : "Es gibt noch keine Trainingspläne!"}<br/>
-            <button onClick={handleOnClickReturn}>zurück</button>
+            <button onClick={handleReturnOnClick}>zurück</button>
         </section>
     )
 }
