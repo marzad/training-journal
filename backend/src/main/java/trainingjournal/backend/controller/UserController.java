@@ -55,6 +55,11 @@ public class UserController {
         return userService.getUserPlans(username);
     }
 
+    @GetMapping("{username}")
+    public GymUser getUserData(@PathVariable String username){
+        return userService.getUserData(username);
+    }
+
     @PostMapping("{username}/exercises/")
     public Set<Exercise> addUserExercisesList(@PathVariable String username, @RequestBody List<ExerciseDTO> exercisesList) {
 

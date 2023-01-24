@@ -171,4 +171,10 @@ public class UserService implements UserDetailsService {
 
         return (double)(bmiLong)/100;
     }
+
+    public GymUser getUserData(String username){
+        return userRepository.findByUsername(username);
+    }
+
+
 }

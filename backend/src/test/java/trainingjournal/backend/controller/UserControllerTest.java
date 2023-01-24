@@ -287,4 +287,21 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("anonymous"));
     }
+
+    @DirtiesContext
+    @WithMockUser(username = "StandardUser")
+    @Test
+    void test_getUserData() throws Exception{
+        GymUser user = new GymUser();
+        user.setUsername("StandardUser");
+        userRepository.save(user);
+
+        mockMvc.perform(get("/api/users/StandardUser"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                        "username" : "StandardUser"
+                        }
+                        """));
+    }
 }
