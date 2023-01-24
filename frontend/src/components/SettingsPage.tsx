@@ -1,75 +1,14 @@
 import {useNavigate} from "react-router-dom";
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import axios from "axios";
-import {Week} from "../model/Week";
+import {ChangeEvent, FormEvent, useState} from "react";
+import SettingPageApiCalls from "../hooks/SettingPageApiCalls";
 
 export default function SettingsPage() {
 
+    const {currentUsername, userData, submitUsername} = SettingPageApiCalls()
+
     const navigate = useNavigate()
-    const [currentUsername, setCurrentUsername] = useState<string>("")
     const [newUsername, setNewUsername] = useState<string>(currentUsername)
 
-    type UserDataTyp = {
-        id?: string
-        username: string,
-        gender: string,
-        birthday: Date,
-        userWeight?: Set<{ date: Date, weight: number }>,
-        userHeight: number,
-        weekPlanlist?: Week[],
-        exercises?: Set<{ id: string, description: string, repeats: number, sets: number, weight: number }>
-        registerData: Date,
-        password?: string
-    }
-
-    const initUserData = {
-        id: "",
-        username: "",
-        gender: "MALE",
-        birthday: new Date(),
-        userWeight: new Set<{ date: Date, weight: number }>(),
-        userHeight: 0,
-        weekPlanlist: [],
-        exercises: new Set<{ id: string, description: string, repeats: number, sets: number, weight: number }>(),
-        registerData: new Date(),
-        password: ""
-    }
-
-    const [userData, setUserData] = useState<UserDataTyp>(initUserData)
-
-    useEffect(() => {
-        getUsername()
-            .catch(error => console.error(error))
-    }, [])
-
-    useEffect(() => {
-        if(currentUsername !== undefined && currentUsername !== ""){
-            getUserData()
-        }
-        //eslint-disable-next-line
-    },[currentUsername])
-
-    function getUsername() {
-        return axios.get("/api/users/me")
-            .then(response => response.data)
-            .then(setCurrentUsername)
-    }
-
-    function submitUsername() {
-        axios.put("/api/users/" + currentUsername + "/updateusername/", newUsername,
-            {headers: {"Content-type": "text/plain"}})
-            .catch(error => console.error(error))
-            .then(() => navigate("/login"))
-    }
-
-    function getUserData() {
-        axios.get("/api/users/" + currentUsername)
-            .then(response => response.data)
-            .then(data => {
-                setUserData(data)
-            })
-            .catch(error => console.error(error))
-    }
 
     function handleUsernameInputOnChange(event: ChangeEvent<HTMLInputElement>) {
         setNewUsername(event.target.value)
@@ -77,7 +16,7 @@ export default function SettingsPage() {
 
     function handleSubmitUsername(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        submitUsername()
+        submitUsername(newUsername)
     }
 
     function handleUpdateExercisesOnClick() {
