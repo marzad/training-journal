@@ -21,7 +21,9 @@ export default function PersonalData() {
     function handleFormOnChange(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
-        submitUserWeightData(username!, formInput)
+        if(username !== undefined && username !== ""){
+            submitUserWeightData(username, formInput)
+        }
     }
 
     const getUserWeightDetails = userWeightList.map(weightItems => {
