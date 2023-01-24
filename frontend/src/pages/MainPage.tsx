@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import "../css/MainPage.css"
 import React  from "react";
-import axios from "axios/index";
+import axios from "axios";
 
 export default function MainPage(){
 
