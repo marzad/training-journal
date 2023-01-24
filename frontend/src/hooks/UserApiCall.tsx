@@ -1,17 +1,22 @@
-import {useEffect, useState} from "react";
 import axios from "axios";
-import {ExerciseDTO} from "../model/ExerciseDTO";
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
+export default function UserApiCall(){
 
-export default function useUser(){
-
-    const [userName, setUserName] = useState()
+    const navigate = useNavigate()
+    const [username, setUsername] = useState("anonymous")
 
     useEffect(() => {
+        getUsername()
+    }, [])
+
+    function getUsername(){
         axios.get("/api/users/me")
             .then(response => response.data)
-            .then(setUserName)
-    }, [])
+            .then(setUsername)
+            .catch(error => console.error(error))
+    }
 
     function login(username: string, password: string){
         return axios.post("/api/users/login",
@@ -23,17 +28,17 @@ export default function useUser(){
                 }
             })
             .then(response => {
-                setUserName(response.data)
+                setUsername(response.data)
                 return response.data
             })
             .catch(error => console.error(error))
     }
 
-    function submitSelectedExercisesList(list: ExerciseDTO[]){
-
-        axios.post("/api/users/" + userName + "/exercises/", list)
+    function logout(){
+        axios.post("/api/users/logout")
+            .then(() => navigate("/login"))
             .catch(error => console.error(error))
     }
 
-    return {username: userName, login, selectedExercisesList: submitSelectedExercisesList}
+    return {username, login, logout}
 }

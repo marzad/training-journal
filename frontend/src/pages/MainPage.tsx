@@ -1,11 +1,12 @@
 import {useNavigate} from "react-router-dom";
 import "../css/MainPage.css"
 import React  from "react";
-import axios from "axios";
+import UserApiCall from "../hooks/UserApiCall";
 
 export default function MainPage(){
 
     const navigate = useNavigate()
+    const {logout} = UserApiCall()
 
     function handlePersonalDataNavigation(){
         navigate("/user")
@@ -23,12 +24,6 @@ export default function MainPage(){
         navigate("/settings")
     }
 
-    function handleLogout(){
-        return axios.post("/api/users/logout")
-            .then(() => navigate("/login"))
-            .catch(error => console.error(error))
-    }
-
     return(
         <section className={"Buttons"}>
             <div>
@@ -36,10 +31,7 @@ export default function MainPage(){
                 <button onClick={handlePersonalDataNavigation}>Gewicht eintragen</button><br/>
                 <button onClick={handleCalendarNavigation}>Archiv</button><br/>
                 <button onClick={handleSettings}>Einstellungen</button><br/>
-                <button onClick={handleLogout}>Ausloggen</button>
-
-                {/*<button onClick={handleExercisesNavigation}>Übungen markieren</button><br/>*/}
-
+                <button onClick={logout}>Ausloggen</button>
             </div>
         </section>
     )

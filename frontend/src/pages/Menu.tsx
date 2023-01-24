@@ -1,12 +1,15 @@
 import {NavLink} from "react-router-dom";
+import UserApiCall from "../hooks/UserApiCall";
 
-export default function Menu(){
+export default function Menu() {
 
-    return(
-        <>
-        <NavLink to={"/login"}>Einloggen</NavLink>
-        <NavLink to={"/menu"}>Hauptmenü</NavLink>
-        <NavLink to={"/logout"}>Ausloggen</NavLink>
-        </>
+    const {logout} = UserApiCall()
+
+    return (
+        <section>
+            <NavLink to={"/menu"}>Hauptmenü</NavLink>
+            <NavLink to={"/login"} onClick={logout}>Ausloggen</NavLink>
+
+        </section>
     )
 }
