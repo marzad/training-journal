@@ -140,7 +140,8 @@ export default function SignUp() {
                                   label={"Passwort"}
                                   labelPlacement={"start"}/>
                 <br/>
-                <Button type={"submit"} variant={"contained"} color={"success"}>Registrieren</Button>
+                <Button type={"submit"} variant={"contained"} color={"success"}>Registrieren</Button><br/>
+                <a href={"/login"} style={{fontSize: "smaller"}}>Ich habe bereits ein Account</a>
             </form>
         </Box>
     )
