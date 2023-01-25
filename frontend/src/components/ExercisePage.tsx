@@ -56,11 +56,12 @@ export default function ExercisePage(props: ExercisePageProps) {
     }
 
     exercisesList.sort((a, b) => a.description.localeCompare(b.description))
+
     const exerciseDetailComponents = exercisesList
         .map(exerciseEntity => {
             return (
-                <div>
-                    <ExerciseDetails key={exerciseEntity.id.toString()} exercise={exerciseEntity}
+                <div key={exerciseEntity.id.toString()}>
+                    <ExerciseDetails exercise={exerciseEntity}
                                      selectedExercisesForUser={setSelectedExercisesList}/>
                 </div>)
         })
