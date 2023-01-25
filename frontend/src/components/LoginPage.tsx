@@ -1,3 +1,4 @@
+import {Box, Button, TextField} from "@mui/material";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -27,22 +28,30 @@ export default function LoginPage(props: LoginPageProps) {
             .then(() => navigate("/menu"))
     }
 
-    function handleRegisterOnClick(){
+    function handleRegisterOnClick() {
         navigate("/signup")
     }
 
     return (
-        <section>
+        <Box component={"section"}>
             <form onSubmit={onSubmit}>
-                <input type={"text"} value={userName} name={"userName"} onChange={handleUsernameOnChange}/><br/>
-                <input type={"password"}
-                       value={password}
-                       name={"password"}
-                       onChange={handlePasswordOnChange}
-                       autoComplete={"false"}/><br/>
-                <button type={"submit"}>Login</button>
+
+                <TextField type={"text"}
+                           value={userName}
+                           name={"userName"}
+                           onChange={handleUsernameOnChange}
+                           label={"Username"}/><br/>
+                <TextField type={"password"}
+                           value={password}
+                           name={"password"}
+                           onChange={handlePasswordOnChange}
+                           autoComplete={"false"}
+                           label={"Passwort"}/><br/>
+                <Button type={"submit"}
+                variant={"contained"}
+                color={"success"}>Login</Button>
             </form>
-            <button onClick={handleRegisterOnClick}>Registrieren</button>
-        </section>
+            <Button onClick={handleRegisterOnClick}>Registrieren</Button>
+        </Box>
     )
 }

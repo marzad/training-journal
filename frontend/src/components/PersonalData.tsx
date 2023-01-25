@@ -3,6 +3,7 @@ import PersonalDataApiCalls from "../hooks/PersonalDataApiCalls";
 import {useNavigate} from "react-router-dom";
 import {LineChart, Line, CartesianGrid, XAxis, YAxis} from 'recharts';
 import "../css/PersonalData.css"
+import {Box, Button, FormControlLabel, TextField} from "@mui/material";
 
 
 export default function PersonalData() {
@@ -46,7 +47,7 @@ export default function PersonalData() {
         )
     })
 
-    function handleOnClick() {
+    function handleReturnOnClick() {
         navigate("/menu")
     }
 
@@ -62,10 +63,15 @@ export default function PersonalData() {
     }
 
     return (
-        <section key={0}>
+        <Box component={"section"}>
             <form onSubmit={handleFormOnChange}>
-                <label>Gewicht</label><input type={"text"} onChange={handleInputOnChange} name={"userWeight"}/><br/>
-                <button type={"submit"}>Speichern</button>
+                <FormControlLabel control={<TextField type={"number"}
+                                                      onChange={handleInputOnChange}
+                                                      name={"userWeight"}
+                                                      size={"small"}
+                label={"Gewicht"}/>}
+                                  label={<Button type={"submit"}>Speichern</Button>}/>
+
             </form>
             <form>
                 <table>
@@ -81,7 +87,12 @@ export default function PersonalData() {
                 <label>BMI</label><br/>
                 {renderLineChart()}
             </div>
-            <button onClick={handleOnClick}>zurück</button>
-        </section>
+            <Button variant={"outlined"}
+                    size={"small"}
+                    onClick={handleReturnOnClick}
+                    color={"success"}
+                    style={{margin: 5}}
+            >zurück</Button>
+        </Box>
     )
 }

@@ -2,6 +2,18 @@ import {Gender} from "../model/Gender";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {
+    Box,
+    Button,
+    FormControl,
+    FormControlLabel,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField
+} from "@mui/material";
+
 
 export default function SignUp() {
 
@@ -14,19 +26,19 @@ export default function SignUp() {
         password: string
     }
     const initSignupData: SignupDataForm = {
-        username : "",
-        gender : Gender.FEMALE,
-        birthday : "",
-        userWeight : 0.0,
-        userHeight : 0.0,
-        password : ""
+        username: "",
+        gender: Gender.FEMALE,
+        birthday: "",
+        userWeight: 0.0,
+        userHeight: 0.0,
+        password: ""
     }
 
     const [formInput, setFormInput] = useState<SignupDataForm>(initSignupData)
 
     const navigate = useNavigate()
 
-    function handleFormOnChange(event: FormEvent<HTMLFormElement>){
+    function handleFormOnChange(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
         axios.post("/api/users/",
@@ -36,7 +48,7 @@ export default function SignUp() {
             .then(() => login(formInput.username, formInput.password))
     }
 
-    function login(username: string, password: string){
+    function login(username: string, password: string) {
         return axios.post("/api/users/login",
             undefined,
             {
@@ -52,35 +64,84 @@ export default function SignUp() {
             .then(() => navigate("/menu"))
     }
 
-    function handleInputOnChange(event: ChangeEvent<HTMLInputElement>){
+    function handleInputOnChange(event: ChangeEvent<HTMLInputElement>) {
 
         let eventName = event.target.name
         let eventValue = event.target.value
 
-        setFormInput(prevState => ({...prevState, [eventName] : eventValue}))
+        setFormInput(prevState => ({...prevState, [eventName]: eventValue}))
     }
 
-    function handleSelectOnChange(event: ChangeEvent<HTMLSelectElement>){
+    function handleSelectOnChange(event: SelectChangeEvent) {
 
-        setFormInput(prevState => ({...prevState, [event.target.name] : event.target.value}))
+        setFormInput(prevState => ({...prevState, [event.target.name]: event.target.value}))
 
     }
 
     return (
-        <section>
+        <Box component={"section"}>
             <form onSubmit={handleFormOnChange}>
-                <label>Username </label><input type={"text"} name={"username"} onChange={handleInputOnChange}/><br/>
-                <label>Geschlecht </label><select size={1} name={"gender"} onChange={handleSelectOnChange}>
-                    <option value={"default"}></option>
-                    <option value={"FEMALE"}>Frau</option>
-                    <option value={"MALE"}>Mann</option>
-                </select><br/>
-                <label>Geburtsdatum </label><input type={"date"} name={"birthday"} onChange={handleInputOnChange}/><br/>
-                <label>Gewicht </label><input type={"number"} step={"any"} name={"userWeight"} onChange={handleInputOnChange}/><br/>
-                <label>Größe </label><input type={"number"} step={"any"} name={"userHeight"} onChange={handleInputOnChange}/><br/>
-                <label>Password </label><input type={"password"} name={"password"} onChange={handleInputOnChange} autoComplete={""}/><br/>
-                <button type={"submit"}>Registrieren </button>
+                <FormControlLabel control={<TextField type={"text"}
+                                                      name={"username"}
+                                                      onChange={handleInputOnChange}
+                                                      label={"Username"}
+                                                      size={"small"}/>}
+                                  label={"Username"}
+                                  labelPlacement={"start"}/>
+                <br/>
+                <FormControlLabel control={<FormControl sx={{width: 100}}>
+                    <InputLabel id="select-label">Geschlecht</InputLabel>
+                    <Select
+                        labelId="select-label"
+                        id="select"
+                        label="Age"
+                        size={"small"}
+                        onChange={handleSelectOnChange}
+                    >
+                        <MenuItem value={"FEMALE"}>Frau</MenuItem>
+                        <MenuItem value={"MALE"}>Mann</MenuItem>
+                    </Select>
+                </FormControl>}
+                                  label={"Geschlecht"}
+                                  labelPlacement={"start"}/>
+                <br/>
+                <FormControlLabel control={<TextField type={"date"}
+                                                      name={"birthday"}
+                                                      onChange={handleInputOnChange}
+                                                      label={"Geburtstag"}
+                                                      size={"small"}/>}
+                                  label={"Geburtstag"}
+                                  labelPlacement={"start"}/>
+                <br/>
+                <FormControlLabel control={<TextField type={"number"}
+                                                      name={"userWeight"}
+                                                      onChange={handleInputOnChange}
+                                                      label={"Gewicht"}
+                                                      size={"small"}
+                                                      style={{width: 150}}/>}
+                                  label={"Gewicht"}
+                                  labelPlacement={"start"}/>
+
+                <br/>
+                <FormControlLabel control={<TextField type={"number"}
+                                                      name={"userHeight"}
+                                                      onChange={handleInputOnChange}
+                                                      label={"Größe"}
+                                                      size={"small"}
+                                                      style={{width: 150}}/>}
+                                  label={"Größe"}
+                                  labelPlacement={"start"}/>
+                <br/>
+                <FormControlLabel control={<TextField type={"password"}
+                                                      name={"password"}
+                                                      onChange={handleInputOnChange}
+                                                      label={"Passwort"}
+                                                      size={"small"}/>}
+                                  label={"Passwort"}
+                                  labelPlacement={"start"}/>
+                <br/>
+                <Button type={"submit"} variant={"contained"} color={"success"}>Registrieren</Button>
             </form>
-        </section>
+        </Box>
     )
 }

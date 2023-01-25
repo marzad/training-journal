@@ -8,7 +8,6 @@ import useExercise from "./hooks/UseExercise";
 import "../src/css/TrainingjournalApp.css"
 import PersonalData from "./components/PersonalData";
 import SignUp from "./components/SignUpPage";
-import Menu from "./pages/Menu";
 import WeekDaysSelect from "./pages/WeekdaysSelect";
 import {Weekdays} from "./model/Weekdays";
 import SelectDailyExercises from "./components/SelectDailyExercises";
@@ -55,10 +54,6 @@ export default function TrainingjournalApp(){
 
                 </Routes>
             </section>
-
-            <footer>
-                <Menu/>
-            </footer>
         </BrowserRouter>
     )
 }

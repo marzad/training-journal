@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {Weekdays} from "../model/Weekdays";
+import {Box, Button} from "@mui/material";
 
 type WeekDaysSelectProps ={
     selectedDay : (day: Weekdays) => void
@@ -38,20 +39,36 @@ export default function WeekDaysSelect(props: WeekDaysSelectProps){
        navigation("/selectexercises")
     }
 
-    const handleOnClickReturn = () => {
-        navigation("/menu")
+    const handleReturnOnClick = () => {
+        navigation(-1)
+    }
+
+    const handleSelectExercises = () => {
+        navigation("/exercises")
     }
 
     return(
-        <section>
-            <button value={"MONDAY"} onClick={handleOnClickMonday}>Montag</button><br/>
-            <button value={"TUESDAY"} onClick={handleOnClickTuesday}>Dienstag</button><br/>
-            <button value={"WEDNESDAY"} onClick={handleOnClickWednesday}>Mittwoch</button><br/>
-            <button value={"THURSDAY"} onClick={handleOnClickThursday}>Donnerstag</button><br/>
-            <button value={"FRIDAY"} onClick={handleOnClickFriday}>Freitag</button><br/>
-            <button value={"SATURDAY"} onClick={handleOnClickSaturday}>Samstag</button><br/>
-            <button value={"SUNDAY"} onClick={handleOnClickSunday}>Sonntag</button><br/>
-            <button onClick={handleOnClickReturn}>zurück</button>
-        </section>
+        <Box component={"section"}>
+            <Button value={"MONDAY"} onClick={handleOnClickMonday}>Montag</Button><br/>
+            <Button value={"TUESDAY"} onClick={handleOnClickTuesday}>Dienstag</Button><br/>
+            <Button value={"WEDNESDAY"} onClick={handleOnClickWednesday}>Mittwoch</Button><br/>
+            <Button value={"THURSDAY"} onClick={handleOnClickThursday}>Donnerstag</Button><br/>
+            <Button value={"FRIDAY"} onClick={handleOnClickFriday}>Freitag</Button><br/>
+            <Button value={"SATURDAY"} onClick={handleOnClickSaturday}>Samstag</Button><br/>
+            <Button value={"SUNDAY"} onClick={handleOnClickSunday}>Sonntag</Button><br/>
+            <Button variant={"outlined"}
+                    size={"small"}
+                    onClick={handleSelectExercises}
+                    color={"success"}
+                    style={{margin: 5}}
+            >Übungen für einen Tagesplan auswählen</Button>
+            <br/>
+            <Button variant={"outlined"}
+                    size={"small"}
+                    onClick={handleReturnOnClick}
+                    color={"success"}
+                    style={{margin: 5}}
+            >zurück</Button>
+        </Box>
     )
 }

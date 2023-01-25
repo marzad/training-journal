@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {Day} from "../model/Day";
 import UserWeekplansApiCalls from "../hooks/UserWeekplansApiCalls";
+import {Button} from "@mui/material";
 
 type UserWeekplansProps = {
     weekId: (id: string) => void,
@@ -29,9 +30,9 @@ export default function UserWeekplans(props: UserWeekplansProps) {
 
     const mappedUserPlans = userPlans?.map(week => {
         return (
-            <button value={week.weekId}
+            <Button value={week.weekId}
                     onClick={() => currentWeekday(week.weekId)}
-                    key={week.weekId}>{week.weekId}</button>
+                    key={week.weekId}>{week.weekId}</Button>
         )
     })
 
@@ -42,7 +43,12 @@ export default function UserWeekplans(props: UserWeekplansProps) {
     return (
         <section>
             {userPlans?.length !== 0? mappedUserPlans : "Es gibt noch keine Trainingspläne!"}<br/>
-            <button onClick={handleReturnOnClick}>zurück</button>
+            <Button variant={"outlined"}
+                    size={"small"}
+                    onClick={handleReturnOnClick}
+                    color={"success"}
+                    style={{margin: 5}}
+            >zurück</Button>
         </section>
     )
 }

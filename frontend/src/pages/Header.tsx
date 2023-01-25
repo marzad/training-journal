@@ -1,10 +1,11 @@
 import React from "react";
+import AccountMenu from "../components/AccountMenu";
 
 export default function Header(){
 
     return(
         <section>
-            <img src={require("../images/trainingjournal_free-file.png")} alt={"trainingjournal-icon"} width={"20%"}/>
+            <AccountMenu/>
         </section>
     )
 }

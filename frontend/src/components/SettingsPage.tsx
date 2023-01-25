@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {ChangeEvent, FormEvent, useState} from "react";
 import SettingPageApiCalls from "../hooks/SettingPageApiCalls";
+import {Box, Button, FormControlLabel, TextField} from "@mui/material";
 
 export default function SettingsPage() {
 
@@ -27,25 +28,43 @@ export default function SettingsPage() {
         navigate("/menu")
     }
 
+    function linkToUserWeightOverview() {
+        navigate("/user")
+    }
+
     return (
-        <section key={0}>
+        <Box component={"section"}>
             <form onSubmit={handleSubmitUsername}>
-                <label>Username</label><input type={"text"} onChange={handleUsernameInputOnChange} name={"newUsername"}
-                                              placeholder={currentUsername}/>
-                <button type={"submit"}>Ändern</button>
+                <FormControlLabel control={<TextField type={"text"} onChange={handleUsernameInputOnChange}
+                                                      name={"newUsername"}
+                                                      label={"Username"}
+                                                      placeholder={currentUsername}
+                                                      size={"small"}
+                                                      helperText={"Neuer Username"}/>}
+                                  label={"Username"}
+                                  labelPlacement={"start"}
+                />
+
+                <Button type={"submit"}> Ändern</Button>
                 <br/>
-                <>
-                    <label>Geschlecht: </label>{userData.gender === "FEMALE"? "Frau" : "Mann"}<br/>
+                <div>
+                    <label>Geschlecht: </label>{userData.gender === "FEMALE" ? "Frau" : "Mann"}<br/>
                     <label>Geburtstag: </label>{userData.birthday.toString()}<br/>
                     <label>Größe: </label>{userData.userHeight}<br/>
+                    <Button onClick={linkToUserWeightOverview}>Gewicht</Button><br/>
                     <label>Registriert am </label>{userData.registerData.toString()}<br/>
-                </>
+                </div>
                 (Passwort ändern)
             </form>
-            <button onClick={handleUpdateExercisesOnClick}>Liste der Übungen bearbeiten</button>
+            <Button onClick={handleUpdateExercisesOnClick}>Allgemeine Liste der Übungen bearbeiten</Button>
             <br/>
-            <button onClick={handleReturnOnClick}>zurück</button>
+            <Button variant={"outlined"}
+                    size={"small"}
+                    onClick={handleReturnOnClick}
+                    color={"success"}
+                    style={{margin: 5}}
+            >zurück</Button>
             <br/>
-        </section>
+        </Box>
     )
 }
