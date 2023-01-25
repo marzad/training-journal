@@ -69,6 +69,4 @@ export default function SettingPageApiCalls(){
     }
 
     return {currentUsername, userData, submitUsername}
-
-
 }

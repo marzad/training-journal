@@ -3,12 +3,13 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ExerciseApiCalls from "../hooks/ExerciseApiCalls";
 import {ExerciseDTO} from "../model/ExerciseDTO";
+import {Box, Button, FormControlLabel, TextField} from "@mui/material";
 
 
 type ExercisePageProps = {
     exercises?: ExerciseDTO[]
     selectedExercisesList: (exercisesList: ExerciseDTO[]) => void
-    username : string | undefined
+    username: string | undefined
 }
 
 export default function ExercisePage(props: ExercisePageProps) {
@@ -29,16 +30,16 @@ export default function ExercisePage(props: ExercisePageProps) {
     }
 
     function setSelectedExercisesList(exerciseId: string, checked: boolean) {
-        if(checked){
-            if(checkExerciseInList(exerciseId) === undefined){
+        if (checked) {
+            if (checkExerciseInList(exerciseId) === undefined) {
                 const selectedExercise: ExerciseDTO = exercisesList.find(exerciseItem => {
                     return exerciseItem.id === exerciseId
                 })!
 
                 setSelectedExercises(prevSelectedExercises => [...prevSelectedExercises, selectedExercise])
             }
-        }else{
-            if(checkExerciseInList(exerciseId) !== undefined){
+        } else {
+            if (checkExerciseInList(exerciseId) !== undefined) {
                 const newSelectedExercisesList = selectedExercises.filter(exerciseItem => {
                     return exerciseItem.id !== exerciseId
                 })
@@ -48,11 +49,12 @@ export default function ExercisePage(props: ExercisePageProps) {
         }
     }
 
-    function checkExerciseInList(exerciseId: string){
+    function checkExerciseInList(exerciseId: string) {
         return selectedExercises.find(exerciseItem => {
             return exerciseItem.id === exerciseId
         })
     }
+
     exercisesList.sort((a, b) => a.description.localeCompare(b.description))
     const exerciseDetailComponents = exercisesList
         .map(exerciseEntity => {
@@ -71,21 +73,39 @@ export default function ExercisePage(props: ExercisePageProps) {
         navigate("/menu")
     }
 
-    function handleOnClick(){
+    function handleReturnOnClick() {
         navigate("/menu")
     }
 
     return (
-        <section className={"exercisesList"}>
+        <Box component={"section"}>
             <form onSubmit={onSubmit}>
                 {exerciseDetailComponents}
                 <br/>
-                    <button type={"submit"} disabled={selectedExercises.length === 0}> Persönliche Auswahl speichern</button>
+                <Button type={"submit"}
+                        variant={"contained"}
+                        color={"success"}
+                        disabled={selectedExercises.length === 0}> Persönliche Auswahl speichern
+                </Button>
                 <br/>
             </form>
-            <input type={"text"} name={"newExercise"} value={newExercise} onChange={inputNewExercise}/>
-            <button onClick={onClickNewExercise}> Neue Übung hinzufügen</button><br/>
-            <button onClick={handleOnClick}>zurück</button>
-        </section>
+
+            <FormControlLabel control={<TextField type={"text"}
+                                                  name={"newExercise"}
+                                                  value={newExercise}
+                                                  onChange={inputNewExercise}
+                                                  label={"Neue Übung"}
+                                                  size={"small"}/>}
+                              label={<Button onClick={onClickNewExercise}
+                                             variant={"contained"}
+                                             color={"success"}> Neue Übung hinzufügen</Button>}/>
+            <br/>
+            <Button variant={"outlined"}
+                    size={"small"}
+                    onClick={handleReturnOnClick}
+                    color={"success"}
+                    style={{margin: 5}}
+            >zurück</Button>
+        </Box>
     )
 }

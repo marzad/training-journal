@@ -1,12 +1,11 @@
 import {useNavigate} from "react-router-dom";
 import "../css/MainPage.css"
 import React  from "react";
-import UserApiCall from "../hooks/UserApiCall";
+import {Box, Button} from "@mui/material";
 
 export default function MainPage(){
 
     const navigate = useNavigate()
-    const {logout} = UserApiCall()
 
     function handlePersonalDataNavigation(){
         navigate("/user")
@@ -25,14 +24,13 @@ export default function MainPage(){
     }
 
     return(
-        <section className={"Buttons"}>
+        <Box component={"section"}>
             <div>
-                <button onClick={handleWeekPlanNavigation}>Wochenplan erstellen</button><br/>
-                <button onClick={handlePersonalDataNavigation}>Gewicht eintragen</button><br/>
-                <button onClick={handleCalendarNavigation}>Archiv</button><br/>
-                <button onClick={handleSettings}>Einstellungen</button><br/>
-                <button onClick={logout}>Ausloggen</button>
+                <Button onClick={handleWeekPlanNavigation}>Wochenplan erstellen</Button><br/>
+                <Button onClick={handlePersonalDataNavigation}>Gewicht eintragen</Button><br/>
+                <Button onClick={handleCalendarNavigation}>Archiv</Button><br/>
+                <Button onClick={handleSettings}>Persönliche Daten</Button><br/>
             </div>
-        </section>
+        </Box>
     )
 }

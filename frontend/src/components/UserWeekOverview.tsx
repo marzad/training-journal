@@ -2,6 +2,7 @@ import {Day} from "../model/Day";
 import {Exercise} from "../model/Exercise";
 import "../css/UserWeekOverview.css"
 import {useNavigate} from "react-router-dom";
+import {Button} from "@mui/material";
 
 
 type UserWeekOverviewProps = {
@@ -103,7 +104,12 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
                 </tr>
                 </tbody>
             </table>
-            <button onClick={handleReturnOnClick}>zurück</button>
+            <Button variant={"outlined"}
+                    size={"small"}
+                    onClick={handleReturnOnClick}
+                    color={"success"}
+                    style={{margin: 5}}
+            >zurück</Button>
         </section>
     )
 }

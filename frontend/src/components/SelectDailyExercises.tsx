@@ -4,6 +4,7 @@ import {Exercise} from "../model/Exercise";
 import UserExerciseDetails from "./UserExerciseDetails";
 import DailyExercisesApiCalls from "../hooks/DailyExercisesApiCalls";
 import {useNavigate} from "react-router-dom";
+import {Box, Button, FormControlLabel, Switch, TextField} from "@mui/material";
 
 
 type SelectDailyExercisesProps = {
@@ -20,31 +21,34 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
 
     const navigate = useNavigate()
 
-    function handleExercisesSettingInputOnChange(event: ChangeEvent<HTMLInputElement>, updatedExercise: Exercise) {
+    function handleExercisesSettingInputOnChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, updatedExercise: Exercise) {
         let eventName = event.target.name
 
         const newUpdatedExercise = {...updatedExercise, [eventName]: event.target.value}
-       onChangeExerciseDetails(newUpdatedExercise)
+        onChangeExerciseDetails(newUpdatedExercise)
     }
 
     const exercises = userExercisesList?.map(exerciseItem => {
 
-        if(exerciseItem.description === "STRETCHING" || exerciseItem.description === "WARMUP"){
-            return(
-            <div key={exerciseItem.id}>
-                <label>{exerciseItem.description}</label>
-                <input type="number" name={"repeats"} value={exerciseItem.repeats}
-                       onChange={(event) => handleExercisesSettingInputOnChange(event, exerciseItem)}
-                       id={exerciseItem.description}
-                       disabled={trainingfree}
-                       className={"NumberInput"}/> min
-                <br/>
-            </div>)
-        }
-        else{
-            return(
-            <UserExerciseDetails exercise={exerciseItem} inputEntry={handleExercisesSettingInputOnChange}
-                                 disabled={trainingfree} key={exerciseItem.id}/>)
+        if (exerciseItem.description === "STRETCHING" || exerciseItem.description === "WARMUP") {
+            return (
+                <div key={exerciseItem.id}>
+                    <FormControlLabel control={<TextField type="number" name={"repeats"} value={exerciseItem.repeats}
+                                                          onChange={(event) => handleExercisesSettingInputOnChange(event, exerciseItem)}
+                                                          id={exerciseItem.description}
+                                                          disabled={trainingfree}
+                                                          size={"small"}
+                                                          label={"Zeit"}
+                                                          color={"success"}/>}
+                                      label={exerciseItem.description}
+                                      labelPlacement={"start"}
+                                      style={{width: 200}}/> &nbsp; min
+                    <br/>
+                </div>)
+        } else {
+            return (
+                <UserExerciseDetails exercise={exerciseItem} inputEntry={handleExercisesSettingInputOnChange}
+                                     disabled={trainingfree} key={exerciseItem.id}/>)
         }
     })
 
@@ -72,30 +76,83 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
         saveUserDailyPlan(dailyPlanEntry)
     }
 
-    function handleReturnOnClick(){
+    function handleReturnOnClick() {
         navigate(-1)
     }
 
-    function selectExercises(){
+    function selectExercises() {
         navigate("/exercises")
     }
 
+    const weekDay = () => {
+        switch (props.day) {
+            case "MONDAY" :
+                return "Montag"
+            case "TUESDAY" :
+                return "Dienstag"
+            case "THURSDAY" :
+                return "Donnerstag"
+            case "WEDNESDAY" :
+                return "Mittwoch"
+            case "FRIDAY" :
+                return "Freitag"
+            case "SATURDAY" :
+                return "Samstag"
+            case "SUNDAY" :
+                return "Sonntag"
+            default :
+                return ""
+        }
+    }
+
     return (
-        <section>
-            <h3>{props.day}</h3>
+        <Box component={"section"} sx={{
+            display: "flex",
+            flexDirection: "column",
+            margin: 5
+        }}>
+            <h3><u>{weekDay()}</u></h3>
             <form onSubmit={handleOnSubmit}>
-                <label>Trainingsfrei</label>
-                <input type={"checkbox"} onChange={handleOnChangeCheckbox}/><br/>
+                <FormControlLabel
+                    control={<Switch
+                        checked={trainingfree}
+                        onChange={handleOnChangeCheckbox}
+                        sx = {{color: "success.main", width: 70}}
+                        color={"success"}/>}
+                    label={"Trainingsfrei"}
+                    labelPlacement={"start"}
+                    />
+                <br/>
                 <>
-                    {userExercisesList? exercises : selectExercises()}
+                    {userExercisesList ? exercises : selectExercises()}
                 </>
-                <label>Notizen</label><input type={"text"} name="notes" value={notes}
-                                             onChange={handleOnChangeNotesInputFields} maxLength={300}/>
-                <button type={"submit"}>Speichern</button>
+                <FormControlLabel control={<TextField type={"text"}
+                                                      name="notes"
+                                                      value={notes}
+                                                      onChange={handleOnChangeNotesInputFields}
+                                                      label={"Notizen"}
+                                                      fullWidth
+                                                      multiline={true}
+                                                      color={"success"}
+                />}
+                                  label={"Notizen"}
+                                  labelPlacement={"start"}
+                />
+                <br/>
+                <Button type={"submit"}
+                        variant={"contained"}
+                        color={"success"}
+                >Trainingsplan speichern</Button>
+                <br/>
+                <Button variant={"outlined"}
+                        size={"small"}
+                        onClick={handleReturnOnClick}
+                        color={"success"}
+                        style={{margin: 5}}
+                >zurück</Button>
 
             </form>
-            <button onClick={handleReturnOnClick}>zurück</button>
 
-        </section>
+        </Box>
     )
 }
