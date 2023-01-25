@@ -28,10 +28,6 @@ export default function LoginPage(props: LoginPageProps) {
             .then(() => navigate("/menu"))
     }
 
-    function handleRegisterOnClick() {
-        navigate("/signup")
-    }
-
     return (
         <Box component={"section"}>
             <form onSubmit={onSubmit}>
@@ -51,7 +47,7 @@ export default function LoginPage(props: LoginPageProps) {
                 variant={"contained"}
                 color={"success"}>Login</Button>
             </form>
-            <Button onClick={handleRegisterOnClick}>Registrieren</Button>
+            <a href={"/signup"} style={{fontSize: "smaller"}}>Ich habe noch kein Account</a>
         </Box>
     )
 }
