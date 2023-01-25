@@ -52,17 +52,16 @@ export default function PersonalDataApiCalls() {
         }
     }
     type chartDataType = {
-        name: string,
-        uv: number,
-        pv: number,
-        amt: number
+        date: string,
+        bmi: number,
+        weight: number
     }
 
     const [chartData, setChartData] = useState<chartDataType[]>([])
 
     const dataMap = () => {
         setChartData(userWeightList.map(weightItem => {
-            return {name: weightItem.date.toString(), uv: weightItem.bmi, pv: 0, amt: 0}
+            return {date: weightItem.date.toString(), bmi: weightItem.bmi, weight: weightItem.weight}
         }))
     }
 

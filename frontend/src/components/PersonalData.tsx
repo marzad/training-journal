@@ -1,7 +1,15 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import PersonalDataApiCalls from "../hooks/PersonalDataApiCalls";
 import {useNavigate} from "react-router-dom";
-import {LineChart, Line, CartesianGrid, XAxis, YAxis} from 'recharts';
+import {
+    LineChart,
+    Line,
+    CartesianGrid,
+    XAxis,
+    YAxis,
+    Tooltip,
+    Legend,
+} from 'recharts';
 import "../css/PersonalData.css"
 import {Box, Button, FormControlLabel, TextField} from "@mui/material";
 
@@ -22,7 +30,7 @@ export default function PersonalData() {
     function handleFormOnChange(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
-        if(username !== undefined && username !== ""){
+        if (username !== undefined && username !== "") {
             submitUserWeightData(username, formInput)
         }
     }
@@ -53,11 +61,25 @@ export default function PersonalData() {
 
     const renderLineChart = () => {
         return (
-            <LineChart width={350} height={150} data={chartData}>
-                <Line type={"monotone"} dataKey={"uv"}/>
-                <CartesianGrid stroke="#ccc"/>
-                <XAxis dataKey="name"/>
+            <LineChart width={250} height={250} data={chartData}
+                       margin={{top: 10, right: 30, left: 0, bottom: 0}}>
+                <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+                    </linearGradient>
+                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+                    </linearGradient>
+                </defs>
+                <XAxis dataKey="date" angle={45} tick={{fontSize: 10}}/>
                 <YAxis/>
+                <CartesianGrid strokeDasharray="3 3"/>
+                <Tooltip/>
+                <Legend/>
+                <Line type="monotone" dataKey="bmi" stroke="#8884d8" activeDot={{r: 8}}/>
+                <Line type="monotone" dataKey="weight" stroke="#82ca9d" />
             </LineChart>
         )
     }
@@ -69,7 +91,7 @@ export default function PersonalData() {
                                                       onChange={handleInputOnChange}
                                                       name={"userWeight"}
                                                       size={"small"}
-                label={"Gewicht"}/>}
+                                                      label={"Gewicht"}/>}
                                   label={<Button type={"submit"}>Speichern</Button>}/>
 
             </form>
@@ -83,10 +105,9 @@ export default function PersonalData() {
                 </table>
                 {getUserWeightDetails}
             </form>
-            <div className={"Linechart"}>
-                <label>BMI</label><br/>
+            <section>
                 {renderLineChart()}
-            </div>
+            </section>
             <Button variant={"outlined"}
                     size={"small"}
                     onClick={handleReturnOnClick}
