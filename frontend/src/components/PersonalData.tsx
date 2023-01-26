@@ -11,7 +11,7 @@ import {
     Legend,
 } from 'recharts';
 import "../css/PersonalData.css"
-import {Box, Button, FormControlLabel, TextField} from "@mui/material";
+import {Box, Button, FormControlLabel, TextField, Typography} from "@mui/material";
 
 
 export default function PersonalData() {
@@ -86,6 +86,10 @@ export default function PersonalData() {
 
     return (
         <Box component={"section"}>
+            <section>
+                <Typography>Gewicht und BMI</Typography>
+                {renderLineChart()}
+            </section>
             <form onSubmit={handleFormOnChange}>
                 <FormControlLabel control={<TextField type={"number"}
                                                       onChange={handleInputOnChange}
@@ -105,9 +109,6 @@ export default function PersonalData() {
                 </table>
                 {getUserWeightDetails}
             </form>
-            <section>
-                {renderLineChart()}
-            </section>
             <Button variant={"outlined"}
                     size={"small"}
                     onClick={handleReturnOnClick}

@@ -1,6 +1,13 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 
+type chartDataType = {
+    date: string,
+    bmi: number,
+    weight: number
+}
+
+
 export default function PersonalDataApiCalls() {
 
     const [userWeightList, setUserWeightList] = useState<{ date: Date, weight: number, bmi: number }[]>([])
@@ -18,7 +25,7 @@ export default function PersonalDataApiCalls() {
     }
 
     useEffect(() => {
-        if (username !== undefined && username !== "") {
+        if (username) {
             getUserWeightData()
                 .then(() => dataMap())
                 .catch(error => console.error(error))
@@ -50,11 +57,6 @@ export default function PersonalDataApiCalls() {
                 })
                 .catch(error => console.error(error))
         }
-    }
-    type chartDataType = {
-        date: string,
-        bmi: number,
-        weight: number
     }
 
     const [chartData, setChartData] = useState<chartDataType[]>([])
