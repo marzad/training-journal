@@ -47,7 +47,7 @@ export default function AccountMenu() {
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <img src={require("../images/trainingjournal_free-file.png")} alt={"trainingjournal-icon"} width={"20%"}/>
+                <img src={require("../images/trainingjournal_free-file.png")} alt={"trainingjournal-icon"} width={"40%"}/>
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
