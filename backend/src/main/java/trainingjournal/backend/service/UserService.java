@@ -118,10 +118,10 @@ public class UserService implements UserDetailsService {
 
 
         int indexOfWeek = getIndexOfWeek(weekplanList, weekID);
-        if(indexOfWeek != -1){
+        if (indexOfWeek != -1) {
             week = updateWeek(weekplanList.get(indexOfWeek), dailyPlan);
             weekplanList.set(indexOfWeek, week);
-        }else{
+        } else {
             Set<Day> newSetOfDays = new HashSet<>(Set.of(dailyPlan));
             week = new Week(weekID, newSetOfDays);
             weekplanList.add(week);
@@ -142,7 +142,7 @@ public class UserService implements UserDetailsService {
         return -1;
     }
 
-    private Week updateWeek(Week week, Day dailyPlan){
+    private Week updateWeek(Week week, Day dailyPlan) {
         Set<Day> weekPlans = week.dailyPlans();
         Predicate<Day> predicate = day -> (day.weekday().equals(dailyPlan.weekday()));
         weekPlans.removeIf(predicate);
@@ -160,20 +160,25 @@ public class UserService implements UserDetailsService {
         return user.getUserWeight();
     }
 
-    public List<Week> getUserPlans(String username){
+    public List<Week> getUserPlans(String username) {
         GymUser user = userRepository.findByUsername(username);
         return user.getWeekPlansList();
     }
 
-    private Double bmiCalculate(Double height, Double weight){
+    private Double bmiCalculate(Double height, Double weight) {
 
-        long bmiLong = Math.round(weight*Math.pow(10,4)/Math.pow(height,2)*100);
+        long bmiLong = Math.round(weight * Math.pow(10, 4) / Math.pow(height, 2) * 100);
 
-        return (double)(bmiLong)/100;
+        return (double) (bmiLong) / 100;
     }
 
-    public GymUser getUserData(String username){
-        return userRepository.findByUsername(username);
+    public GymUserPersonalData getUserData(String username) {
+        GymUser user = userRepository.findByUsername(username);
+        return new GymUserPersonalData(username,
+                user.getGender(),
+                user.getBirthday(),
+                user.getUserHeight(),
+                user.getRegisterData());
     }
 
 }
