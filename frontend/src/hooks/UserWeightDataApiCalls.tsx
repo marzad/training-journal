@@ -8,7 +8,7 @@ type chartDataType = {
 }
 
 
-export default function PersonalDataApiCalls() {
+export default function UserWeightDataApiCalls() {
 
     const [userWeightList, setUserWeightList] = useState<{ date: Date, weight: number, bmi: number }[]>([])
     const [username, setUsername] = useState()

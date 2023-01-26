@@ -1,5 +1,5 @@
 import {ChangeEvent, FormEvent, useState} from "react";
-import PersonalDataApiCalls from "../hooks/PersonalDataApiCalls";
+import UserWeightDataApiCalls from "../hooks/UserWeightDataApiCalls";
 import {useNavigate} from "react-router-dom";
 import {
     LineChart,
@@ -16,7 +16,7 @@ import {Box, Button, FormControlLabel, TextField, Typography} from "@mui/materia
 
 export default function UserWeightData() {
 
-    const {username, userWeightList, submitUserWeightData, chartData} = PersonalDataApiCalls()
+    const {username, userWeightList, submitUserWeightData, chartData} = UserWeightDataApiCalls()
 
     const [formInput, setFormInput] = useState<number>(0.5)
 
