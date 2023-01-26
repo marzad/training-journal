@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {Exercise} from "../model/Exercise";
 import {Day} from "../model/Day";
 
-export default function DailyExercisesApiCalls(){
+export default function useDailyExercisesApiCalls(){
 
     const [username, setUsername] = useState()
     const [userExercisesList, setUserExercisesList] = useState<Exercise[]>([])

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {Week} from "../model/Week";
 import axios from "axios";
 
-export default function UserWeekplansApiCalls(){
+export default function useUserWeekplansApiCalls(){
     const [userPlans, setUserPlans] = useState<Week[]>()
     const [username, setUsername] = useState<string>("")
 

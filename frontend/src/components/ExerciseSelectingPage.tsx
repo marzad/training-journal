@@ -1,7 +1,7 @@
 import SingleExerciseForSelecting from "./SingleExerciseForSelecting";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import ExerciseApiCalls from "../hooks/ExerciseApiCalls";
+import useExerciseApiCalls from "../hooks/UseExerciseApiCalls";
 import {ExerciseDTO} from "../model/ExerciseDTO";
 import {Box, Button, FormControlLabel, TextField, Typography} from "@mui/material";
 
@@ -14,7 +14,7 @@ type ExercisePageProps = {
 
 export default function ExerciseSelectingPage(props: ExercisePageProps) {
     const [newExercise, setNewExercise] = useState<string>("")
-    const {exercisesList, addNewExerciseToDB} = ExerciseApiCalls()
+    const {exercisesList, addNewExerciseToDB} = useExerciseApiCalls()
 
     const [selectedExercises, setSelectedExercises] = useState<ExerciseDTO[]>([])
 
