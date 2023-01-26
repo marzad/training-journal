@@ -3,12 +3,16 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import SettingPageApiCalls from "../hooks/SettingPageApiCalls";
 import {Box, Button, FormControlLabel, TextField} from "@mui/material";
 
-export default function SettingsPage() {
+type SettingPageProps ={
+    username: string
+}
 
-    const {currentUsername, userData, submitUsername} = SettingPageApiCalls()
+export default function SettingsPage(props: SettingPageProps) {
+
+    const {userData, submitUsername} = SettingPageApiCalls({username: props.username})
 
     const navigate = useNavigate()
-    const [newUsername, setNewUsername] = useState<string>(currentUsername)
+    const [newUsername, setNewUsername] = useState<string>(props.username)
 
 
     function handleUsernameInputOnChange(event: ChangeEvent<HTMLInputElement>) {
@@ -38,7 +42,7 @@ export default function SettingsPage() {
                 <FormControlLabel control={<TextField type={"text"} onChange={handleUsernameInputOnChange}
                                                       name={"newUsername"}
                                                       label={"Username"}
-                                                      placeholder={currentUsername}
+                                                      placeholder={props.username}
                                                       size={"small"}
                                                       helperText={"Neuer Username"}/>}
                                   label={"Username"}
@@ -54,7 +58,6 @@ export default function SettingsPage() {
                     <Button onClick={linkToUserWeightOverview}>Gewicht</Button><br/>
                     <label>Registriert am </label>{userData.registerData.toString()}<br/>
                 </div>
-                (Passwort ändern)
             </form>
             <Button onClick={handleUpdateExercisesOnClick}>Allgemeine Liste der Übungen bearbeiten</Button>
             <br/>
