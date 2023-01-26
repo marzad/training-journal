@@ -10,14 +10,18 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import useUser from "../hooks/UseUser";
 import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 import useUserApiCall from "../hooks/UseUserApiCall";
 import {green} from "@mui/material/colors";
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import logo from "../images/trainingjournal_free-file.png"
 
-export default function AccountMenu() {
+type AccountMenuProps ={
+    username: string
+}
+
+export default function AccountMenu(props: AccountMenuProps) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -27,13 +31,12 @@ export default function AccountMenu() {
         setAnchorEl(null);
     };
 
-    const {username} = useUser()
     const {logout} = useUserApiCall()
 
     const navigate = useNavigate()
 
     const submitLink = () => {
-        if(username === undefined || username === "" || username === "anonymous"){
+        if(props.username === ""){
             return(
                 <Button onClick={() => navigate("/login")}>Account</Button>
             )
@@ -47,7 +50,7 @@ export default function AccountMenu() {
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <img src={require("../images/trainingjournal_free-file.png")} alt={"trainingjournal-icon"} width={"40%"}/>
+                <img src={logo} alt={"trainingjournal-icon"} width={"40%"}/>
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}

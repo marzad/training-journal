@@ -15,7 +15,7 @@ import UserWeekplans from "./components/UserWeekplans";
 import UserWeekOverview from "./components/UserWeekOverview";
 import {Day} from "./model/Day";
 import PersonalDataDisplaying from "./components/PersonalDataDisplaying";
-import Header from "./pages/Header";
+import AccountMenu from "./components/AccountMenu";
 
 
 export default function TrainingjournalApp(){
@@ -32,7 +32,7 @@ export default function TrainingjournalApp(){
     return(
         <BrowserRouter>
             <header>
-                <Header/>
+                <AccountMenu username={username ? username : ""}/>
             </header>
             <section>
                 <Routes>
