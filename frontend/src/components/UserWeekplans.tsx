@@ -30,20 +30,22 @@ export default function UserWeekplans(props: UserWeekplansProps) {
 
     const mappedUserPlans = userPlans?.map(week => {
         return (
-            <Button value={week.weekId}
-                    onClick={() => currentWeekday(week.weekId)}
-                    key={week.weekId}>{week.weekId}</Button>
+            <div>
+                <Button value={week.weekId}
+                        onClick={() => currentWeekday(week.weekId)}
+                        key={week.weekId}>{week.weekId}</Button><br/>
+            </div>
         )
     })
 
-    function handleReturnOnClick(){
+    function handleReturnOnClick() {
         navigate("/menu")
     }
 
     return (
         <Box component={"section"}>
             <Typography variant={"h5"}>Archiv</Typography>
-            {userPlans?.length !== 0? mappedUserPlans : "Es gibt noch keine Trainingspläne!"}<br/>
+            {userPlans?.length !== 0 ? mappedUserPlans : "Es gibt noch keine Trainingspläne!"}<br/>
             <Button variant={"outlined"}
                     size={"small"}
                     onClick={handleReturnOnClick}
