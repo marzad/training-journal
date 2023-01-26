@@ -7,39 +7,31 @@ type chartDataType = {
     weight: number
 }
 
+type UseUserWeightDataApiCallsProps ={
+    username: string
+}
 
-export default function useUserWeightDataApiCalls() {
+
+export default function useUserWeightDataApiCalls(props: UseUserWeightDataApiCallsProps) {
 
     const [userWeightList, setUserWeightList] = useState<{ date: Date, weight: number, bmi: number }[]>([])
-    const [username, setUsername] = useState()
 
     useEffect(() => {
-        getUsername()
-            .catch(error => console.error(error))
-    }, [])
-
-    function getUsername() {
-        return axios.get("/api/users/me")
-            .then(response => response.data)
-            .then(setUsername)
-    }
-
-    useEffect(() => {
-        if (username) {
+        if (props.username) {
             getUserWeightData()
                 .then(() => dataMap())
                 .catch(error => console.error(error))
         }
         //eslint-disable-next-line
-    }, [username])
+    }, [props.username])
 
     useEffect(() => {
         dataMap()
         //eslint-disable-next-line
-    },[username, userWeightList])
+    },[props.username, userWeightList])
 
     function getUserWeightData() {
-        return axios.get("api/users/" + username + "/weight")
+        return axios.get("api/users/" + props.username + "/weight")
             .then(response => response.data)
             .then(data => {
                 setUserWeightList(data)
@@ -67,5 +59,5 @@ export default function useUserWeightDataApiCalls() {
         }))
     }
 
-    return {username, userWeightList, submitUserWeightData, chartData}
+    return {userWeightList, submitUserWeightData, chartData}
 }
