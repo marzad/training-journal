@@ -57,7 +57,7 @@ export default function AccountMenu() {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ bgcolor: green[500]}} variant="rounded"><AssignmentIcon /></Avatar>
+                        <Avatar sx={{ bgcolor: green[500], width: 30, height: 30}} variant="rounded"><AssignmentIcon /></Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -104,13 +104,13 @@ export default function AccountMenu() {
                     <ListItemIcon>
                         <PersonAdd fontSize="small" />
                     </ListItemIcon>
-                    <Button onClick={() => navigate("/signup")}>Registrieren</Button>
+                    <Button onClick={() => navigate("/signup")}>Neues Profil anlegen</Button>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>
-                    <Button onClick={() => navigate("/settings")}>Einstellungen</Button>
+                    <Button onClick={() => navigate("/settings")}>Persönliche Daten</Button>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <ListItemIcon>
