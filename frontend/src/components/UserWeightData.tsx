@@ -13,10 +13,14 @@ import {
 import "../css/PersonalData.css"
 import {Box, Button, FormControlLabel, TextField, Typography} from "@mui/material";
 
+type UserWeightDataProps = {
+    username : string
+}
 
-export default function UserWeightData() {
 
-    const {username, userWeightList, submitUserWeightData, chartData} = useUserWeightDataApiCalls()
+export default function UserWeightData(props: UserWeightDataProps) {
+
+    const {userWeightList, submitUserWeightData, chartData} = useUserWeightDataApiCalls({username: props.username})
 
     const [formInput, setFormInput] = useState<number>(0.5)
 
@@ -30,8 +34,8 @@ export default function UserWeightData() {
     function handleFormOnChange(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
-        if (username !== undefined && username !== "") {
-            submitUserWeightData(username, formInput)
+        if (props.username) {
+            submitUserWeightData(props.username, formInput)
         }
     }
 

@@ -39,7 +39,7 @@ export default function TrainingjournalApp(){
                     <Route path={"/"} element={<LoginPage login={login}/>}/>
                     <Route path={"/login"} element={<LoginPage login={login}/>}/>
                     <Route path={"/signup"} element={<SignUp/>}/>
-                    <Route path={"/user"} element={<UserWeightData/>}/>
+                    <Route path={"/user"} element={<UserWeightData username={username ? username : ""}/>}/>
                     <Route path={"/exercises"}
                            element={<ExerciseSelectingPage
                                exercises={exercises}
