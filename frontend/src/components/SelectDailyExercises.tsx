@@ -4,7 +4,7 @@ import {Exercise} from "../model/Exercise";
 import UserExerciseDetails from "./UserExerciseDetails";
 import DailyExercisesApiCalls from "../hooks/DailyExercisesApiCalls";
 import {useNavigate} from "react-router-dom";
-import {Box, Button, FormControlLabel, Switch, TextField} from "@mui/material";
+import {Box, Button, FormControlLabel, Switch, TextField, Typography} from "@mui/material";
 
 
 type SelectDailyExercisesProps = {
@@ -111,7 +111,8 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
             flexDirection: "column",
             margin: 5
         }}>
-            <h3><u>{weekDay()}</u></h3>
+            <Typography variant={"h5"}>Erstellen des Trainingsplans</Typography>
+            <Typography variant={"h6"}> für {weekDay()}</Typography>
             <form onSubmit={handleOnSubmit}>
                 <FormControlLabel
                     control={<Switch

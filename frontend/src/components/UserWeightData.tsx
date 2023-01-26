@@ -14,7 +14,7 @@ import "../css/PersonalData.css"
 import {Box, Button, FormControlLabel, TextField, Typography} from "@mui/material";
 
 
-export default function PersonalData() {
+export default function UserWeightData() {
 
     const {username, userWeightList, submitUserWeightData, chartData} = PersonalDataApiCalls()
 
@@ -87,7 +87,7 @@ export default function PersonalData() {
     return (
         <Box component={"section"}>
             <section>
-                <Typography>Gewicht und BMI</Typography>
+                <Typography variant={"h5"}>Gewicht und BMI</Typography>
                 {renderLineChart()}
             </section>
             <form onSubmit={handleFormOnChange}>

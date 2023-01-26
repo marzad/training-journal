@@ -2,11 +2,11 @@ import React, {useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import useUser from "./hooks/UseUser";
-import ExercisePage from "./components/ExercisePage";
+import ExerciseSelectingPage from "./components/ExerciseSelectingPage";
 import MainPage from "./pages/MainPage";
 import useExercise from "./hooks/UseExercise";
 import "../src/css/TrainingjournalApp.css"
-import PersonalData from "./components/PersonalData";
+import UserWeightData from "./components/UserWeightData";
 import SignUp from "./components/SignUpPage";
 import WeekDaysSelect from "./pages/WeekdaysSelect";
 import {Weekdays} from "./model/Weekdays";
@@ -14,7 +14,7 @@ import SelectDailyExercises from "./components/SelectDailyExercises";
 import UserWeekplans from "./components/UserWeekplans";
 import UserWeekOverview from "./components/UserWeekOverview";
 import {Day} from "./model/Day";
-import SettingsPage from "./components/SettingsPage";
+import PersonalDataDisplaying from "./components/PersonalDataDisplaying";
 import Header from "./pages/Header";
 
 
@@ -39,9 +39,9 @@ export default function TrainingjournalApp(){
                     <Route path={"/"} element={<LoginPage login={login}/>}/>
                     <Route path={"/login"} element={<LoginPage login={login}/>}/>
                     <Route path={"/signup"} element={<SignUp/>}/>
-                    <Route path={"/user"} element={<PersonalData/>}/>
+                    <Route path={"/user"} element={<UserWeightData/>}/>
                     <Route path={"/exercises"}
-                           element={<ExercisePage
+                           element={<ExerciseSelectingPage
                                exercises={exercises}
                                selectedExercisesList={selectedExercisesList}
                                username={username}/>}/>
@@ -50,7 +50,7 @@ export default function TrainingjournalApp(){
                     <Route path={"/selectexercises"} element={<SelectDailyExercises day={day} username={username}/>}/>
                     <Route path={"/plansoverview"} element={<UserWeekplans weekId={setWeekId} dailyPlans={setDailyPlans}/>}/>
                     <Route path={"/weekoverview"} element={<UserWeekOverview weekId={weekId} dailyPlans={dailyPlans}/>}/>
-                    <Route path={"/settings"} element={<SettingsPage username={username ? username : ""}/>}/>
+                    <Route path={"/settings"} element={<PersonalDataDisplaying username={username ? username : ""}/>}/>
                 </Routes>
             </section>
         </BrowserRouter>

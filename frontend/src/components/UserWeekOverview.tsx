@@ -2,7 +2,7 @@ import {Day} from "../model/Day";
 import {Exercise} from "../model/Exercise";
 import "../css/UserWeekOverview.css"
 import {useNavigate} from "react-router-dom";
-import {Button} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 
 
 type UserWeekOverviewProps = {
@@ -70,9 +70,9 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
     }
 
     return (
-        <section key={props.weekId}>
-            {props.weekId}
-            <table>
+        <Box component={"section"} key={props.weekId}>
+            <Typography variant={"h5"}>{props.weekId}</Typography>
+            <table >
                 <tbody>
                 <tr>
                     <td>Montag</td>
@@ -110,6 +110,6 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
                     color={"success"}
                     style={{margin: 5}}
             >zurück</Button>
-        </section>
+        </Box>
     )
 }

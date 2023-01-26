@@ -7,7 +7,7 @@ type ExerciseDetailsProps = {
     selectedExercisesForUser: (id: string, checked: boolean) => void
 }
 
-export default function ExerciseDetails(props: ExerciseDetailsProps) {
+export default function SingleExerciseForSelecting(props: ExerciseDetailsProps) {
 
     function checkBoxOnChange(event: ChangeEvent<HTMLInputElement>) {
         if (event.target.checked) {
