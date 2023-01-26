@@ -50,8 +50,7 @@ export default function TrainingjournalApp(){
                     <Route path={"/selectexercises"} element={<SelectDailyExercises day={day} username={username}/>}/>
                     <Route path={"/plansoverview"} element={<UserWeekplans weekId={setWeekId} dailyPlans={setDailyPlans}/>}/>
                     <Route path={"/weekoverview"} element={<UserWeekOverview weekId={weekId} dailyPlans={dailyPlans}/>}/>
-                    <Route path={"/settings"} element={<SettingsPage/>}/>
-
+                    <Route path={"/settings"} element={<SettingsPage username={username ? username : ""}/>}/>
                 </Routes>
             </section>
         </BrowserRouter>

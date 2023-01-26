@@ -1,59 +1,53 @@
-import UseUser from "./UseUser";
+
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Week} from "../model/Week";
 import {useNavigate} from "react-router-dom";
 
-export default function SettingPageApiCalls(){
-    const {username} = UseUser()
+type SettingPageApiCallsProps ={
+    username: string
+}
+
+type UserDataTyp = {
+    id?: string
+    username: string,
+    gender: string,
+    birthday: Date,
+    userWeight?: Set<{ date: Date, weight: number }>,
+    userHeight: number,
+    weekPlanlist?: Week[],
+    exercises?: Set<{ id: string, description: string, repeats: number, sets: number, weight: number }>
+    registerData: Date,
+    password?: string
+}
+
+const emptyUserData = {
+    id: "",
+    username: "",
+    gender: "MALE",
+    birthday: new Date(),
+    userWeight: new Set<{ date: Date, weight: number }>(),
+    userHeight: 0,
+    weekPlanlist: [],
+    exercises: new Set<{ id: string, description: string, repeats: number, sets: number, weight: number }>(),
+    registerData: new Date(),
+    password: ""
+}
+
+export default function SettingPageApiCalls(props: SettingPageApiCallsProps){
     const navigate = useNavigate()
 
-    const [currentUsername, setCurrentUsername] = useState<string>("")
-
-    type UserDataTyp = {
-        id?: string
-        username: string,
-        gender: string,
-        birthday: Date,
-        userWeight?: Set<{ date: Date, weight: number }>,
-        userHeight: number,
-        weekPlanlist?: Week[],
-        exercises?: Set<{ id: string, description: string, repeats: number, sets: number, weight: number }>
-        registerData: Date,
-        password?: string
-    }
-
-    const initUserData = {
-        id: "",
-        username: "",
-        gender: "MALE",
-        birthday: new Date(),
-        userWeight: new Set<{ date: Date, weight: number }>(),
-        userHeight: 0,
-        weekPlanlist: [],
-        exercises: new Set<{ id: string, description: string, repeats: number, sets: number, weight: number }>(),
-        registerData: new Date(),
-        password: ""
-    }
-
-    const [userData, setUserData] = useState<UserDataTyp>(initUserData)
+    const [userData, setUserData] = useState<UserDataTyp>(emptyUserData)
 
     useEffect(() => {
-        if(username !== undefined && username !== ""){
-            setCurrentUsername(username);
-        }
-        //eslint-disable-next-line
-    },[])
-
-    useEffect(() => {
-        if(currentUsername !== undefined && currentUsername !== ""){
+        if(props.username){
             getUserData()
         }
         //eslint-disable-next-line
-    },[currentUsername])
+    },[props.username])
 
     function getUserData() {
-        axios.get("/api/users/" + currentUsername)
+        axios.get("/api/users/" + props.username)
             .then(response => response.data)
             .then(data => {
                 setUserData(data)
@@ -62,11 +56,11 @@ export default function SettingPageApiCalls(){
     }
 
     function submitUsername(newUsername: string) {
-        axios.put("/api/users/" + currentUsername + "/updateusername/", newUsername,
+        axios.put("/api/users/" + props.username + "/updateusername/", newUsername,
             {headers: {"Content-type": "text/plain"}})
             .catch(error => console.error(error))
             .then(() => navigate("/login"))
     }
 
-    return {currentUsername, userData, submitUsername}
+    return {userData, submitUsername}
 }
