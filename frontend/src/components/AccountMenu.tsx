@@ -16,6 +16,7 @@ import {Button} from "@mui/material";
 import useUserApiCall from "../hooks/UseUserApiCall";
 import {green} from "@mui/material/colors";
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import "../images/trainingjournal_free-file.png"
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
