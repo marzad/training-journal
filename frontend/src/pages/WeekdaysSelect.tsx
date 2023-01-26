@@ -40,7 +40,7 @@ export default function WeekDaysSelect(props: WeekDaysSelectProps){
     }
 
     const handleReturnOnClick = () => {
-        navigation(-1)
+        navigation("/menu")
     }
 
     const handleSelectExercises = () => {
