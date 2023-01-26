@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {ChangeEvent, FormEvent, useState} from "react";
-import UserPersonalDataApiCalls from "../hooks/UserPersonalDataApiCalls";
+import useUserPersonalDataApiCalls from "../hooks/UseUserPersonalDataApiCalls";
 import {Box, Button, FormControlLabel, TextField, Typography} from "@mui/material";
 
 type SettingPageProps ={
@@ -9,7 +9,7 @@ type SettingPageProps ={
 
 export default function PersonalDataDisplaying(props: SettingPageProps) {
 
-    const {userData, submitUsername} = UserPersonalDataApiCalls({username: props.username})
+    const {userData, submitUsername} = useUserPersonalDataApiCalls({username: props.username})
 
     const navigate = useNavigate()
     const [newUsername, setNewUsername] = useState<string>(props.username)

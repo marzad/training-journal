@@ -23,7 +23,7 @@ const emptyUserData = {
     registerData: new Date(),
 }
 
-export default function UserPersonalDataApiCalls(props: SettingPageApiCallsProps){
+export default function useUserPersonalDataApiCalls(props: SettingPageApiCallsProps){
     const navigate = useNavigate()
 
     const [userData, setUserData] = useState<UserDataTyp>(emptyUserData)

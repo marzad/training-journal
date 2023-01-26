@@ -13,7 +13,7 @@ import Logout from '@mui/icons-material/Logout';
 import useUser from "../hooks/UseUser";
 import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
-import UserApiCall from "../hooks/UserApiCall";
+import useUserApiCall from "../hooks/UseUserApiCall";
 import {green} from "@mui/material/colors";
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
@@ -28,7 +28,7 @@ export default function AccountMenu() {
     };
 
     const {username} = useUser()
-    const {logout} = UserApiCall()
+    const {logout} = useUserApiCall()
 
     const navigate = useNavigate()
 

@@ -2,7 +2,7 @@ import {Weekdays} from "../model/Weekdays";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {Exercise} from "../model/Exercise";
 import UserExerciseDetails from "./UserExerciseDetails";
-import DailyExercisesApiCalls from "../hooks/DailyExercisesApiCalls";
+import useDailyExercisesApiCalls from "../hooks/UseDailyExercisesApiCalls";
 import {useNavigate} from "react-router-dom";
 import {Box, Button, FormControlLabel, Switch, TextField, Typography} from "@mui/material";
 
@@ -17,7 +17,7 @@ export default function SelectDailyExercises(props: SelectDailyExercisesProps) {
     const [trainingfree, setTrainingfree] = useState(false)
     const [notes, setNotes] = useState<string>("")
 
-    const {userExercisesList, saveUserDailyPlan, onChangeExerciseDetails} = DailyExercisesApiCalls()
+    const {userExercisesList, saveUserDailyPlan, onChangeExerciseDetails} = useDailyExercisesApiCalls()
 
     const navigate = useNavigate()
 

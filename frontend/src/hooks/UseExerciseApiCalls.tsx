@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {ExerciseDTO} from "../model/ExerciseDTO";
 
-export default function ExerciseApiCalls(){
+export default function useExerciseApiCalls(){
 
     const [exercisesList, setExercisesList] = useState<ExerciseDTO[]>([])
 

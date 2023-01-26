@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {Day} from "../model/Day";
-import UserWeekplansApiCalls from "../hooks/UserWeekplansApiCalls";
+import useUserWeekplansApiCalls from "../hooks/UseUserWeekplansApiCalls";
 import {Box, Button, Typography} from "@mui/material";
 
 type UserWeekplansProps = {
@@ -10,7 +10,7 @@ type UserWeekplansProps = {
 
 export default function UserWeekplans(props: UserWeekplansProps) {
 
-    const {userPlans} = UserWeekplansApiCalls()
+    const {userPlans} = useUserWeekplansApiCalls()
 
     const navigate = useNavigate()
 

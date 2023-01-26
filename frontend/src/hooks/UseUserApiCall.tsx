@@ -2,7 +2,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
-export default function UserApiCall(){
+export default function useUserApiCall(){
 
     const navigate = useNavigate()
     const [username, setUsername] = useState("anonymous")
