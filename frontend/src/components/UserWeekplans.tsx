@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {Day} from "../model/Day";
 import UserWeekplansApiCalls from "../hooks/UserWeekplansApiCalls";
-import {Button} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 
 type UserWeekplansProps = {
     weekId: (id: string) => void,
@@ -41,7 +41,8 @@ export default function UserWeekplans(props: UserWeekplansProps) {
     }
 
     return (
-        <section>
+        <Box component={"section"}>
+            <Typography variant={"h5"}>Archiv</Typography>
             {userPlans?.length !== 0? mappedUserPlans : "Es gibt noch keine Trainingspläne!"}<br/>
             <Button variant={"outlined"}
                     size={"small"}
@@ -49,6 +50,6 @@ export default function UserWeekplans(props: UserWeekplansProps) {
                     color={"success"}
                     style={{margin: 5}}
             >zurück</Button>
-        </section>
+        </Box>
     )
 }

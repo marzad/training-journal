@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {Weekdays} from "../model/Weekdays";
-import {Box, Button} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 
 type WeekDaysSelectProps ={
     selectedDay : (day: Weekdays) => void
@@ -49,6 +49,7 @@ export default function WeekDaysSelect(props: WeekDaysSelectProps){
 
     return(
         <Box component={"section"}>
+            <Typography variant={"h5"}>Wochenplan erstellen</Typography>
             <Button value={"MONDAY"} onClick={handleOnClickMonday}>Montag</Button><br/>
             <Button value={"TUESDAY"} onClick={handleOnClickTuesday}>Dienstag</Button><br/>
             <Button value={"WEDNESDAY"} onClick={handleOnClickWednesday}>Mittwoch</Button><br/>

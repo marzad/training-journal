@@ -1,13 +1,13 @@
 import {useNavigate} from "react-router-dom";
 import {ChangeEvent, FormEvent, useState} from "react";
 import SettingPageApiCalls from "../hooks/SettingPageApiCalls";
-import {Box, Button, FormControlLabel, TextField} from "@mui/material";
+import {Box, Button, FormControlLabel, TextField, Typography} from "@mui/material";
 
 type SettingPageProps ={
     username: string
 }
 
-export default function SettingsPage(props: SettingPageProps) {
+export default function PersonalDataDisplaying(props: SettingPageProps) {
 
     const {userData, submitUsername} = SettingPageApiCalls({username: props.username})
 
@@ -38,6 +38,7 @@ export default function SettingsPage(props: SettingPageProps) {
 
     return (
         <Box component={"section"}>
+            <Typography variant={"h5"}>Persönliche Angaben</Typography>
             <form onSubmit={handleSubmitUsername}>
                 <FormControlLabel control={<TextField type={"text"} onChange={handleUsernameInputOnChange}
                                                       name={"newUsername"}

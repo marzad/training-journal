@@ -1,9 +1,9 @@
-import ExerciseDetails from "./ExerciseDetails";
+import SingleExerciseForSelecting from "./SingleExerciseForSelecting";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ExerciseApiCalls from "../hooks/ExerciseApiCalls";
 import {ExerciseDTO} from "../model/ExerciseDTO";
-import {Box, Button, FormControlLabel, TextField} from "@mui/material";
+import {Box, Button, FormControlLabel, TextField, Typography} from "@mui/material";
 
 
 type ExercisePageProps = {
@@ -12,7 +12,7 @@ type ExercisePageProps = {
     username: string | undefined
 }
 
-export default function ExercisePage(props: ExercisePageProps) {
+export default function ExerciseSelectingPage(props: ExercisePageProps) {
     const [newExercise, setNewExercise] = useState<string>("")
     const {exercisesList, addNewExerciseToDB} = ExerciseApiCalls()
 
@@ -61,8 +61,8 @@ export default function ExercisePage(props: ExercisePageProps) {
         .map(exerciseEntity => {
             return (
                 <div key={exerciseEntity.id.toString()}>
-                    <ExerciseDetails exercise={exerciseEntity}
-                                     selectedExercisesForUser={setSelectedExercisesList}/>
+                    <SingleExerciseForSelecting exercise={exerciseEntity}
+                                                selectedExercisesForUser={setSelectedExercisesList}/>
                 </div>)
         })
 
@@ -80,6 +80,7 @@ export default function ExercisePage(props: ExercisePageProps) {
 
     return (
         <Box component={"section"}>
+            <Typography variant={"h5"}>Auswahl der Übungen für einen Trainingsplan</Typography>
             <form onSubmit={onSubmit}>
                 {exerciseDetailComponents}
                 <br/>
