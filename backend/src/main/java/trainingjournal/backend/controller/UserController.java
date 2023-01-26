@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping("{username}")
-    public GymUser getUserData(@PathVariable String username){
+    public GymUserPersonalData getUserData(@PathVariable String username){
         return userService.getUserData(username);
     }
 

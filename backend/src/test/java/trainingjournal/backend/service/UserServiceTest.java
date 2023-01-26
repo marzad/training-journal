@@ -338,9 +338,9 @@ class UserServiceTest {
 
         when(userRepository.findByUsername("username")).thenReturn(newGymUser);
 
-        GymUser result = userService.getUserData(username);
+        GymUserPersonalData result = userService.getUserData(username);
 
-        assertEquals(newGymUser, result);
+        assertEquals(newGymUser.getUsername(), result.username());
     }
 
 
