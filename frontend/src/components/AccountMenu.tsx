@@ -16,7 +16,6 @@ import {Button} from "@mui/material";
 import useUserApiCall from "../hooks/UseUserApiCall";
 import {green} from "@mui/material/colors";
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import "../images/trainingjournal_free-file.png"
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -48,7 +47,7 @@ export default function AccountMenu() {
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <img src={"trainingjournal_free-file.png"} alt={"trainingjournal-icon"} width={"40%"}/>
+                <img src={require("../images/trainingjournal_free-file.png")} alt={"trainingjournal-icon"} width={"40%"}/>
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
