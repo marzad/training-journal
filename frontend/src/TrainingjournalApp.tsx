@@ -18,7 +18,7 @@ import PersonalDataDisplaying from "./components/PersonalDataDisplaying";
 import AccountMenu from "./components/AccountMenu";
 
 
-export default function TrainingjournalApp(){
+export default function TrainingjournalApp() {
 
     const {username, login, selectedExercisesList} = useUser()
 
@@ -29,7 +29,7 @@ export default function TrainingjournalApp(){
     const [weekId, setWeekId] = useState("")
     const [dailyPlans, setDailyPlans] = useState<Set<Day>>(new Set())
 
-    return(
+    return (
         <BrowserRouter>
             <header>
                 <AccountMenu username={username ? username : ""}/>
@@ -46,10 +46,17 @@ export default function TrainingjournalApp(){
                                selectedExercisesList={selectedExercisesList}
                                username={username}/>}/>
                     <Route path={"/menu"} element={<MainPage/>}/>
-                    <Route path={"/weekdays"} element={<WeekDaysSelect selectedDay={setDay}/>}/>
-                    <Route path={"/selectexercises"} element={<SelectDailyExercises day={day} username={username}/>}/>
-                    <Route path={"/plansoverview"} element={<UserWeekplans weekId={setWeekId} dailyPlans={setDailyPlans}/>}/>
-                    <Route path={"/weekoverview"} element={<UserWeekOverview weekId={weekId} dailyPlans={dailyPlans}/>}/>
+                    <Route path={"/weekdays"}
+                           element={<WeekDaysSelect
+                               selectedDay={setDay}/>}/>
+                    <Route path={"/selectexercises"}
+                           element={<SelectDailyExercises
+                               day={day}
+                               username={username}/>}/>
+                    <Route path={"/plansoverview"}
+                           element={<UserWeekplans weekId={setWeekId} dailyPlans={setDailyPlans}/>}/>
+                    <Route path={"/weekoverview"}
+                           element={<UserWeekOverview weekId={weekId} dailyPlans={dailyPlans}/>}/>
                     <Route path={"/settings"} element={<PersonalDataDisplaying username={username ? username : ""}/>}/>
                 </Routes>
             </section>
