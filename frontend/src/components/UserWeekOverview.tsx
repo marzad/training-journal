@@ -36,7 +36,7 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
         const dailyPlan = day(weekday)
         if (dailyPlan.trainigfree) {
             return (
-                <p>
+                <p key={0}>
                     kein Training<br/>
                     {dailyPlan.notes}
                 </p>
