@@ -48,7 +48,7 @@ export default function UserWeekOverview(props: UserWeekOverviewProps) {
                         dailyPlan.exercises.map(exercise => {
                             if (exercise.repeats !== 0)
                                 return (
-                                    <p>
+                                    <p key={exercise.id}>
                                         {exercise.description}&nbsp;
                                         {exercise.repeats}
                                         {exercise.sets !== 0 ? "/" + exercise.sets : ""}
