@@ -16,6 +16,7 @@ import useUserApiCall from "../hooks/UseUserApiCall";
 import {green} from "@mui/material/colors";
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import logo from "../images/trainingjournal_free-file.png"
+import { Fragment } from 'react';
 
 type AccountMenuProps ={
     username: string
@@ -48,8 +49,8 @@ export default function AccountMenu(props: AccountMenuProps) {
     }
 
     return (
-        <React.Fragment>
-            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        <Fragment>
+            <Box sx={{ display: 'flex', margin: 2}}>
                 <img src={logo} alt={"trainingjournal-icon"} width={"40%"}/>
                 <Tooltip title="Account settings">
                     <IconButton
@@ -122,6 +123,6 @@ export default function AccountMenu(props: AccountMenuProps) {
                     <Button onClick={logout}>Ausloggen</Button>
                 </MenuItem>
             </Menu>
-        </React.Fragment>
+        </Fragment>
     );
 }
