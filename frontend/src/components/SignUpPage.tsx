@@ -96,6 +96,7 @@ export default function SignUp() {
                         id="select"
                         label="Age"
                         size={"small"}
+                        defaultValue={""}
                         onChange={handleSelectOnChange}
                     >
                         <MenuItem value={"FEMALE"}>Frau</MenuItem>
@@ -136,7 +137,8 @@ export default function SignUp() {
                                                       name={"password"}
                                                       onChange={handleInputOnChange}
                                                       label={"Passwort"}
-                                                      size={"small"}/>}
+                                                      size={"small"}
+                                                      autoComplete={""}/>}
                                   label={"Passwort"}
                                   labelPlacement={"start"}/>
                 <br/>
