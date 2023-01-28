@@ -36,16 +36,18 @@ export default function LoginPage(props: LoginPageProps) {
                            value={userName}
                            name={"userName"}
                            onChange={handleUsernameOnChange}
-                           label={"Username"}/><br/>
+                           label={"Username"}
+                           size={"small"}/><br/>
                 <TextField type={"password"}
                            value={password}
                            name={"password"}
                            onChange={handlePasswordOnChange}
                            autoComplete={"false"}
-                           label={"Passwort"}/><br/>
+                           label={"Passwort"}
+                           size={"small"}/><br/>
                 <Button type={"submit"}
-                variant={"contained"}
-                color={"success"}>Login</Button>
+                        variant={"contained"}
+                        color={"success"}>Login</Button>
             </form>
             <a href={"/signup"} style={{fontSize: "smaller"}}>Ich habe noch kein Account</a>
         </Box>
